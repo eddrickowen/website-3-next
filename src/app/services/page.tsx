@@ -1,115 +1,155 @@
 "use client";
 
-import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/ui/PageHeader";
 import FadeIn from "@/components/animations/FadeIn";
+import StaggerContainer from "@/components/animations/StaggerContainer";
 import SectionLabel from "@/components/ui/SectionLabel";
-import { SERVICES } from "@/lib/data";
-
-// Collect unique categories dynamically
-const ALL_CATEGORIES = ["All", ...Array.from(new Set(SERVICES.map((s) => s.category)))];
+import { SERVICES, PARTS_BRANDS } from "@/lib/data";
 
 export default function Services() {
-  const [activeCategory, setActiveCategory] = useState("All");
-
-  const filtered =
-    activeCategory === "All"
-      ? SERVICES
-      : SERVICES.filter((s) => s.category === activeCategory);
+  const generalServices = SERVICES.filter(s => s.type === "general");
+  const supplyServices = SERVICES.filter(s => s.type === "item-supply");
 
   return (
     <main className="min-h-screen flex flex-col">
       <Navbar />
 
       <PageHeader
-        badge="Engineering Catalog"
-        titleTop="Our"
+        badge="Industrial Solutions"
+        titleTop="Integrated"
         titleItalic="Services"
-        description="From Palm Oil Mill support to chemical distribution — comprehensive industrial solutions delivered by experienced engineers and technical specialists."
+        description="A dual-category catalog of technical industrial support and premium item supply. Serving the Palm Oil, Energy, and Manufacturing sectors for over 30 years."
       />
 
-      <section className="py-24 bg-background flex-grow">
-        <div className="container mx-auto px-8 max-w-6xl">
-          {/* Filter tabs */}
-          <div className="flex flex-wrap gap-2 mb-16 pb-8 border-b border-outline/30">
-            {ALL_CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 rounded-full label-mono text-[10px] transition-all ${
-                  activeCategory === cat
-                    ? "bg-accent text-dark-bg"
-                    : "border border-outline/50 text-foreground/50 hover:border-accent/40 hover:text-foreground"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
+      {/* Section 1: Industrial Support Services */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-8 max-w-7xl">
+          <div className="mb-16">
+            <SectionLabel num="01" label="General Engineering" />
+            <h2 className="font-headline text-4xl font-bold text-foreground tracking-tight mt-2">
+              Industrial Support Services
+            </h2>
+            <p className="font-sans text-sm text-foreground/50 mt-4 max-w-2xl leading-relaxed">
+              Full-scale engineering support — from precision machining to complex HVAC and Palm Oil Mill installations.
+            </p>
           </div>
 
-          {/* Service Cards */}
-          <div className="grid md:grid-cols-2 gap-6">
-            {filtered.map((srv, i) => (
-              <div key={srv.id} id={srv.id}>
+          <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {generalServices.map((srv, i) => (
+              <FadeIn
+                key={srv.id}
+                blur
+                standalone
+                delay={i * 0.05}
+                className="group relative bg-surface border border-outline/30 hover:border-accent/40 rounded-2xl p-8 transition-all duration-500"
+              >
+                <div className="flex items-start justify-between mb-8">
+                  <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center">
+                    <span className="material-symbols-outlined text-accent text-xl">{srv.icon}</span>
+                  </div>
+                  <span className="font-headline text-4xl font-bold text-foreground/5">{srv.num}</span>
+                </div>
+                <h3 className="font-headline text-2xl font-bold text-foreground mb-4 group-hover:text-accent transition-colors">
+                  {srv.title}
+                </h3>
+                <p className="font-sans text-xs text-foreground/50 leading-loose mb-8">
+                  {srv.desc}
+                </p>
+                <div className="space-y-2">
+                  {srv.features.slice(0, 4).map((f, j) => (
+                    <div key={j} className="flex items-center gap-2 text-[11px] text-foreground/70">
+                      <div className="w-1 h-1 rounded-full bg-accent" />
+                      {f}
+                    </div>
+                  ))}
+                  {srv.features.length > 4 && (
+                    <div className="text-[10px] text-accent/60 italic pl-3">+{srv.features.length - 4} more specialized tasks</div>
+                  )}
+                </div>
+              </FadeIn>
+            ))}
+          </StaggerContainer>
+        </div>
+      </section>
+
+      {/* Section 2: Premium Item Supply */}
+      <section id="item-supply" className="py-32 bg-surface-dim border-t border-outline/30">
+        <div className="container mx-auto px-8 max-w-7xl">
+          <div className="mb-16">
+            <SectionLabel num="02" label="Product Catalog" />
+            <h2 className="font-headline text-4xl font-bold text-foreground tracking-tight mt-2">
+              Premium Product & Item Supply
+            </h2>
+            <p className="font-sans text-sm text-foreground/50 mt-4 max-w-2xl leading-relaxed">
+              Authorized distribution and genuine spare parts catalog. We represent the industry&apos;s leading manufacturers across bearings, chemicals, and mechanical components.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-12 gap-12">
+            {/* Supply Service Cards */}
+            <div className="lg:col-span-8 grid md:grid-cols-2 gap-6">
+              {supplyServices.map((srv, i) => (
                 <FadeIn
+                  key={srv.id}
                   blur
                   standalone
-                  delay={i * 0.06}
-                  className="group relative bg-surface border border-outline/40 hover:border-accent/30 hover:shadow-[0_8px_40px_rgba(62,207,142,0.06)] rounded-2xl overflow-hidden transition-all duration-500 h-full"
+                  className="bg-background border border-outline/30 rounded-3xl p-10 flex flex-col h-full"
                 >
-                  {/* Top accent bar */}
-                  <div
-                    className="h-1 w-full bg-gradient-to-r from-accent/0 via-accent/40 to-accent/0 scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
-                    aria-hidden="true"
-                  />
-
-                  <div className="p-10">
-                    {/* Header */}
-                    <div className="flex items-start justify-between mb-6">
-                      <div className="w-12 h-12 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center">
-                        <span className="material-symbols-outlined text-accent text-xl">
-                          {srv.icon}
-                        </span>
+                  <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mb-8">
+                    <span className="material-symbols-outlined text-accent text-2xl">{srv.icon}</span>
+                  </div>
+                  <h3 className="font-headline text-3xl font-bold text-foreground mb-4 tracking-tight">
+                    {srv.title}
+                  </h3>
+                  <p className="font-sans text-sm text-foreground/60 leading-relaxed mb-10">
+                    {srv.desc}
+                  </p>
+                  <div className="mt-auto space-y-3">
+                    {srv.features.map((f, j) => (
+                      <div key={j} className="flex items-center gap-3 py-2 border-b border-outline/10 text-xs text-foreground/80">
+                        <span className="material-symbols-outlined text-accent text-sm">check_circle</span>
+                        {f}
                       </div>
-                      <span className="font-headline text-5xl font-bold text-accent/10 group-hover:text-accent/20 transition-colors leading-none">
-                        {srv.num}
-                      </span>
-                    </div>
-
-                    <SectionLabel label={srv.category} className="mb-3" />
-                    <h2 className="font-headline text-2xl md:text-3xl font-bold text-foreground tracking-tight mb-4 group-hover:text-accent transition-colors">
-                      {srv.title}
-                    </h2>
-                    <p className="font-sans text-sm text-foreground/60 leading-relaxed mb-8">
-                      {srv.desc}
-                    </p>
-
-                    {/* Features */}
-                    <div className="border-t border-outline/40 pt-6">
-                      <p className="label-mono text-[9px] text-foreground/40 mb-4">
-                        Scope of Work
-                      </p>
-                      <ul className="grid grid-cols-2 gap-2.5">
-                        {srv.features.map((f, j) => (
-                          <li
-                            key={j}
-                            className="flex items-center gap-2 font-sans text-xs text-foreground/60"
-                          >
-                            <span
-                              className="w-1 h-1 rounded-full bg-accent flex-shrink-0"
-                              aria-hidden="true"
-                            />
-                            {f}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    ))}
                   </div>
                 </FadeIn>
+              ))}
+            </div>
+
+            {/* Brand Catalog Sidebar/Detail */}
+            <div className="lg:col-span-4 space-y-6">
+              <div className="bg-background border border-outline/30 rounded-3xl p-8 sticky top-24">
+                <h4 className="font-headline text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+                  <span className="material-symbols-outlined text-accent">verified</span>
+                  Authorized Brands
+                </h4>
+                <div className="space-y-6">
+                  {PARTS_BRANDS.map((cat, i) => (
+                    <div key={cat.category} className="space-y-3">
+                      <div className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-base text-accent/40">{cat.icon}</span>
+                        <p className="label-mono text-[9px] text-foreground/40 uppercase tracking-widest">{cat.category}</p>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {cat.brands.split(", ").map(brand => (
+                          <span key={brand} className="px-2.5 py-1 rounded bg-surface border border-outline/30 text-[10px] text-foreground font-semibold">
+                            {brand}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="mt-10 p-6 rounded-2xl bg-accent/5 border border-accent/20">
+                  <p className="font-sans text-[11px] text-foreground/70 leading-relaxed text-center">
+                    Need a brand not listed? Contact our sourcing team for custom industrial procurement.
+                  </p>
+                </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>

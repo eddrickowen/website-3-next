@@ -54,10 +54,25 @@ export const STATS = [
   },
 ];
 
-export const SERVICES = [
+export type ServiceType = "general" | "item-supply";
+
+export interface Service {
+  id: string;
+  num: string;
+  type: ServiceType;
+  category: string;
+  icon: string;
+  title: string;
+  shortDesc: string;
+  desc: string;
+  features: string[];
+}
+
+export const SERVICES: Service[] = [
   {
     id: "palm-oil",
     num: "01",
+    type: "general",
     category: "Core Specialization",
     icon: "factory",
     title: "Palm Oil Industrial Support (PKS)",
@@ -83,6 +98,7 @@ export const SERVICES = [
   {
     id: "phe",
     num: "02",
+    type: "general",
     category: "Heat Exchange",
     icon: "heat_exchanger",
     title: "Plate Heat Exchanger (PHE) Service",
@@ -105,6 +121,7 @@ export const SERVICES = [
   {
     id: "chiller",
     num: "03",
+    type: "general",
     category: "Thermal Management",
     icon: "ac_unit",
     title: "ABS & Electric Chiller Service",
@@ -127,6 +144,7 @@ export const SERVICES = [
   {
     id: "cooling-tower",
     num: "04",
+    type: "general",
     category: "Cooling Systems",
     icon: "water_drop",
     title: "Cooling Tower — Supply & Service",
@@ -144,6 +162,7 @@ export const SERVICES = [
   {
     id: "boiler",
     num: "05",
+    type: "general",
     category: "Steam Systems",
     icon: "local_fire_department",
     title: "Boiler Cleaning & Service",
@@ -161,6 +180,7 @@ export const SERVICES = [
   {
     id: "machining",
     num: "06",
+    type: "general",
     category: "In-House Workshop",
     icon: "precision_manufacturing",
     title: "Machining Workshop",
@@ -178,6 +198,7 @@ export const SERVICES = [
   {
     id: "mec-civil",
     num: "07",
+    type: "general",
     category: "Engineering Works",
     icon: "engineering",
     title: "Mechanical, Electrical & Civil Works",
@@ -197,7 +218,8 @@ export const SERVICES = [
   {
     id: "chemicals",
     num: "08",
-    category: "Chemical Solutions",
+    type: "item-supply",
+    category: "Industrial Consumables",
     icon: "science",
     title: "Chemical Distribution",
     shortDesc:
@@ -210,7 +232,27 @@ export const SERVICES = [
       "Reverse Osmosis (RO) Chemicals",
       "Waste Water Treatment Chemicals",
       "PAY-OFF Chemical",
-      "PET ROFER Coolant (Milling & Machining)",
+      "PET ROFER Coolant",
+    ],
+  },
+  {
+    id: "spare-parts",
+    num: "09",
+    type: "item-supply",
+    category: "Authorized Supply",
+    icon: "shopping_cart",
+    title: "Spare Parts & Product Supply",
+    shortDesc:
+      "Direct supply of genuine parts from premium global brands — Bearings, Pumps, Belts, and Automation components.",
+    desc:
+      "Leveraging over 30 years of global partnerships, we supply genuine replacement parts from the world's most trusted manufacturers. We ensure your operations never stop due to part failure, offering fast delivery and technical support for every item.",
+    features: [
+      "Bearings & O-Rings",
+      "Hydraulic & Pneumatic Control",
+      "Pumps & Rotary Equipment",
+      "Electrical & Automation Sensors",
+      "Belting & Power Transmission",
+      "Plantation Tools & Equipment",
     ],
   },
 ];
@@ -248,7 +290,7 @@ export const PARTS_BRANDS = [
   },
   {
     category: "Palm Oil Plantation Tools",
-    brands: "ELEE brand — sickles, axes, harvesting tools",
+    brands: "ELEE brand",
     icon: "agriculture",
   },
 ];
@@ -295,35 +337,27 @@ export const PARTNERS = [
 export const INDUSTRIES = [
   { name: "Palm Oil Industry", icon: "eco", primary: true },
   { name: "Electronic Industry", icon: "memory", primary: false },
-  { name: "Food & Beverage", icon: "restaurant", primary: false },
   { name: "Healthcare & Pharmaceutical", icon: "local_hospital", primary: false },
-  { name: "Hotel & Service", icon: "hotel", primary: false },
   { name: "Pulp & Paper", icon: "article", primary: false },
   { name: "Railway (PT. Railink)", icon: "train", primary: false },
   { name: "Energy Sector", icon: "bolt", primary: false },
 ];
 
 export const PROJECTS = [
-  { year: "Active", client: "PT. Pacific Palmindo Industri", scope: "Palm Oil Mill (PKS) — Parts Supply & PHE Service", category: "palm-oil", location: "Medan" },
-  { year: "Active", client: "PT. Pacific Indopalm Industri", scope: "PHE Service & Cooling Tower Maintenance", category: "phe", location: "Medan" },
-  { year: "Active", client: "PT. Able Commodities Indonesia", scope: "Integrated Industrial Maintenance", category: "mec-civil", location: "Medan" },
-  { year: "Active", client: "PT. VVF KIM II MABAR", scope: "Chiller Service & Mechanical Works", category: "chiller", location: "Medan" },
-  { year: "Active", client: "PT. Salim Ivomas Pratama", scope: "PKS Parts Supply & Structural Works", category: "palm-oil", location: "Sumatra" },
-  { year: "Active", client: "PT. Railink Medan", scope: "Mechanical & Electrical Maintenance", category: "mec-civil", location: "Medan" },
-  { year: "Active", client: "PT. Tanjung Sarana Lestari", scope: "Palm Oil Mill Support (Astra Group)", category: "palm-oil", location: "Palu" },
-  { year: "Active", client: "PT. Alliance Consumer Product", scope: "Cooling Tower & Chemical Supply", category: "cooling-tower", location: "Medan" },
-  { year: "Active", client: "PT. Lingga Tiga Sawit", scope: "PKS Installation & Palm Mill Support", category: "palm-oil", location: "Sumatra" },
-  { year: "Active", client: "PT. Simpang Kanan Lestarindo", scope: "PHE Cleaning & Regasketing", category: "phe", location: "Sumatra" },
-  { year: "Active", client: "PT. Inno Wangsa Oil & Fat", scope: "Chiller Overhaul & Chemical Treatment", category: "chiller", location: "Medan" },
-  { year: "Active", client: "PT. Energi Unggul Persada", scope: "Industrial Support Services", category: "mec-civil", location: "Kalimantan" },
-  { year: "Active", client: "PT. Sawit Asahan Tetap Utuh", scope: "Palm Mill PKS — Parts & Service", category: "palm-oil", location: "Asahan" },
-  { year: "Active", client: "PT. Sari Dumai Sejati", scope: "Boiler & Cooling Tower Service", category: "boiler", location: "Dumai" },
-  { year: "Active", client: "PT. Steelindo Wahana Perkasa", scope: "Mechanical Engineering Works", category: "mec-civil", location: "Medan" },
-  { year: "Active", client: "PT. Agro Murni", scope: "Palm Oil Industrial Support", category: "palm-oil", location: "Sumatra" },
-  { year: "Active", client: "PT. Sumber Jaya Industri Oleo", scope: "PHE & Chemical Distribution", category: "chemicals", location: "Medan" },
-  { year: "Active", client: "PT. Kencana Inti Perkasa", scope: "Parts Supply & Maintenance", category: "palm-oil", location: "Sumatra" },
-  { year: "Active", client: "PT. Intan Sejati Andalan", scope: "Chiller & HVAC Service", category: "chiller", location: "Duri" },
-  { year: "Active", client: "PT. Kreasi Jaya Adhikarya", scope: "Civil & Mechanical Engineering", category: "mec-civil", location: "Medan" },
+  { type: "work", month: "March", year: "2023", client: "PT. Pacific Indopalm Industri", scope: "PHE Service & Cooling Tower Maintenance", category: "phe", location: "Medan" },
+  { type: "work", month: "November", year: "2022", client: "PT. Able Commodities Indonesia", scope: "Integrated Industrial Maintenance", category: "mec-civil", location: "Medan" },
+  { type: "work", month: "August", year: "2022", client: "PT. VVF KIM II MABAR", scope: "Chiller Service & Mechanical Works", category: "chiller", location: "Medan" },
+  { type: "work", month: "September", year: "2021", client: "PT. Railink Medan", scope: "Mechanical & Electrical Maintenance", category: "mec-civil", location: "Medan" },
+  { type: "work", month: "May", year: "2021", client: "PT. Tanjung Sarana Lestari", scope: "Palm Oil Mill Support (Astra Group)", category: "palm-oil", location: "Palu" },
+  { type: "work", month: "July", year: "2020", client: "PT. Lingga Tiga Sawit", scope: "PKS Installation & Palm Mill Support", category: "palm-oil", location: "Sumatra" },
+  { type: "work", month: "February", year: "2020", client: "PT. Simpang Kanan Lestarindo", scope: "PHE Cleaning & Regasketing", category: "phe", location: "Sumatra" },
+  { type: "work", month: "October", year: "2019", client: "PT. Inno Wangsa Oil & Fat", scope: "Chiller Overhaul & Chemical Treatment", category: "chiller", location: "Medan" },
+  { type: "work", month: "June", year: "2019", client: "PT. Energi Unggul Persada", scope: "Industrial Support Services", category: "mec-civil", location: "Kalimantan" },
+  { type: "work", month: "January", year: "2018", client: "PT. Sari Dumai Sejati", scope: "Boiler & Cooling Tower Service", category: "boiler", location: "Dumai" },
+  { type: "work", month: "November", year: "2017", client: "PT. Steelindo Wahana Perkasa", scope: "Mechanical Engineering Works", category: "mec-civil", location: "Medan" },
+  { type: "work", month: "September", year: "2016", client: "PT. Agro Murni", scope: "Palm Oil Industrial Support", category: "palm-oil", location: "Sumatra" },
+  { type: "work", month: "January", year: "2013", client: "PT. Intan Sejati Andalan", scope: "Chiller & HVAC Service", category: "chiller", location: "Duri" },
+  { type: "work", month: "August", year: "2012", client: "PT. Kreasi Jaya Adhikarya", scope: "Civil & Mechanical Engineering", category: "mec-civil", location: "Medan" },
 ];
 
 export const MISSION_VISION = {

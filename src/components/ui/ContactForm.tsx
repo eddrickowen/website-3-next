@@ -17,11 +17,13 @@ const SERVICE_OPTIONS = [
   "Chemical Distribution",
   "Spare Parts & Products Inquiry",
   "General Inquiry",
+  "Other (Specify Below)",
 ];
 
 export default function ContactForm({ dark = false }: ContactFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [selectedService, setSelectedService] = useState("");
 
   const inputClass = dark
     ? "w-full bg-white/5 border border-white/10 text-dark-fg placeholder-white/30 focus:border-accent focus:ring-1 focus:ring-accent/40 rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all"
@@ -62,47 +64,64 @@ export default function ContactForm({ dark = false }: ContactFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className={labelClass} htmlFor="cf-name">Full Name</label>
-          <input
-            id="cf-name"
-            name="name"
-            type="text"
-            required
-            placeholder="John Smith"
-            className={inputClass}
-          />
-        </div>
-        <div>
-          <label className={labelClass} htmlFor="cf-company">Company</label>
-          <input
-            id="cf-company"
-            name="company"
-            type="text"
-            placeholder="PT. Your Company"
-            className={inputClass}
-          />
-        </div>
-      </div>
       <div>
-        <label className={labelClass} htmlFor="cf-email">Email Address</label>
+        <label className={labelClass} htmlFor="cf-name">Full Name</label>
         <input
-          id="cf-email"
-          name="email"
-          type="email"
+          id="cf-name"
+          name="name"
+          type="text"
           required
-          placeholder="you@company.com"
+          placeholder="John Smith"
           className={inputClass}
         />
       </div>
+
+      <div>
+        <label className={labelClass} htmlFor="cf-company">Company Name</label>
+        <input
+          id="cf-company"
+          name="company"
+          type="text"
+          required
+          placeholder="PT. Your Company"
+          className={inputClass}
+        />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className={labelClass} htmlFor="cf-city">Company Address (City)</label>
+          <input
+            id="cf-city"
+            name="city"
+            type="text"
+            required
+            placeholder="City, Province"
+            className={inputClass}
+          />
+        </div>
+        <div>
+          <label className={labelClass} htmlFor="cf-email">Email Address</label>
+          <input
+            id="cf-email"
+            name="email"
+            type="email"
+            required
+            placeholder="you@company.com"
+            className={inputClass}
+          />
+        </div>
+      </div>
+
       <div>
         <label className={labelClass} htmlFor="cf-service">Service Interest</label>
         <select
           id="cf-service"
           name="service"
           className={inputClass}
-          defaultValue=""
+          value={selectedService}
+          onChange={(e) => setSelectedService(e.target.value)}
+          required
         >
           <option value="" disabled>Select a service...</option>
           {SERVICE_OPTIONS.map((opt) => (
@@ -110,6 +129,21 @@ export default function ContactForm({ dark = false }: ContactFormProps) {
           ))}
         </select>
       </div>
+
+      {selectedService === "Other (Specify Below)" && (
+        <div className="animate-in fade-in slide-in-from-top-2 duration-300">
+          <label className={labelClass} htmlFor="cf-custom-service">Please Specify Service</label>
+          <input
+            id="cf-custom-service"
+            name="custom_service"
+            type="text"
+            required
+            placeholder="Tell us what industrial support you need..."
+            className={inputClass}
+          />
+        </div>
+      )}
+
       <div>
         <label className={labelClass} htmlFor="cf-message">Message</label>
         <textarea
@@ -117,16 +151,17 @@ export default function ContactForm({ dark = false }: ContactFormProps) {
           name="message"
           required
           rows={4}
-          placeholder="Describe your project or inquiry..."
+          placeholder="Describe your project requirements or inquiry details..."
           className={`${inputClass} resize-none`}
         />
       </div>
+
       <button
         type="submit"
         disabled={loading}
-        className="w-full py-4 bg-accent text-dark-bg font-headline font-bold text-sm tracking-wide rounded-xl hover:bg-accent/90 active:scale-[0.98] transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+        className="w-full py-5 bg-accent text-dark-bg font-headline font-bold text-sm tracking-widest uppercase rounded-xl hover:bg-accent/90 active:scale-[0.98] transition-all disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-accent/20"
       >
-        {loading ? "Sending..." : "Send Message"}
+        {loading ? "Sending Enquiry..." : "Send Enquiry"}
       </button>
     </form>
   );

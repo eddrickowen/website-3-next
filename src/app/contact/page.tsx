@@ -60,9 +60,9 @@ export default function Contact() {
         <div className="container mx-auto px-8 max-w-6xl relative z-10">
           <div className="grid md:grid-cols-2 gap-12">
             {/* Left — Info */}
-            <StaggerContainer>
-              <FadeIn blur>
-                <div className="bg-background rounded-3xl border border-outline/40 p-10 relative overflow-hidden">
+            <StaggerContainer className="h-full">
+              <FadeIn blur className="h-full">
+                <div className="bg-background rounded-3xl border border-outline/40 p-10 relative overflow-hidden h-full flex flex-col">
                   {/* Corner decoration */}
                   <div className="absolute top-0 right-0 w-32 h-32 bg-accent/3 rounded-bl-[100px]" aria-hidden="true" />
 
@@ -146,9 +146,9 @@ export default function Contact() {
             </StaggerContainer>
 
             {/* Right — Form */}
-            <StaggerContainer>
-              <FadeIn blur delay={0.1}>
-                <div className="bg-background rounded-3xl border border-outline/40 p-10 relative overflow-hidden">
+            <StaggerContainer className="h-full">
+              <FadeIn blur delay={0.1} className="h-full">
+                <div className="bg-background rounded-3xl border border-outline/40 p-10 relative overflow-hidden h-full flex flex-col">
                   <div className="mb-8">
                     <h2 className="font-headline text-3xl font-bold text-foreground tracking-tight">
                       Send an Enquiry

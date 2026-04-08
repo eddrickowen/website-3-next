@@ -1,82 +1,147 @@
+"use client";
+
 import FadeIn from "@/components/animations/FadeIn";
 import SectionLabel from "@/components/ui/SectionLabel";
-import { PARTNERS, INDUSTRIES } from "@/lib/data";
+import { PARTS_BRANDS, INDUSTRIES } from "@/lib/data";
+import Link from "next/link";
+
+// Flatten all brands for the carousel
+const ALL_BRANDS = Array.from(new Set(
+  PARTS_BRANDS.flatMap(item => item.brands.split(", "))
+));
+
+// Split brands into two groups for two rows
+const midpoint = Math.ceil(ALL_BRANDS.length / 2);
+const ROW_1_BRANDS = [...ALL_BRANDS.slice(0, midpoint), ...ALL_BRANDS.slice(0, midpoint), ...ALL_BRANDS.slice(0, midpoint)];
+const ROW_2_BRANDS = [...ALL_BRANDS.slice(midpoint), ...ALL_BRANDS.slice(midpoint), ...ALL_BRANDS.slice(midpoint)];
 
 export default function PartnersSection() {
   return (
     <section
       className="py-28 bg-surface-dim border-y border-outline/30 overflow-hidden relative"
-      aria-label="Global partnerships and industries served"
+      aria-label="Authorized brands and industries served"
     >
-      <div className="container mx-auto px-8 max-w-7xl">
+      <div className="container mx-auto px-8 max-w-7xl relative z-10">
         {/* Header */}
-        <FadeIn blur standalone className="text-center mb-16">
-          <SectionLabel num="03" label="Global Partnerships" className="justify-center" />
-          <h2 className="font-headline text-3xl md:text-4xl font-bold text-foreground tracking-tight">
-            Representing worldwide manufacturers
+        <FadeIn blur standalone className="text-center mb-12">
+          <SectionLabel num="03" label="Authorized Distribution" className="justify-center" />
+          <h2 className="font-headline text-3xl md:text-5xl font-bold text-foreground tracking-tight">
+            Premium Brands We Supply
           </h2>
-          <p className="font-sans text-sm text-foreground/60 mt-4 max-w-md mx-auto leading-relaxed">
-            We maintain close cooperation with well-known manufacturers across 6 regions — bringing world-class technology to Indonesian industry.
+          <p className="font-sans text-sm text-foreground/60 mt-4 max-w-2xl mx-auto leading-relaxed">
+            Representing the world&apos;s most trusted industrial manufacturers. Explore our full supply catalog in the services gallery.
           </p>
         </FadeIn>
+      </div>
 
-        {/* Partner Region Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-20">
-          {PARTNERS.map((partner, i) => (
-            <FadeIn
-              key={partner.name}
-              blur
-              standalone
-              delay={i * 0.05}
-              className="group bg-surface border border-outline/40 hover:border-accent/30 rounded-2xl p-6 text-center hover:shadow-[0_4px_30px_rgba(62,207,142,0.05)] transition-all duration-400"
+      {/* Infinite Moving Carousel - Row 1 (Right to Left) */}
+      <div className="relative flex overflow-hidden py-3 select-none">
+        <div className="flex animate-marquee whitespace-nowrap gap-6 px-3">
+          {ROW_1_BRANDS.map((brand, i) => (
+            <div
+              key={`${brand}-r1-${i}`}
+              className="group relative flex items-center justify-center min-w-[160px] h-20 bg-background border border-outline/30 rounded-2xl transition-all duration-300 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5 cursor-default"
             >
-              <span className="text-4xl block mb-3" aria-hidden="true">{partner.flag}</span>
-              <h3 className="font-headline text-base font-bold text-foreground tracking-tight group-hover:text-accent transition-colors mb-1">
-                {partner.name}
-              </h3>
-              <span className="label-mono text-[9px] text-foreground/40">
-                {partner.role}
-              </span>
-            </FadeIn>
+              <div className="px-6">
+                <span className="font-headline text-lg font-black text-foreground/20 group-hover:text-accent transition-colors tracking-tighter uppercase italic">
+                  {brand}
+                </span>
+              </div>
+            </div>
           ))}
         </div>
+      </div>
 
-        {/* Industries Served */}
-        <div className="border-t border-outline/30 pt-16">
-          <FadeIn blur standalone className="text-center mb-10">
-            <SectionLabel num="03B" label="Industries Served" className="justify-center" />
-            <h3 className="font-headline text-2xl font-bold text-foreground tracking-tight">
-              Serving 8+ industrial sectors
+      {/* Infinite Moving Carousel - Row 2 (Left to Right) */}
+      <div className="relative flex overflow-hidden py-3 select-none">
+        <div className="flex animate-marquee-reverse whitespace-nowrap gap-6 px-3">
+          {ROW_2_BRANDS.map((brand, i) => (
+            <div
+              key={`${brand}-r2-${i}`}
+              className="group relative flex items-center justify-center min-w-[160px] h-20 bg-background border border-outline/30 rounded-2xl transition-all duration-300 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5 cursor-default"
+            >
+              <div className="px-6">
+                <span className="font-headline text-lg font-black text-foreground/20 group-hover:text-accent transition-colors tracking-tighter uppercase italic">
+                  {brand}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="container mx-auto px-8 max-w-7xl mt-12 mb-28">
+        <div className="text-center">
+          <Link 
+            href="/services#item-supply" 
+            className="label-mono text-[10px] text-accent hover:underline decoration-accent/30 underline-offset-4 flex items-center justify-center gap-2 group"
+          >
+            View Detailed Supply Catalog
+            <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          </Link>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-8 max-w-7xl">
+        {/* Industries Served Section */}
+        <div className="border-t border-outline/30 pt-20">
+          <FadeIn blur standalone className="text-center mb-16">
+            <SectionLabel num="04" label="Field of Expertise" className="justify-center" />
+            <h3 className="font-headline text-3xl md:text-5xl font-bold text-foreground tracking-tight uppercase">
+              Expertise Trusted by <br className="hidden md:block" /> Leading Industries
             </h3>
           </FadeIn>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
             {INDUSTRIES.map((ind, i) => (
               <FadeIn
                 key={ind.name}
                 blur
                 standalone
-                delay={i * 0.04}
-                className={`flex items-center gap-3 p-4 rounded-xl border transition-all ${
+                delay={i * 0.05}
+                className={`flex items-center gap-4 p-6 rounded-2xl border transition-all ${
                   ind.primary
-                    ? "bg-accent/8 border-accent/25 text-foreground"
+                    ? "bg-accent/5 border-accent/20 text-foreground"
                     : "bg-surface border-outline/40 text-foreground/70 hover:border-accent/20"
                 }`}
               >
-                <span className={`material-symbols-outlined text-xl ${ind.primary ? "text-accent" : "text-foreground/40"}`}>
-                  {ind.icon}
-                </span>
-                <span className="font-sans text-sm font-medium leading-snug">
+                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${ind.primary ? "bg-accent/10" : "bg-foreground/5"}`}>
+                  <span className={`material-symbols-outlined text-[20px] ${ind.primary ? "text-accent" : "text-foreground/30"}`}>
+                    {ind.icon}
+                  </span>
+                </div>
+                <span className="font-sans text-[14px] font-bold leading-tight">
                   {ind.name}
                 </span>
                 {ind.primary && (
-                  <span className="ml-auto label-mono text-[8px] text-accent">Primary</span>
+                  <div className="ml-auto w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
                 )}
               </FadeIn>
             ))}
           </div>
         </div>
       </div>
+
+      {/* Inline Styles for Dual Marquee Animation */}
+      <style jsx global>{`
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-33.33%); }
+        }
+        @keyframes marquee-reverse {
+          0% { transform: translateX(-33.33%); }
+          100% { transform: translateX(0); }
+        }
+        .animate-marquee {
+          animation: marquee 50s linear infinite;
+        }
+        .animate-marquee-reverse {
+          animation: marquee-reverse 50s linear infinite;
+        }
+        .animate-marquee:hover, .animate-marquee-reverse:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </section>
   );
 }
