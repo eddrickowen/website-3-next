@@ -1,26 +1,226 @@
 @import "tailwindcss";
 
+/* =============================================
+   DESIGN TOKENS
+   ============================================= */
+@theme {
+  /* Colors — Mixed Light/Dark approach */
+  --color-background: #F8F6F2;
+  --color-foreground: #111111;
+  --color-surface: #FFFFFF;
+  --color-surface-dim: #F0EDE6;
+
+  /* Dark section tokens — registered as Tailwind utilities */
+  --color-dark-bg: #0C0C0C;
+  --color-dark-surface: #161616;
+  --color-dark-border: rgba(255, 255, 255, 0.08);
+  --color-dark-fg: #F0EDE6;
+  --color-dark-muted: rgba(240, 237, 230, 0.55);
+
+  /* Accent — Emerald green (agri-industrial brand) */
+  --color-accent: #3ECF8E;
+  --color-accent-dim: rgba(62, 207, 142, 0.15);
+  --color-accent-glow: rgba(62, 207, 142, 0.25);
+
+  --color-outline: #E0DDD5;
+
+  /* Typography */
+  --font-sans: var(--font-manrope), sans-serif;
+  --font-headline: var(--font-space-grotesk), sans-serif;
+  --font-mono: "SF Mono", "Fira Code", ui-monospace, monospace;
+}
+
+/* =============================================
+   BASE STYLES
+   ============================================= */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F8F6F2;
+  --foreground: #111111;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =============================================
+   UTILITY CLASSES
+   ============================================= */
+
+/* Glassmorphism */
+.glass-light {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.glass-dark {
+  background: rgba(12, 12, 12, 0.7);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Glow Effects */
+.glow-accent {
+  box-shadow: 0 0 40px var(--color-accent-glow), 0 0 80px rgba(62, 207, 142, 0.1);
+}
+
+.glow-text {
+  text-shadow: 0 0 30px var(--color-accent-glow);
+}
+
+/* Blueprint Grid */
+.blueprint-grid {
+  background-size: 60px 60px;
+  background-image:
+    linear-gradient(to right, rgba(62, 207, 142, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(62, 207, 142, 0.04) 1px, transparent 1px);
+}
+
+.blueprint-grid-dark {
+  background-size: 60px 60px;
+  background-image:
+    linear-gradient(to right, rgba(62, 207, 142, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(62, 207, 142, 0.06) 1px, transparent 1px);
+}
+
+/* Noise texture overlay */
+.noise::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* Pill utility */
+.pill {
+  border-radius: 9999px;
+}
+
+/* Monospace label utility */
+.label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* Horizontal scroll section */
+.scroll-snap-x {
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.scroll-snap-x > * {
+  scroll-snap-align: start;
+}
+
+/* Hide scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* =============================================
+   ANIMATIONS
+   ============================================= */
+
+@keyframes fadeInBlur {
+  from {
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes borderGlow {
+  0%, 100% {
+    border-color: rgba(62, 207, 142, 0.2);
+  }
+  50% {
+    border-color: rgba(62, 207, 142, 0.6);
+  }
+}
+
+/* Utility animation classes */
+.animate-fade-in-blur {
+  animation: fadeInBlur 0.8s ease-out forwards;
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* =============================================
+   CUSTOM SCROLLBAR
+   ============================================= */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #3ECF8E;
+  border-radius: 9999px;
 }
