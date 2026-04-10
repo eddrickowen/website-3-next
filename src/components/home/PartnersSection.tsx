@@ -1,5 +1,3 @@
-"use client";
-
 import FadeIn from "@/components/animations/FadeIn";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { PARTS_BRANDS, INDUSTRIES } from "@/lib/data";
@@ -34,9 +32,9 @@ export default function PartnersSection() {
         </FadeIn>
       </div>
 
-      {/* Infinite Moving Carousel - Row 1 (Right to Left) */}
-      <div className="relative flex overflow-hidden py-3 select-none">
-        <div className="flex animate-marquee whitespace-nowrap gap-6 px-3">
+      {/* Infinite Moving Carousel - Row 1 (Right to Left) — decorative, hidden from assistive tech */}
+      <div className="relative flex overflow-hidden py-3 select-none" aria-hidden="true">
+        <div className="flex animate-marquee-row1 whitespace-nowrap gap-6 px-3">
           {ROW_1_BRANDS.map((brand, i) => (
             <div
               key={`${brand}-r1-${i}`}
@@ -52,9 +50,9 @@ export default function PartnersSection() {
         </div>
       </div>
 
-      {/* Infinite Moving Carousel - Row 2 (Left to Right) */}
-      <div className="relative flex overflow-hidden py-3 select-none">
-        <div className="flex animate-marquee-reverse whitespace-nowrap gap-6 px-3">
+      {/* Infinite Moving Carousel - Row 2 (Left to Right) — decorative, hidden from assistive tech */}
+      <div className="relative flex overflow-hidden py-3 select-none" aria-hidden="true">
+        <div className="flex animate-marquee-row2 whitespace-nowrap gap-6 px-3">
           {ROW_2_BRANDS.map((brand, i) => (
             <div
               key={`${brand}-r2-${i}`}
@@ -77,7 +75,7 @@ export default function PartnersSection() {
             className="label-mono text-[10px] text-accent hover:underline decoration-accent/30 underline-offset-4 flex items-center justify-center gap-2 group"
           >
             View Detailed Supply Catalog
-            <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
           </Link>
         </div>
       </div>
@@ -106,7 +104,7 @@ export default function PartnersSection() {
                 }`}
               >
                 <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${ind.primary ? "bg-accent/10" : "bg-foreground/5"}`}>
-                  <span className={`material-symbols-outlined text-[20px] ${ind.primary ? "text-accent" : "text-foreground/30"}`}>
+                  <span className={`material-symbols-outlined text-[20px] ${ind.primary ? "text-accent" : "text-foreground/30"}`} aria-hidden="true">
                     {ind.icon}
                   </span>
                 </div>
@@ -122,26 +120,6 @@ export default function PartnersSection() {
         </div>
       </div>
 
-      {/* Inline Styles for Dual Marquee Animation */}
-      <style jsx global>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-33.33%); }
-        }
-        @keyframes marquee-reverse {
-          0% { transform: translateX(-33.33%); }
-          100% { transform: translateX(0); }
-        }
-        .animate-marquee {
-          animation: marquee 50s linear infinite;
-        }
-        .animate-marquee-reverse {
-          animation: marquee-reverse 50s linear infinite;
-        }
-        .animate-marquee:hover, .animate-marquee-reverse:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
     </section>
   );
 }

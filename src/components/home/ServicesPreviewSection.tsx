@@ -12,14 +12,14 @@ export default function ServicesPreviewSection() {
     <section className="py-32 bg-background relative" aria-label="Services preview">
       <div className="container mx-auto px-8 max-w-7xl">
         {/* Header */}
-        <StaggerContainer className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+        <StaggerContainer className="flex flex-col md:flex-row justify-between items-start mb-12 md:mb-20 gap-8">
           <div className="max-w-2xl">
             <FadeIn blur>
-              <SectionLabel num="02" label="Core Capabilities" />
+              <SectionLabel num="02" label="Core Capabilities" className="mb-4 md:mb-6" />
             </FadeIn>
             <FadeIn blur delay={0.1}>
               <h2 className="font-headline font-bold text-foreground tracking-tighter leading-[0.9]"
-                style={{ fontSize: "clamp(2.5rem, 6vw, 5.5rem)" }}
+                style={{ fontSize: "clamp(2.5rem, 8vw, 5.5rem)" }}
               >
                 Advanced<br />
                 <span className="text-foreground/35 italic font-normal">Infrastructure</span>
@@ -27,7 +27,7 @@ export default function ServicesPreviewSection() {
             </FadeIn>
           </div>
           <FadeIn blur delay={0.2} className="md:text-right shrink-0">
-            <p className="text-foreground/60 mb-6 max-w-xs ml-auto font-sans text-sm leading-relaxed">
+            <p className="text-foreground/60 mb-6 max-w-xs md:ml-auto font-sans text-sm leading-relaxed">
               Systematic approach to industrial maintenance and installation with zero-downtime philosophy.
             </p>
             <Link
@@ -35,7 +35,7 @@ export default function ServicesPreviewSection() {
               className="inline-flex items-center gap-2 font-sans text-xs font-bold uppercase tracking-widest hover:gap-5 transition-all text-foreground/80 hover:text-foreground group"
             >
               All Services
-              <span className="material-symbols-outlined text-base group-hover:text-accent transition-colors">arrow_forward</span>
+              <span className="material-symbols-outlined text-base group-hover:text-accent transition-colors" aria-hidden="true">arrow_forward</span>
             </Link>
           </FadeIn>
         </StaggerContainer>
@@ -52,7 +52,7 @@ export default function ServicesPreviewSection() {
             >
               {/* Number watermark */}
               <div
-                className="absolute top-6 right-6 font-headline text-8xl font-bold text-accent/5 group-hover:text-accent/10 transition-colors leading-none select-none"
+                className="absolute top-6 right-6 font-headline text-6xl md:text-8xl font-bold text-accent/5 group-hover:text-accent/10 transition-colors leading-none select-none hidden md:block"
                 aria-hidden="true"
               >
                 {srv.num}
@@ -60,7 +60,7 @@ export default function ServicesPreviewSection() {
 
               {/* Icon */}
               <div className="w-12 h-12 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center mb-8 group-hover:bg-accent/15 transition-colors">
-                <span className="material-symbols-outlined text-accent text-xl">{srv.icon}</span>
+                <span className="material-symbols-outlined text-accent text-xl" aria-hidden="true">{srv.icon}</span>
               </div>
 
               {/* Category */}

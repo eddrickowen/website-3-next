@@ -32,7 +32,7 @@ export default function MissionVisionSection() {
           >
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
-                <span className="material-symbols-outlined text-accent text-[18px]">{mission.icon}</span>
+                <span className="material-symbols-outlined text-accent text-[18px]" aria-hidden="true">{mission.icon}</span>
               </div>
               <span className="label-mono text-[10px] text-accent">Mission</span>
             </div>
@@ -79,7 +79,7 @@ export default function MissionVisionSection() {
           >
             <div className="flex items-center gap-3 mb-5">
               <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
-                <span className="material-symbols-outlined text-accent text-[18px]">{vision.icon}</span>
+                <span className="material-symbols-outlined text-accent text-[18px]" aria-hidden="true">{vision.icon}</span>
               </div>
               <span className="label-mono text-[10px] text-accent">Vision</span>
             </div>

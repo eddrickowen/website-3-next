@@ -2,14 +2,18 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { NAV_LINKS, COMPANY } from "@/lib/data";
+import { useEnquiry } from "@/context/EnquiryContext";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname() || "/";
+  const { openEnquiry } = useEnquiry();
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -28,6 +32,39 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [menuOpen]);
 
+  // Focus management: move focus into menu when opened, return to hamburger on close
+  useEffect(() => {
+    if (menuOpen && menuRef.current) {
+      const firstFocusable = menuRef.current.querySelector<HTMLElement>(
+        'a, button, [tabindex]:not([tabindex="-1"])'
+      );
+      firstFocusable?.focus();
+    } else if (!menuOpen) {
+      hamburgerRef.current?.focus();
+    }
+  }, [menuOpen]);
+
+  // Trap focus within the mobile menu
+  const handleMenuKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (!menuRef.current) return;
+    const focusableEls = Array.from(
+      menuRef.current.querySelectorAll<HTMLElement>(
+        'a, button, [tabindex]:not([tabindex="-1"])'
+      )
+    ).filter((el) => !el.hasAttribute("disabled"));
+    const first = focusableEls[0];
+    const last = focusableEls[focusableEls.length - 1];
+    if (e.key === "Tab") {
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last?.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first?.focus();
+      }
+    }
+  };
+
   return (
     <>
       {/* Floating Pill Navbar */}
@@ -35,15 +72,15 @@ export default function Navbar() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.1 }}
-        className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-5 pointer-events-none"
+        className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-3 md:pt-5 pointer-events-none"
         role="navigation"
         aria-label="Main navigation"
       >
         <div
-          className={`pointer-events-auto flex items-center justify-between gap-8 px-5 py-3 transition-all duration-500 ${
+          className={`pointer-events-auto flex items-center justify-between gap-8 px-3 md:px-5 py-3 transition-all duration-500 ${
             scrolled
-              ? "glass-dark shadow-2xl shadow-black/30 rounded-full w-[min(740px,calc(100vw-2rem))]"
-              : "glass-dark rounded-full w-[min(740px,calc(100vw-2rem))]"
+              ? "glass-dark shadow-2xl shadow-black/30 rounded-full w-[min(740px,calc(100vw-1.5rem))]"
+              : "glass-dark rounded-full w-[min(740px,calc(100vw-1.5rem))]"
           }`}
         >
           {/* Logo */}
@@ -85,19 +122,21 @@ export default function Navbar() {
 
           {/* CTA + Hamburger */}
           <div className="flex items-center gap-3 shrink-0">
-            <Link
-              href="/contact"
-              className="hidden md:flex items-center gap-2 px-4 py-2 bg-accent text-dark-bg font-sans font-bold text-xs tracking-wide rounded-full hover:bg-accent/90 active:scale-[0.97] transition-all"
+            <button
+              onClick={openEnquiry}
+              className="hidden md:flex items-center gap-2 px-4 py-2 bg-accent text-dark-bg font-sans font-bold text-xs tracking-wide rounded-full hover:bg-accent/90 active:scale-[0.97] transition-all focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-bg"
             >
               Get Quote
-            </Link>
+            </button>
 
             {/* Mobile Hamburger */}
             <button
+              ref={hamburgerRef}
               onClick={() => setMenuOpen(!menuOpen)}
-              className="md:hidden w-9 h-9 flex flex-col items-center justify-center gap-[5px] rounded-full border border-white/10 hover:border-accent/30 transition-colors"
+              className="md:hidden w-11 h-11 flex flex-col items-center justify-center gap-[5px] rounded-full border border-white/10 hover:border-accent/30 transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50"
               aria-label={menuOpen ? "Close navigation menu" : "Open navigation menu"}
               aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
             >
               <motion.span
                 animate={menuOpen ? { rotate: 45, y: 6.5 } : { rotate: 0, y: 0 }}
@@ -123,6 +162,8 @@ export default function Navbar() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
+            ref={menuRef}
+            id="mobile-menu"
             initial={{ opacity: 0, clipPath: "circle(0% at calc(100% - 2.5rem) 2.5rem)" }}
             animate={{ opacity: 1, clipPath: "circle(150% at calc(100% - 2.5rem) 2.5rem)" }}
             exit={{ opacity: 0, clipPath: "circle(0% at calc(100% - 2.5rem) 2.5rem)" }}
@@ -130,6 +171,8 @@ export default function Navbar() {
             className="fixed inset-0 z-40 bg-dark-bg flex flex-col"
             aria-modal="true"
             role="dialog"
+            aria-label="Navigation menu"
+            onKeyDown={handleMenuKeyDown}
           >
             <div className="blueprint-grid-dark absolute inset-0 opacity-30" aria-hidden="true" />
             <div className="relative z-10 flex flex-col h-full px-8 pt-28 pb-12">
@@ -162,13 +205,12 @@ export default function Navbar() {
                 transition={{ delay: 0.5, duration: 0.4 }}
                 className="space-y-4"
               >
-                <Link
-                  href="/contact"
-                  onClick={() => setMenuOpen(false)}
-                  className="flex items-center justify-center w-full py-4 bg-accent text-dark-bg font-headline font-bold text-base tracking-wide rounded-2xl hover:bg-accent/90 transition-all"
+                <button
+                  onClick={() => { setMenuOpen(false); openEnquiry(); }}
+                  className="flex items-center justify-center w-full py-4 bg-accent text-dark-bg font-headline font-bold text-base tracking-wide rounded-2xl hover:bg-accent/90 transition-all focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-bg"
                 >
                   Get a Quote
-                </Link>
+                </button>
                 <p className="label-mono text-[10px] text-dark-muted text-center">
                   {COMPANY.phone} · {COMPANY.email}
                 </p>

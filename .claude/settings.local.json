@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(gh pr:*)"
+      "Bash(gh pr:*)",
+      "Bash(node -e ':*)",
+      "Bash(node:*)"
     ]
   }
 }

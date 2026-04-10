@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Manrope } from "next/font/google";
 import "./globals.css";
+import { EnquiryProvider } from "@/context/EnquiryContext";
+import QuickEnquiryModal from "@/components/QuickEnquiryModal";
 import SmoothScroll from "@/components/SmoothScroll";
 
 const spaceGrotesk = Space_Grotesk({
@@ -47,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={`${spaceGrotesk.variable} ${manrope.variable}`}>
+    <html lang="id" className={`${spaceGrotesk.variable} ${manrope.variable}`} data-scroll-behavior="smooth">
       <head>
         <link
           rel="stylesheet"
@@ -55,7 +57,16 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased relative" suppressHydrationWarning>
-        <SmoothScroll>{children}</SmoothScroll>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[200] focus:px-4 focus:py-2 focus:bg-accent focus:text-dark-bg focus:rounded-lg focus:font-bold focus:text-sm focus:shadow-lg"
+        >
+          Skip to main content
+        </a>
+        <EnquiryProvider>
+          <SmoothScroll>{children}</SmoothScroll>
+          <QuickEnquiryModal />
+        </EnquiryProvider>
       </body>
     </html>
   );

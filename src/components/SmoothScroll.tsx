@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import Lenis from "lenis";
 import { usePathname } from "next/navigation";
+import { useEnquiry } from "@/context/EnquiryContext";
 
 export default function SmoothScroll({
   children,
@@ -11,6 +12,7 @@ export default function SmoothScroll({
 }) {
   const pathname = usePathname();
   const lenisRef = useRef<Lenis | null>(null);
+  const { isOpen } = useEnquiry();
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -34,6 +36,17 @@ export default function SmoothScroll({
       lenisRef.current = null;
     };
   }, []);
+
+  // Stop/Start Lenis scroll when modal is open
+  useEffect(() => {
+    if (lenisRef.current) {
+      if (isOpen) {
+        lenisRef.current.stop();
+      } else {
+        lenisRef.current.start();
+      }
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     // Reset scroll position and Lenis on route change. NextJS soft-navigation might not fire window.scrollTo correctly with Lenis attached.

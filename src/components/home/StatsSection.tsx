@@ -31,7 +31,7 @@ export default function StatsSection() {
               {stat.label}
             </span>
             <div>
-              <div className="font-headline text-5xl md:text-8xl font-bold tracking-tighter text-dark-fg mb-3 leading-none">
+              <div className="font-headline text-4xl md:text-8xl font-bold tracking-tighter text-dark-fg mb-3 leading-none">
                 <CountUp target={stat.value} duration={2000} className="tabular-nums" />
               </div>
               <div className="label-mono text-[14px] text-dark-muted/70 font-medium">

@@ -6,14 +6,18 @@ import PageHeader from "@/components/ui/PageHeader";
 import FadeIn from "@/components/animations/FadeIn";
 import StaggerContainer from "@/components/animations/StaggerContainer";
 import SectionLabel from "@/components/ui/SectionLabel";
+import { useState } from "react";
 import { SERVICES, PARTS_BRANDS } from "@/lib/data";
 
 export default function Services() {
+  const [showMore, setShowMore] = useState(false);
+  
   const generalServices = SERVICES.filter(s => s.type === "general");
+  const visibleGeneral = showMore ? generalServices : generalServices.slice(0, 6);
   const supplyServices = SERVICES.filter(s => s.type === "item-supply");
 
   return (
-    <main className="min-h-screen flex flex-col">
+    <main id="main-content" className="min-h-screen flex flex-col">
       <Navbar />
 
       <PageHeader
@@ -37,7 +41,7 @@ export default function Services() {
           </div>
 
           <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {generalServices.map((srv, i) => (
+            {visibleGeneral.map((srv, i) => (
               <FadeIn
                 key={srv.id}
                 blur
@@ -47,7 +51,7 @@ export default function Services() {
               >
                 <div className="flex items-start justify-between mb-8">
                   <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center">
-                    <span className="material-symbols-outlined text-accent text-xl">{srv.icon}</span>
+                    <span className="material-symbols-outlined text-accent text-xl" aria-hidden="true">{srv.icon}</span>
                   </div>
                   <span className="font-headline text-4xl font-bold text-foreground/5">{srv.num}</span>
                 </div>
@@ -71,6 +75,17 @@ export default function Services() {
               </FadeIn>
             ))}
           </StaggerContainer>
+
+          {!showMore && generalServices.length > 6 && (
+            <div className="mt-16 text-center">
+              <button 
+                onClick={() => setShowMore(true)}
+                className="px-10 py-4 bg-foreground text-background rounded-full font-sans font-bold text-xs hover:bg-accent hover:text-dark-bg transition-all shadow-lg hover:shadow-accent/20 focus:outline-none focus:ring-2 focus:ring-accent/50"
+              >
+                View All Industrial Support Services
+              </button>
+            </div>
+          )}
         </div>
       </section>
 
@@ -89,16 +104,17 @@ export default function Services() {
 
           <div className="grid lg:grid-cols-12 gap-12">
             {/* Supply Service Cards */}
-            <div className="lg:col-span-8 grid md:grid-cols-2 gap-6">
+            <StaggerContainer className="lg:col-span-8 grid md:grid-cols-2 gap-6">
               {supplyServices.map((srv, i) => (
                 <FadeIn
                   key={srv.id}
                   blur
                   standalone
+                  delay={i * 0.08}
                   className="bg-background border border-outline/30 rounded-3xl p-10 flex flex-col h-full"
                 >
                   <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mb-8">
-                    <span className="material-symbols-outlined text-accent text-2xl">{srv.icon}</span>
+                    <span className="material-symbols-outlined text-accent text-2xl" aria-hidden="true">{srv.icon}</span>
                   </div>
                   <h3 className="font-headline text-3xl font-bold text-foreground mb-4 tracking-tight">
                     {srv.title}
@@ -109,27 +125,27 @@ export default function Services() {
                   <div className="mt-auto space-y-3">
                     {srv.features.map((f, j) => (
                       <div key={j} className="flex items-center gap-3 py-2 border-b border-outline/10 text-xs text-foreground/80">
-                        <span className="material-symbols-outlined text-accent text-sm">check_circle</span>
+                        <span className="material-symbols-outlined text-accent text-sm" aria-hidden="true">check_circle</span>
                         {f}
                       </div>
                     ))}
                   </div>
                 </FadeIn>
               ))}
-            </div>
+            </StaggerContainer>
 
             {/* Brand Catalog Sidebar/Detail */}
             <div className="lg:col-span-4 space-y-6">
               <div className="bg-background border border-outline/30 rounded-3xl p-8 sticky top-24">
                 <h4 className="font-headline text-xl font-bold text-foreground mb-6 flex items-center gap-2">
-                  <span className="material-symbols-outlined text-accent">verified</span>
+                  <span className="material-symbols-outlined text-accent" aria-hidden="true">verified</span>
                   Authorized Brands
                 </h4>
                 <div className="space-y-6">
                   {PARTS_BRANDS.map((cat, i) => (
                     <div key={cat.category} className="space-y-3">
                       <div className="flex items-center gap-2">
-                        <span className="material-symbols-outlined text-base text-accent/40">{cat.icon}</span>
+                        <span className="material-symbols-outlined text-base text-accent/40" aria-hidden="true">{cat.icon}</span>
                         <p className="label-mono text-[9px] text-foreground/40 uppercase tracking-widest">{cat.category}</p>
                       </div>
                       <div className="flex flex-wrap gap-2">

@@ -1,11 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import StaggerContainer from "@/components/animations/StaggerContainer";
 import FadeIn from "@/components/animations/FadeIn";
 import GlowOrb from "@/components/ui/GlowOrb";
-import { COMPANY, STATS } from "@/lib/data";
+import { COMPANY } from "@/lib/data";
+import { useEnquiry } from "@/context/EnquiryContext";
 
 export default function HeroSection() {
+  const { openEnquiry } = useEnquiry();
   return (
     <section
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-dark-bg py-24"
@@ -77,12 +81,12 @@ export default function HeroSection() {
             >
               Explore Services
             </Link>
-            <Link
-              href="/contact"
-              className="px-10 py-5 border border-white/15 text-dark-fg font-sans font-bold text-sm tracking-wide rounded-full hover:bg-white/5 hover:border-accent/30 transition-all"
+            <button
+              onClick={openEnquiry}
+              className="px-10 py-5 border border-white/15 text-dark-fg font-sans font-bold text-sm tracking-wide rounded-full hover:bg-white/5 hover:border-accent/30 transition-all font-sans"
             >
               Get a Quote
-            </Link>
+            </button>
           </FadeIn>
 
         </StaggerContainer>

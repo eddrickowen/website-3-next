@@ -13,9 +13,9 @@ export const COMPANY = {
   founded: "1993",
   sister: "PT. Agri Prima Indonesia (Batam)",
   locations: ["Medan, Sumatera Utara"],
-  email: "tigor.api@gmail.com",
-  phone: "+62 813 7286 4065",
-  phone2: "+62 812 7606 4177",
+  email: "contact@agriprimaindotama.com",
+  phone: "+62 822 7286 4065",
+  phone2: "+62 61 4531818",
   fax: null,
   address: {
     line1: "Jl. Rotan Baru No. A-9",
@@ -190,8 +190,9 @@ export const SERVICES: Service[] = [
       "Our in-house machining workshop is equipped with lathe machines and precision tooling, enabling us to custom-fabricate replacement parts and components — reducing lead time and dependence on imported parts.",
     features: [
       "Lathe Machine Operations",
+      "Custom Stainless Steel Equipment (Lab Tables, Trolleys)",
+      "Precision Industrial Furniture Fabrication",
       "Custom Part Fabrication",
-      "Precision Machining",
       "Replacement Parts Production",
     ],
   },
@@ -208,11 +209,10 @@ export const SERVICES: Service[] = [
       "General mechanical, electrical, and civil engineering works covering fire protection systems, HVAC, plumbing, and water piping installation — integrating multiple disciplines under a single, accountable contractor.",
     features: [
       "Fire Protection Systems",
-      "HVAC Systems",
-      "Plumbing Works",
-      "Water Piping Installation",
-      "Electrical Works",
-      "Civil Engineering",
+      "HVAC & Ducting Installation",
+      "Industrial Piping Works",
+      "Plumbing & Water Systems",
+      "Electrical & Civil Works",
     ],
   },
   {
@@ -343,21 +343,32 @@ export const INDUSTRIES = [
   { name: "Energy Sector", icon: "bolt", primary: false },
 ];
 
-export const PROJECTS = [
-  { type: "work", month: "March", year: "2023", client: "PT. Pacific Indopalm Industri", scope: "PHE Service & Cooling Tower Maintenance", category: "phe", location: "Medan" },
-  { type: "work", month: "November", year: "2022", client: "PT. Able Commodities Indonesia", scope: "Integrated Industrial Maintenance", category: "mec-civil", location: "Medan" },
-  { type: "work", month: "August", year: "2022", client: "PT. VVF KIM II MABAR", scope: "Chiller Service & Mechanical Works", category: "chiller", location: "Medan" },
-  { type: "work", month: "September", year: "2021", client: "PT. Railink Medan", scope: "Mechanical & Electrical Maintenance", category: "mec-civil", location: "Medan" },
-  { type: "work", month: "May", year: "2021", client: "PT. Tanjung Sarana Lestari", scope: "Palm Oil Mill Support (Astra Group)", category: "palm-oil", location: "Palu" },
-  { type: "work", month: "July", year: "2020", client: "PT. Lingga Tiga Sawit", scope: "PKS Installation & Palm Mill Support", category: "palm-oil", location: "Sumatra" },
-  { type: "work", month: "February", year: "2020", client: "PT. Simpang Kanan Lestarindo", scope: "PHE Cleaning & Regasketing", category: "phe", location: "Sumatra" },
-  { type: "work", month: "October", year: "2019", client: "PT. Inno Wangsa Oil & Fat", scope: "Chiller Overhaul & Chemical Treatment", category: "chiller", location: "Medan" },
-  { type: "work", month: "June", year: "2019", client: "PT. Energi Unggul Persada", scope: "Industrial Support Services", category: "mec-civil", location: "Kalimantan" },
-  { type: "work", month: "January", year: "2018", client: "PT. Sari Dumai Sejati", scope: "Boiler & Cooling Tower Service", category: "boiler", location: "Dumai" },
-  { type: "work", month: "November", year: "2017", client: "PT. Steelindo Wahana Perkasa", scope: "Mechanical Engineering Works", category: "mec-civil", location: "Medan" },
-  { type: "work", month: "September", year: "2016", client: "PT. Agro Murni", scope: "Palm Oil Industrial Support", category: "palm-oil", location: "Sumatra" },
-  { type: "work", month: "January", year: "2013", client: "PT. Intan Sejati Andalan", scope: "Chiller & HVAC Service", category: "chiller", location: "Duri" },
-  { type: "work", month: "August", year: "2012", client: "PT. Kreasi Jaya Adhikarya", scope: "Civil & Mechanical Engineering", category: "mec-civil", location: "Medan" },
+export interface Project {
+  id: number;
+  type: "work";
+  month: string;
+  year: string;
+  client: string;
+  scope: string;
+  category: string;
+  location: string;
+}
+
+export const PROJECTS: Project[] = [
+  { id: 1,  type: "work", month: "March",    year: "2023", client: "PT. Pacific Indopalm Industri",   scope: "PHE Service & Cooling Tower Maintenance",    category: "phe",        location: "Medan" },
+  { id: 2,  type: "work", month: "November", year: "2022", client: "PT. Able Commodities Indonesia",  scope: "Integrated Industrial Maintenance",           category: "mec-civil",  location: "Medan" },
+  { id: 3,  type: "work", month: "August",   year: "2022", client: "PT. VVF KIM II MABAR",            scope: "Chiller Service & Mechanical Works",          category: "chiller",    location: "Medan" },
+  { id: 4,  type: "work", month: "September",year: "2021", client: "PT. Railink Medan",               scope: "Mechanical & Electrical Maintenance",         category: "mec-civil",  location: "Medan" },
+  { id: 5,  type: "work", month: "May",      year: "2021", client: "PT. Tanjung Sarana Lestari",      scope: "Palm Oil Mill Support (Astra Group)",         category: "palm-oil",   location: "Palu" },
+  { id: 6,  type: "work", month: "July",     year: "2020", client: "PT. Lingga Tiga Sawit",           scope: "PKS Installation & Palm Mill Support",        category: "palm-oil",   location: "Sumatra" },
+  { id: 7,  type: "work", month: "February", year: "2020", client: "PT. Simpang Kanan Lestarindo",    scope: "PHE Cleaning & Regasketing",                  category: "phe",        location: "Sumatra" },
+  { id: 8,  type: "work", month: "October",  year: "2019", client: "PT. Inno Wangsa Oil & Fat",       scope: "Chiller Overhaul & Chemical Treatment",       category: "chiller",    location: "Medan" },
+  { id: 9,  type: "work", month: "June",     year: "2019", client: "PT. Energi Unggul Persada",       scope: "Industrial Support Services",                 category: "mec-civil",  location: "Kalimantan" },
+  { id: 10, type: "work", month: "January",  year: "2018", client: "PT. Sari Dumai Sejati",           scope: "Boiler & Cooling Tower Service",              category: "boiler",     location: "Dumai" },
+  { id: 11, type: "work", month: "November", year: "2017", client: "PT. Steelindo Wahana Perkasa",    scope: "Mechanical Engineering Works",                category: "mec-civil",  location: "Medan" },
+  { id: 12, type: "work", month: "September",year: "2016", client: "PT. Agro Murni",                  scope: "Palm Oil Industrial Support",                 category: "palm-oil",   location: "Sumatra" },
+  { id: 13, type: "work", month: "January",  year: "2013", client: "PT. Intan Sejati Andalan",        scope: "Chiller & HVAC Service",                      category: "chiller",    location: "Duri" },
+  { id: 14, type: "work", month: "August",   year: "2012", client: "PT. Kreasi Jaya Adhikarya",       scope: "Civil & Mechanical Engineering",              category: "mec-civil",  location: "Medan" },
 ];
 
 export const MISSION_VISION = {

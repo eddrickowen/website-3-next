@@ -8,7 +8,7 @@ import LeadCaptureSection from "@/components/home/LeadCaptureSection";
 
 export default function Home() {
   return (
-    <main className="min-h-screen flex flex-col">
+    <main id="main-content" className="min-h-screen flex flex-col">
       <Navbar />
       <HeroSection />
       <StatsSection />

@@ -17,7 +17,7 @@ const ContactDetail = ({
   href?: string;
 }) => (
   <div className="flex items-center gap-4 group">
-    <div className="w-12 h-12 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center group-hover:bg-accent/15 transition-colors shrink-0">
+    <div className="w-12 h-12 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center group-hover:bg-accent/15 transition-colors shrink-0" aria-hidden="true">
       <span className="material-symbols-outlined text-accent text-[18px]">{icon}</span>
     </div>
     <div>
@@ -92,7 +92,7 @@ export default function LeadCaptureSection() {
               className="inline-flex items-center gap-2 label-mono text-[10px] text-accent hover:gap-4 transition-all"
             >
               Full contact page
-              <span className="material-symbols-outlined text-sm">arrow_forward</span>
+              <span className="material-symbols-outlined text-sm" aria-hidden="true">arrow_forward</span>
             </Link>
           </FadeIn>
 

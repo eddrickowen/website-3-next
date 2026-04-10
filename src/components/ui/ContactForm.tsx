@@ -42,8 +42,12 @@ export default function ContactForm({ dark = false }: ContactFormProps) {
 
   if (submitted) {
     return (
-      <div className="flex flex-col items-center justify-center py-12 text-center gap-4">
-        <div className="w-16 h-16 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center mb-2">
+      <div
+        role="alert"
+        aria-live="polite"
+        className="flex flex-col items-center justify-center py-12 text-center gap-4"
+      >
+        <div className="w-16 h-16 rounded-full bg-accent/10 border border-accent/30 flex items-center justify-center mb-2" aria-hidden="true">
           <span className="material-symbols-outlined text-accent text-3xl">check_circle</span>
         </div>
         <h3 className={`font-headline text-2xl font-bold ${dark ? "text-dark-fg" : "text-foreground"}`}>
@@ -53,8 +57,8 @@ export default function ContactForm({ dark = false }: ContactFormProps) {
           Thank you for reaching out. Our team will get back to you within 1–2 business days.
         </p>
         <button
-          onClick={() => setSubmitted(false)}
-          className="mt-4 label-mono text-[10px] text-accent underline underline-offset-4"
+          onClick={() => { setSubmitted(false); setSelectedService(""); }}
+          className="mt-4 label-mono text-[10px] text-accent underline underline-offset-4 focus:outline-none focus:ring-2 focus:ring-accent/50 rounded"
         >
           Send another message
         </button>
@@ -63,7 +67,7 @@ export default function ContactForm({ dark = false }: ContactFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="space-y-4 pb-10 md:pb-0" aria-busy={loading} noValidate>
       <div>
         <label className={labelClass} htmlFor="cf-name">Full Name</label>
         <input
@@ -150,7 +154,7 @@ export default function ContactForm({ dark = false }: ContactFormProps) {
           id="cf-message"
           name="message"
           required
-          rows={4}
+          rows={3}
           placeholder="Describe your project requirements or inquiry details..."
           className={`${inputClass} resize-none`}
         />
@@ -159,7 +163,7 @@ export default function ContactForm({ dark = false }: ContactFormProps) {
       <button
         type="submit"
         disabled={loading}
-        className="w-full py-5 bg-accent text-dark-bg font-headline font-bold text-sm tracking-widest uppercase rounded-xl hover:bg-accent/90 active:scale-[0.98] transition-all disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-accent/20"
+        className="w-full py-4 bg-accent text-dark-bg font-headline font-bold text-sm tracking-widest uppercase rounded-xl hover:bg-accent/90 active:scale-[0.98] transition-all disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-accent/20"
       >
         {loading ? "Sending Enquiry..." : "Send Enquiry"}
       </button>

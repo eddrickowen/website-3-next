@@ -189,6 +189,17 @@ body {
   }
 }
 
+/* Dual-row marquee for PartnersSection (3x-duplicated brand list) */
+@keyframes marquee-row1 {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-33.33%); }
+}
+
+@keyframes marquee-row2 {
+  0%   { transform: translateX(-33.33%); }
+  100% { transform: translateX(0); }
+}
+
 @keyframes borderGlow {
   0%, 100% {
     border-color: rgba(62, 207, 142, 0.2);
@@ -209,6 +220,33 @@ body {
 
 .animate-marquee {
   animation: marquee 30s linear infinite;
+}
+
+.animate-marquee-row1 {
+  animation: marquee-row1 50s linear infinite;
+}
+
+.animate-marquee-row2 {
+  animation: marquee-row2 50s linear infinite;
+}
+
+.animate-marquee-row1:hover,
+.animate-marquee-row2:hover {
+  animation-play-state: paused;
+}
+
+/* =============================================
+   REDUCED MOTION
+   ============================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 /* =============================================

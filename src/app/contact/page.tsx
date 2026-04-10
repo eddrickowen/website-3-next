@@ -25,7 +25,7 @@ const InfoBlock = ({
   children: React.ReactNode;
 }) => (
   <div className="flex items-start gap-4">
-    <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0 mt-0.5">
+    <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0 mt-0.5" aria-hidden="true">
       <span className="material-symbols-outlined text-accent text-base">{icon}</span>
     </div>
     <div>
@@ -39,7 +39,7 @@ const InfoBlock = ({
 
 export default function Contact() {
   return (
-    <main className="min-h-screen flex flex-col">
+    <main id="main-content" className="min-h-screen flex flex-col">
       <Navbar />
 
       <PageHeader
@@ -109,18 +109,28 @@ export default function Contact() {
                     </InfoBlock>
                   </div>
 
-                  {/* Map placeholder */}
-                  <div className="w-full h-48 bg-surface-dim border border-outline/40 rounded-2xl overflow-hidden flex items-center justify-center relative">
+                  {/* Map link */}
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${COMPANY.address.line1}, ${COMPANY.address.line2}, ${COMPANY.address.city}, ${COMPANY.address.province}`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group w-full h-48 bg-surface-dim border border-outline/40 hover:border-accent/40 rounded-2xl overflow-hidden flex items-center justify-center relative transition-colors"
+                    aria-label="View office location on Google Maps"
+                  >
                     <div className="blueprint-grid absolute inset-0 opacity-30" aria-hidden="true" />
+                    <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/[0.03] transition-colors" />
                     <div className="relative z-10 text-center">
-                      <span className="material-symbols-outlined text-3xl text-foreground/20 block mb-2">
+                      <span className="material-symbols-outlined text-3xl text-foreground/20 group-hover:text-accent/50 block mb-2 transition-colors" aria-hidden="true">
                         map
                       </span>
-                      <span className="label-mono text-[10px] text-foreground/30">
+                      <span className="label-mono text-[10px] text-foreground/30 group-hover:text-accent/60 transition-colors block">
                         Petisah Tengah, Medan
                       </span>
+                      <span className="label-mono text-[9px] text-foreground/20 group-hover:text-accent/40 transition-colors mt-1 block">
+                        Open in Google Maps →
+                      </span>
                     </div>
-                  </div>
+                  </a>
 
                   {/* Operating info */}
                   <div className="mt-8 pt-6 border-t border-outline/30 grid grid-cols-2 gap-4">
