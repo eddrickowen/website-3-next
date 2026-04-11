@@ -1,6 +1,7 @@
 import StaggerContainer from "@/components/animations/StaggerContainer";
 import FadeIn from "@/components/animations/FadeIn";
 import SectionLabel from "@/components/ui/SectionLabel";
+import Image from "next/image";
 import { MISSION_VISION } from "@/lib/data";
 import { Dictionary } from "@/types/dictionary";
 
@@ -57,13 +58,23 @@ export default function MissionVisionSection({ content }: MissionVisionSectionPr
             </ul>
           </FadeIn>
 
-          {/* R&D Bar Card */}
+          {/* R&D Visual Card */}
           <FadeIn
             blur
             delay={0.1}
-            className="md:col-span-4 p-8 bg-dark-bg rounded-2xl relative overflow-hidden"
+            className="md:col-span-4 p-8 bg-dark-bg rounded-2xl relative overflow-hidden group"
           >
-            <div className="absolute inset-0 blueprint-grid-dark opacity-20" aria-hidden="true" />
+            {/* Background Image */}
+            <div className="absolute inset-0 z-0">
+              <Image
+                src="/images/assets/about_engineering.png"
+                alt="Engineering Consultation"
+                fill
+                className="object-cover opacity-20 group-hover:scale-105 transition-transform duration-1000"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-dark-bg via-dark-bg/60 to-transparent" />
+            </div>
+
             <div className="relative z-10 h-full flex flex-col justify-between">
               <div>
                 <span className="label-mono text-[9px] text-accent mb-4 block">Focus Area 01</span>

@@ -118,7 +118,7 @@ export default async function Contact({ params }: { params: Promise<{ locale: st
                       <p className="font-headline text-lg font-bold text-foreground">{dict.contactPage.map.title}</p>
                       <p className="font-sans text-xs text-foreground/50 mt-1">{dict.contactPage.map.desc}</p>
                     </div>
-                    <InteractiveMap className="h-64 sm:h-80" />
+                    <InteractiveMap className="h-64 sm:h-[450px]" content={dict.contactPage.map} />
                   </div>
 
                   {/* Operating info */}

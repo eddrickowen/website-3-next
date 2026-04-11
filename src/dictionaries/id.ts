@@ -317,7 +317,19 @@ export const id = {
       { title: "Solusi Satu Atap", desc: "Mulai dari pasokan suku cadang hingga instalasi dan pemeliharaan penuh — teknik, kimia, dan servis di bawah satu atap." },
       { title: "Kemitraan Global", desc: "Mewakili produsen papan atas dari Eropa, AS, Jepang, China, Taiwan, dan Singapura." },
       { title: "Workshop Internal", desc: "Workshop permesinan kami memungkinkan fabrikasi kustom dan mengurangi waktu tunggu untuk suku cadang pengganti yang kritis." },
-    ]
+    ],
+    workshop: {
+      badge: "03",
+      label: "Warisan Teknis",
+      title: "Workshop Presisi",
+      titleAccent: "API.",
+      desc: "Kapabilitas internal kami adalah apa yang membedakan kami. Dengan memelihara workshop pemesinan skala penuh di Medan, kami memastikan bahwa suku cadang kritis selalu dalam jangkauan, meminimalkan waktu henti bagi klien kami di seluruh Sumatera dan sekitarnya.",
+      stats: [
+        { label: "Permesinan", val: "Bubut, Milling & CNC" },
+        { label: "Presisi", val: "Toleransi < 0.05mm" },
+        { label: "Waktu Tunggu", val: "Berkurang 60%" },
+      ]
+    }
   },
   footer: {
     tagline: "Mitra Industri Terpercaya Anda Sejak 1993",
@@ -375,6 +387,9 @@ export const id = {
       label: "Temukan Kami",
       title: "Wilayah Layanan",
       desc: "Pusat logistik utama kami di Medan melayani seluruh Sumatera, dengan jangkauan layanan khusus di seluruh Jawa dan Kalimantan.",
+      getDirections: "Petunjuk Arah",
+      viewOnGoogle: "Lihat di Google Maps",
+      hqLabel: "Kantor Pusat",
     },
   },
   projectsPage: {

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { COMPANY, NAV_LINKS, SERVICES } from "@/lib/data";
 import { useEnquiry } from "@/context/EnquiryContext";
 import { Dictionary } from "@/types/dictionary";
@@ -41,14 +42,28 @@ export default function Footer({ language, content, navContent, servicesContent,
       <div className="relative z-10 max-w-7xl mx-auto px-8 md:px-16 pt-20 pb-12">
         {/* Main Grid */}
         <div className="grid grid-cols-2 md:grid-cols-12 gap-10 md:gap-4 pb-20 border-b border-white/5 items-start">
-          {/* Brand Column */}
           <div className="col-span-2 md:col-span-4 lg:col-span-4 flex flex-col pt-2">
             <Link
               href={`/${language}`}
-              className="inline-block font-headline text-3xl font-bold tracking-tighter text-dark-fg hover:text-accent transition-colors mb-6"
+              className="flex items-center gap-4 mb-8 group"
               aria-label="Go to homepage"
             >
-              PT.<span className="text-accent underline decoration-accent/20 underline-offset-8">API</span>
+              <div className="relative w-10 h-10 md:w-12 md:h-12 transition-transform duration-500 group-hover:scale-110">
+                <Image
+                  src="/images/logo.png"
+                  alt=""
+                  fill
+                  className="object-contain"
+                />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-headline text-lg md:text-xl font-bold tracking-tight text-dark-fg leading-none">
+                  PT. AGRI PRIMA
+                </span>
+                <span className="font-headline text-[10px] md:text-[11px] text-accent font-bold tracking-[0.2em] leading-none mt-1">
+                  INDOTAMA
+                </span>
+              </div>
             </Link>
             <p className="font-sans text-[13px] text-dark-muted font-light leading-relaxed mb-8 max-w-sm">
               {content.tagline}. A multi-decade legacy providing integrated industrial solutions for Palm Oil, Energy, and Manufacturing globally.

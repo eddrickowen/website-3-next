@@ -38,8 +38,13 @@ export default function ContactForm({ dark = false, content, servicesContent }: 
     const data = Object.fromEntries(formData.entries());
 
     try {
-      // REPLACE 'FORM_ID_HERE' with your real Formspree ID
-      const response = await fetch("https://formspree.io/f/FORM_ID_HERE", {
+      const formId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
+      
+      if (!formId || formId === 'FORM_ID_HERE') {
+        throw new Error("Form configuration missing. Please set up your Formspree ID.");
+      }
+
+      const response = await fetch(`https://formspree.io/f/${formId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify(data),
@@ -51,8 +56,8 @@ export default function ContactForm({ dark = false, content, servicesContent }: 
         const errorData = await response.json();
         setError(errorData.error || "Submission failed. Please check your details and try again.");
       }
-    } catch (err) {
-      setError("Unable to connect to service. Please check your internet connection.");
+    } catch (err: any) {
+      setError(err.message || "Unable to connect to service. Please check your internet connection.");
     } finally {
       setLoading(false);
     }

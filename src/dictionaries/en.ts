@@ -317,7 +317,19 @@ export const en = {
       { title: "One-Stop Solution", desc: "From spare parts supply to full installation and maintenance — engineering, chemicals, and service under one roof." },
       { title: "Global Partnerships", desc: "Representing top manufacturers from Europe, USA, Japan, China, Taiwan, and Singapore." },
       { title: "In-House Workshop", desc: "Our machining workshop enables custom fabrication and reduces lead times for critical replacement parts." },
-    ]
+    ],
+    workshop: {
+      badge: "03",
+      label: "Technical Heritage",
+      title: "The API Precision",
+      titleAccent: "Workshop.",
+      desc: "Our in-house capabilities are what set us apart. By maintaining a full-scale machining workshop in Medan, we ensure that critical spare parts are always within reach, minimizing downtime for our clients across Sumatra and beyond.",
+      stats: [
+        { label: "Machinery", val: "Lathe, Milling & CNC" },
+        { label: "Precision", val: "Tolerance < 0.05mm" },
+        { label: "Lead Time", val: "Reduced by 60%" },
+      ]
+    }
   },
   footer: {
     tagline: "Your Trusted Industrial Partner Since 1993",
@@ -375,6 +387,9 @@ export const en = {
       label: "Find Us",
       title: "Service Regions",
       desc: "Our primary logistics hub in Medan serves all of Sumatra, with dedicated service reach across Java and Kalimantan.",
+      getDirections: "Get Directions",
+      viewOnGoogle: "View on Google Maps",
+      hqLabel: "Headquarters",
     },
   },
   projectsPage: {

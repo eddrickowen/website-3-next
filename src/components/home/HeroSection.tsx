@@ -25,18 +25,17 @@ export default function HeroSection({ content }: HeroSectionProps) {
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-dark-bg py-24"
       aria-label="Hero section"
     >
-      {/* Background layers */}
       <div className="absolute inset-0 z-0" aria-hidden="true">
         <Image
-          src="https://images.unsplash.com/photo-1565439390117-062e741e57c6?q=80&w=2670&auto=format&fit=crop"
-          alt=""
+          src="/images/assets/hero_industrial.png"
+          alt="Industrial Engineering Architecture"
           fill
           priority
           sizes="100vw"
-          className="object-cover opacity-[0.06] grayscale"
+          className="object-cover opacity-[0.22] grayscale brightness-50 contrast-125 transition-opacity duration-1000"
         />
-        <div className="absolute inset-0 blueprint-grid-dark opacity-40" />
-        <div className="absolute inset-0 bg-gradient-to-b from-dark-bg/0 via-dark-bg/30 to-dark-bg" />
+        <div className="absolute inset-0 blueprint-grid-dark opacity-30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-dark-bg/0 via-dark-bg/40 to-dark-bg" />
       </div>
 
       {/* Ambient glow orbs */}

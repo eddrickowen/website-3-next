@@ -3,6 +3,7 @@ import Footer from "@/components/Footer";
 import PageHeader from "@/components/ui/PageHeader";
 import MissionVisionSection from "@/components/about/MissionVisionSection";
 import TimelineSection from "@/components/about/TimelineSection";
+import WorkshopSection from "@/components/about/WorkshopSection";
 import PartnersDetailSection from "@/components/about/PartnersDetailSection";
 import { getDictionary } from "@/dictionaries/get-dictionary";
 
@@ -28,6 +29,7 @@ export default async function AboutUs({ params }: { params: Promise<{ locale: st
 
       <MissionVisionSection content={dict.about.visionSection} common={dict.common} />
       <TimelineSection timeline={dict.about.timeline} />
+      <WorkshopSection content={dict.about.workshop} />
       <PartnersDetailSection partners={dict.about.partners} />
 
       <Footer 

@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { NAV_LINKS, COMPANY } from "@/lib/data";
@@ -93,10 +94,26 @@ export default function Navbar({ language, content, common }: NavbarProps) {
           {/* Logo */}
           <Link
             href={`/${language}`}
-            className="font-headline text-base font-bold tracking-tight text-dark-fg hover:text-accent transition-colors shrink-0 pl-2"
-            aria-label="Go to PT. Agri Prima Indonesia homepage"
+            className="flex items-center gap-2 pl-2 group"
+            aria-label="Go to PT. Agri Prima Indotama homepage"
           >
-            PT.<span className="text-accent">API</span>
+            <div className="relative w-8 h-8 md:w-10 md:h-10 transition-transform duration-500 group-hover:scale-110">
+              <Image
+                src="/images/logo.png"
+                alt=""
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            <div className="flex flex-col">
+              <span className="font-headline text-[13px] md:text-[15px] font-bold tracking-tight text-dark-fg leading-none">
+                PT. AGRI PRIMA
+              </span>
+              <span className="font-headline text-[9px] md:text-[10px] text-accent font-bold tracking-[0.2em] leading-none mt-1">
+                INDOTAMA
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Links */}

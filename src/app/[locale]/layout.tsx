@@ -25,12 +25,13 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://agriprimaindotama.co.id'),
   title: {
     default: "PT. Agri Prima Indotama | Trusted Industrial Partner Since 1993",
     template: "%s | PT. Agri Prima Indotama",
   },
   description:
-    "PT. Agri Prima Indotama (PT. API) — One-stop industrial services in Medan since 1993. Palm Oil Mill (PKS) support, PHE service, chiller maintenance, cooling tower, boiler service, machining workshop, and chemical distribution.",
+    "PT. Agri Prima Indotama (PT. API) — One-stop industrial services in Medan since 1993. Specialized in Palm Oil Mill (PKS) support, PHE service, chiller maintenance, and global part supply.",
   keywords: [
     "Palm Oil Mill support Medan",
     "PHE service Indonesia",
@@ -41,12 +42,46 @@ export const metadata: Metadata = {
     "boiler service Medan",
     "chemical distribution industrial",
   ],
+  authors: [{ name: "PT. Agri Prima Indotama" }],
+  creator: "PT. Agri Prima Indotama",
+  publisher: "PT. Agri Prima Indotama",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
     title: "PT. Agri Prima Indotama | Trusted Industrial Partner Since 1993",
-    description:
-      "One-stop industrial services in Medan since 1993 — Palm Oil PKS, PHE, chiller, cooling tower, boiler, machining & chemicals.",
-    locale: "id_ID",
+    description: "One-stop industrial services in Medan since 1993 — Palm Oil PKS, PHE, chiller, and engineering solutions.",
+    url: 'https://agriprimaindotama.co.id',
+    siteName: 'PT. Agri Prima Indotama',
+    locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'PT. Agri Prima Indotama Industrial Services',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'PT. Agri Prima Indotama | Industrial Excellence',
+    description: 'Trusted Industrial Partner Since 1993. Serving Sumatra, Kalimantan, and beyond.',
+    images: ['/og-image.jpg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
 };
 

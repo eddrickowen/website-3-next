@@ -2,13 +2,17 @@
 
 import { motion } from "framer-motion";
 import { COMPANY } from "@/lib/data";
-export default function InteractiveMap({ className = "" }: InteractiveMapProps) {
-  
+import { Dictionary } from "@/types/dictionary";
+
+interface InteractiveMapProps {
+  className?: string;
+  content: Dictionary["contactPage"]["map"];
+}
+
+export default function InteractiveMap({ className = "", content }: InteractiveMapProps) {
   // Format address for Google Maps Embed
   const fullAddress = `${COMPANY.address.line1}, ${COMPANY.address.line2}, ${COMPANY.address.city}, ${COMPANY.address.province}`;
-  const embedUrl = `https://www.google.com/maps/embed/v1/place?key=REPLACE_WITH_YOUR_API_KEY&q=${encodeURIComponent(fullAddress)}&zoom=16`;
   
-  // Fallback to a cleaner search URL if no API key is provided, or use a standard iframe without key
   // For most vibe-coding sites, we can use the non-API search embed which is free and doesn't require a key
   const freeEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(fullAddress)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
 
@@ -31,36 +35,64 @@ export default function InteractiveMap({ className = "" }: InteractiveMapProps) 
           aria-label={`Interactive map showing ${COMPANY.name} office in ${COMPANY.address.city}`}
         />
         
-        {/* Top Overlay Overlay */}
-        <div className="absolute top-4 left-4 z-10">
+        {/* Branch Detail Card Overlay */}
+        <div className="absolute top-6 left-6 z-10 hidden sm:block">
           <motion.div 
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="glass-dark px-4 py-2 rounded-xl border border-white/5 flex items-center gap-3"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="glass-dark p-6 rounded-2xl border border-white/10 shadow-2xl max-w-[280px]"
           >
-            <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="label-mono text-[9px] text-dark-fg/80 uppercase tracking-widest">
-              Live Location: {COMPANY.address.city}
-            </span>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center">
+                <span className="material-symbols-outlined text-accent text-sm">home_work</span>
+              </div>
+              <div>
+                <span className="label-mono text-[8px] text-accent uppercase tracking-widest block">{content.hqLabel}</span>
+                <p className="font-headline text-xs font-bold text-dark-fg">Medan, North Sumatra</p>
+              </div>
+            </div>
+            
+            <p className="font-sans text-[11px] text-dark-muted leading-relaxed mb-6">
+              {COMPANY.address.line1}<br/>
+              {COMPANY.address.line2}
+            </p>
+
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full py-3 bg-accent/10 border border-accent/30 text-accent font-sans font-bold text-[9px] uppercase tracking-wider rounded-xl hover:bg-accent hover:text-dark-bg transition-all flex items-center justify-center gap-2"
+            >
+              {content.getDirections}
+              <span className="material-symbols-outlined text-[12px]">directions</span>
+            </a>
           </motion.div>
         </div>
 
-        {/* Action Button Overlay */}
-        <div className="absolute bottom-4 right-4 z-10">
+        {/* Mobile Status Badge */}
+        <div className="absolute top-4 right-4 z-10 sm:hidden">
+          <div className="glass-dark px-3 py-1.5 rounded-full border border-white/5 flex items-center gap-2">
+            <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+            <span className="label-mono text-[8px] text-dark-fg/80">{COMPANY.address.city}</span>
+          </div>
+        </div>
+
+        {/* Action Button Overlay (Mobile/Secondary) */}
+        <div className="absolute bottom-6 right-6 z-10 lg:hidden">
           <a
             href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(fullAddress)}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-5 py-3 bg-accent text-dark-bg font-sans font-bold text-[10px] uppercase tracking-wider rounded-xl hover:bg-white transition-all shadow-lg active:scale-95"
+            className="flex items-center gap-2 px-6 py-4 bg-accent text-dark-bg font-sans font-bold text-[10px] uppercase tracking-wider rounded-2xl hover:bg-white transition-all shadow-xl active:scale-95"
           >
-            Open in Google Maps
-            <span className="material-symbols-outlined text-sm" aria-hidden="true">open_in_new</span>
+            {content.viewOnGoogle}
+            <span className="material-symbols-outlined text-sm">open_in_new</span>
           </a>
         </div>
 
-        {/* Custom Marker Indicator (Visual only, on top of iframe) */}
+        {/* Dynamic Indicator (Center) */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity delay-300">
-           <div className="w-12 h-12 rounded-full border border-accent/30 flex items-center justify-center animate-ping" />
+           <div className="w-16 h-16 rounded-full border border-accent/20 flex items-center justify-center animate-ping" />
         </div>
       </div>
     </div>
