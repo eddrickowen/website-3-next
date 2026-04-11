@@ -1,9 +1,13 @@
+"use client";
+
 import CountUp from "@/components/animations/CountUp";
 import StaggerContainer from "@/components/animations/StaggerContainer";
 import FadeIn from "@/components/animations/FadeIn";
 import { STATS } from "@/lib/data";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function StatsSection() {
+  const { t } = useLanguage();
   return (
     <section
       className="bg-dark-bg border-y border-white/5 relative overflow-hidden"
@@ -28,14 +32,14 @@ export default function StatsSection() {
             />
 
             <span className="label-mono text-[13px] text-accent/80 uppercase tracking-[0.2em] mb-4">
-              {stat.label}
+              {t(`home.stats.${i}.label`)}
             </span>
             <div>
               <div className="font-headline text-4xl md:text-8xl font-bold tracking-tighter text-dark-fg mb-3 leading-none">
                 <CountUp target={stat.value} duration={2000} className="tabular-nums" />
               </div>
               <div className="label-mono text-[14px] text-dark-muted/70 font-medium">
-                {stat.sub}
+                {t(`home.stats.${i}.sub`)}
               </div>
             </div>
           </FadeIn>

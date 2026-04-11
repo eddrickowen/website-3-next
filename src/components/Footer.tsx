@@ -3,13 +3,15 @@
 import Link from "next/link";
 import { COMPANY, NAV_LINKS, SERVICES } from "@/lib/data";
 import { useEnquiry } from "@/context/EnquiryContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Footer() {
   const { openEnquiry } = useEnquiry();
+  const { t } = useLanguage();
   // Show first 5 general services in footer to keep it compact
   const serviceLinks = SERVICES.filter((s) => s.type === "general")
     .slice(0, 5)
-    .map((s) => ({ name: s.title, id: s.id }));
+    .map((s, i) => ({ name: t(`home.services.items.${i}.title`), id: s.id }));
 
   return (
     <footer className="w-full bg-dark-bg text-dark-fg relative overflow-hidden">
@@ -41,7 +43,7 @@ export default function Footer() {
               PT.<span className="text-accent underline decoration-accent/20 underline-offset-8">API</span>
             </Link>
             <p className="font-sans text-[13px] text-dark-muted font-light leading-relaxed mb-8 max-w-sm">
-              {COMPANY.tagline}. A multi-decade legacy providing integrated industrial solutions for Palm Oil, Energy, and Manufacturing globally.
+              {t("footer.tagline")}. A multi-decade legacy providing integrated industrial solutions for Palm Oil, Energy, and Manufacturing globally.
             </p>
             <div className="space-y-1">
               <address className="not-italic font-sans text-[11px] text-dark-muted/40 uppercase tracking-wide">
@@ -64,27 +66,30 @@ export default function Footer() {
           {/* Navigation */}
           <div className="col-span-1 md:col-span-2 lg:col-span-2 flex flex-col pt-4 md:pt-0">
             <h3 className="label-mono text-[10px] text-accent font-bold uppercase tracking-[0.2em] mb-8 h-8 flex items-center">
-              Navigation
+              {t("footer.navigation")}
             </h3>
             <ul className="space-y-4 pt-1">
-              {NAV_LINKS.map((link) => (
-                <li key={link.name} className="h-6 flex items-center">
-                  <Link
-                    href={link.path}
-                    className="font-sans text-[13px] text-dark-muted/80 hover:text-accent transition-colors flex items-center gap-3 group"
-                  >
-                    <span className="w-2 h-[1px] bg-accent/20 group-hover:w-4 group-hover:bg-accent transition-all" />
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
+              {NAV_LINKS.map((link) => {
+                const navKey = link.name.toLowerCase();
+                return (
+                  <li key={link.name} className="h-6 flex items-center">
+                    <Link
+                      href={link.path}
+                      className="font-sans text-[13px] text-dark-muted/80 hover:text-accent transition-colors flex items-center gap-3 group"
+                    >
+                      <span className="w-2 h-[1px] bg-accent/20 group-hover:w-4 group-hover:bg-accent transition-all" />
+                      {t(`nav.${navKey}`)}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
 
           {/* Services */}
           <div className="col-span-1 md:col-span-3 lg:col-span-3 flex flex-col pt-4 md:pt-0">
             <h3 className="label-mono text-[10px] text-accent font-bold uppercase tracking-[0.2em] mb-8 h-8 flex items-center">
-              Services
+              {t("footer.services")}
             </h3>
             <ul className="space-y-4 pt-1">
               {serviceLinks.map((s) => (
@@ -102,7 +107,7 @@ export default function Footer() {
                   href="/services"
                   className="font-sans text-[11px] font-bold text-accent/50 hover:text-accent transition-colors flex items-center gap-2 group"
                 >
-                  Explore All Services
+                  {t("footer.exploreAll")}
                   <span className="material-symbols-outlined text-[14px] group-hover:translate-x-1 transition-transform" aria-hidden="true">
                     east
                   </span>
@@ -114,7 +119,7 @@ export default function Footer() {
           {/* Contact */}
           <div className="col-span-2 md:col-span-3 lg:col-span-3 flex flex-col pt-4 md:pt-0">
             <h3 className="label-mono text-[10px] text-accent font-bold uppercase tracking-[0.2em] mb-8 h-8 flex items-center">
-              Contact
+              {t("footer.contact")}
             </h3>
             <div className="space-y-5 pt-1">
               <div className="flex items-start gap-4 group">
@@ -123,7 +128,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <div className="label-mono text-[9px] text-dark-muted/40 uppercase tracking-wider mb-1.5">
-                    Phone Inquiry
+                    {t("footer.phoneInquiry")}
                   </div>
                   <div className="space-y-1.5">
                     <a
@@ -150,7 +155,7 @@ export default function Footer() {
                 </div>
                 <div>
                   <div className="label-mono text-[9px] text-dark-muted/40 uppercase tracking-wider mb-1.5">
-                    Email Support
+                    {t("footer.emailSupport")}
                   </div>
                   <a
                     href={`mailto:${COMPANY.email}`}
@@ -166,7 +171,7 @@ export default function Footer() {
                   onClick={openEnquiry}
                   className="px-6 py-3 bg-accent text-dark-bg font-sans font-black text-[10px] uppercase tracking-wider rounded-xl hover:bg-white transition-all shadow-lg shadow-accent/10"
                 >
-                  Get Quote
+                  {t("common.getQuote")}
                 </button>
               </div>
             </div>
@@ -176,14 +181,14 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-12">
           <p className="label-mono text-[9px] text-dark-muted/30 uppercase tracking-widest">
-            © {new Date().getFullYear()} {COMPANY.name} · Industrial Precision
+            © {new Date().getFullYear()} {COMPANY.name} · {t("footer.rights")}
           </p>
           <div className="flex items-center gap-8">
             <span className="label-mono text-[9px] text-dark-muted/20 uppercase tracking-widest">
-              Sumatra · Kalimantan · Java
+              {t("footer.sumatra")} · {t("footer.kalimantan")} · {t("footer.java")}
             </span>
             <span className="flex gap-4 text-dark-muted/40 text-[10px] label-mono uppercase">
-              Terms & Privacy
+              {t("footer.privacy")}
             </span>
           </div>
         </div>

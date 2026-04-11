@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import FadeIn from "@/components/animations/FadeIn";
 import ContactForm from "@/components/ui/ContactForm";
@@ -33,7 +35,10 @@ const ContactDetail = ({
   </div>
 );
 
+import { useLanguage } from "@/context/LanguageContext";
+
 export default function LeadCaptureSection() {
+  const { t } = useLanguage();
   return (
     <section
       className="py-32 bg-dark-bg relative overflow-hidden"
@@ -48,41 +53,41 @@ export default function LeadCaptureSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
           {/* Left — Info */}
           <FadeIn blur standalone direction="right">
-            <SectionLabel num="05" label="Let's Work Together" dark />
+            <SectionLabel num={t("home.lead.badge")} label={t("home.lead.label")} dark />
             <h2 className="font-headline font-bold text-dark-fg tracking-tighter leading-[0.9] mb-6"
               style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)" }}
             >
-              Start a<br />
-              <span className="text-dark-muted italic font-normal">conversation.</span>
+              {t("home.lead.title")}<br />
+              <span className="text-dark-muted italic font-normal">{t("home.lead.titleAccent")}</span>
             </h2>
             <p className="text-dark-muted font-sans text-sm mb-12 max-w-md leading-loose">
-              Whether you need spare parts, scheduled maintenance, or a complete industrial solution — our team is ready. Contact us today for a consultation.
+              {t("home.lead.desc")}
             </p>
 
             <div className="space-y-6 mb-12">
               <ContactDetail
                 icon="call"
-                label="Mobile (Primary)"
+                label={t("home.lead.phonePrimary")}
                 value={COMPANY.phone}
                 href={`tel:${COMPANY.phone.replace(/\s/g, "")}`}
               />
               {COMPANY.phone2 && (
                 <ContactDetail
                   icon="smartphone"
-                  label="Mobile (Secondary)"
+                  label={t("home.lead.phoneSecondary")}
                   value={COMPANY.phone2}
                   href={`tel:${COMPANY.phone2.replace(/\s/g, "")}`}
                 />
               )}
               <ContactDetail
                 icon="mail"
-                label="Email Enquiries"
+                label={t("home.lead.emailLabel")}
                 value={COMPANY.email}
                 href={`mailto:${COMPANY.email}`}
               />
               <ContactDetail
                 icon="location_on"
-                label="Headquarters"
+                label={t("home.lead.addressLabel")}
                 value={`${COMPANY.address.line1}, ${COMPANY.address.city}`}
               />
             </div>
@@ -91,7 +96,7 @@ export default function LeadCaptureSection() {
               href="/contact"
               className="inline-flex items-center gap-2 label-mono text-[10px] text-accent hover:gap-4 transition-all"
             >
-              Full contact page
+              {t("home.lead.fullContact")}
               <span className="material-symbols-outlined text-sm" aria-hidden="true">arrow_forward</span>
             </Link>
           </FadeIn>
@@ -110,10 +115,10 @@ export default function LeadCaptureSection() {
 
             <div className="mb-8">
               <h3 className="font-headline text-2xl font-bold text-dark-fg tracking-tight">
-                Send an Enquiry
+                {t("home.lead.formTitle")}
               </h3>
               <p className="label-mono text-[10px] text-dark-muted/50 mt-1">
-                We respond within 1 business day
+                {t("home.lead.formSub")}
               </p>
             </div>
             <ContactForm dark />

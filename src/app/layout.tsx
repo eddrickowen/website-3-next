@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Manrope } from "next/font/google";
 import "./globals.css";
 import { EnquiryProvider } from "@/context/EnquiryContext";
+import { LanguageProvider } from "@/context/LanguageContext";
+import JSONLD from "@/components/JSONLD";
 import QuickEnquiryModal from "@/components/QuickEnquiryModal";
 import SmoothScroll from "@/components/SmoothScroll";
 
@@ -63,10 +65,13 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <EnquiryProvider>
-          <SmoothScroll>{children}</SmoothScroll>
-          <QuickEnquiryModal />
-        </EnquiryProvider>
+        <LanguageProvider>
+          <EnquiryProvider>
+            <JSONLD />
+            <SmoothScroll>{children}</SmoothScroll>
+            <QuickEnquiryModal />
+          </EnquiryProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

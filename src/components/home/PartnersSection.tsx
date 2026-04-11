@@ -1,3 +1,5 @@
+"use client";
+
 import FadeIn from "@/components/animations/FadeIn";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { PARTS_BRANDS, INDUSTRIES } from "@/lib/data";
@@ -13,7 +15,21 @@ const midpoint = Math.ceil(ALL_BRANDS.length / 2);
 const ROW_1_BRANDS = [...ALL_BRANDS.slice(0, midpoint), ...ALL_BRANDS.slice(0, midpoint), ...ALL_BRANDS.slice(0, midpoint)];
 const ROW_2_BRANDS = [...ALL_BRANDS.slice(midpoint), ...ALL_BRANDS.slice(midpoint), ...ALL_BRANDS.slice(midpoint)];
 
+import { useLanguage } from "@/context/LanguageContext";
+
 export default function PartnersSection() {
+  const { t } = useLanguage();
+
+  const getIndustryKey = (name: string) => {
+    if (name.includes("Palm Oil")) return "palm_oil";
+    if (name.includes("Electronic")) return "electronic";
+    if (name.includes("Healthcare")) return "healthcare";
+    if (name.includes("Pulp")) return "pulp_paper";
+    if (name.includes("Railway")) return "railway";
+    if (name.includes("Energy")) return "energy";
+    return "";
+  };
+
   return (
     <section
       className="py-28 bg-surface-dim border-y border-outline/30 overflow-hidden relative"
@@ -22,12 +38,12 @@ export default function PartnersSection() {
       <div className="container mx-auto px-8 max-w-7xl relative z-10">
         {/* Header */}
         <FadeIn blur standalone className="text-center mb-12">
-          <SectionLabel num="03" label="Authorized Distribution" className="justify-center" />
+          <SectionLabel num={t("home.partners.badge")} label={t("home.partners.title")} className="justify-center" />
           <h2 className="font-headline text-3xl md:text-5xl font-bold text-foreground tracking-tight">
-            Premium Brands We Supply
+            {t("home.partners.subtitle")}
           </h2>
           <p className="font-sans text-sm text-foreground/60 mt-4 max-w-2xl mx-auto leading-relaxed">
-            Representing the world&apos;s most trusted industrial manufacturers. Explore our full supply catalog in the services gallery.
+            {t("home.partners.desc")}
           </p>
         </FadeIn>
       </div>
@@ -74,7 +90,7 @@ export default function PartnersSection() {
             href="/services#item-supply" 
             className="label-mono text-[10px] text-accent hover:underline decoration-accent/30 underline-offset-4 flex items-center justify-center gap-2 group"
           >
-            View Detailed Supply Catalog
+            {t("home.partners.catalog")}
             <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
           </Link>
         </div>
@@ -84,38 +100,41 @@ export default function PartnersSection() {
         {/* Industries Served Section */}
         <div className="border-t border-outline/30 pt-20">
           <FadeIn blur standalone className="text-center mb-16">
-            <SectionLabel num="04" label="Field of Expertise" className="justify-center" />
+            <SectionLabel num={t("home.partners.expertiseBadge")} label={t("home.partners.expertiseTitle")} className="justify-center" />
             <h3 className="font-headline text-3xl md:text-5xl font-bold text-foreground tracking-tight uppercase">
-              Expertise Trusted by <br className="hidden md:block" /> Leading Industries
+              {t("home.partners.expertiseSubtitle").split(" by ")[0]} <br className="hidden md:block" /> {t("home.partners.expertiseSubtitle").split(" by ").slice(1).join(" by ")}
             </h3>
           </FadeIn>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
-            {INDUSTRIES.map((ind, i) => (
-              <FadeIn
-                key={ind.name}
-                blur
-                standalone
-                delay={i * 0.05}
-                className={`flex items-center gap-4 p-6 rounded-2xl border transition-all ${
-                  ind.primary
-                    ? "bg-accent/5 border-accent/20 text-foreground"
-                    : "bg-surface border-outline/40 text-foreground/70 hover:border-accent/20"
-                }`}
-              >
-                <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${ind.primary ? "bg-accent/10" : "bg-foreground/5"}`}>
-                  <span className={`material-symbols-outlined text-[20px] ${ind.primary ? "text-accent" : "text-foreground/30"}`} aria-hidden="true">
-                    {ind.icon}
+            {INDUSTRIES.map((ind, i) => {
+              const key = getIndustryKey(ind.name);
+              return (
+                <FadeIn
+                  key={ind.name}
+                  blur
+                  standalone
+                  delay={i * 0.05}
+                  className={`flex items-center gap-4 p-6 rounded-2xl border transition-all ${
+                    ind.primary
+                      ? "bg-accent/5 border-accent/20 text-foreground"
+                      : "bg-surface border-outline/40 text-foreground/70 hover:border-accent/20"
+                  }`}
+                >
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${ind.primary ? "bg-accent/10" : "bg-foreground/5"}`}>
+                    <span className={`material-symbols-outlined text-[20px] ${ind.primary ? "text-accent" : "text-foreground/30"}`} aria-hidden="true">
+                      {ind.icon}
+                    </span>
+                  </div>
+                  <span className="font-sans text-[14px] font-bold leading-tight">
+                    {key ? t(`home.partners.industries.${key}`) : ind.name}
                   </span>
-                </div>
-                <span className="font-sans text-[14px] font-bold leading-tight">
-                  {ind.name}
-                </span>
-                {ind.primary && (
-                  <div className="ml-auto w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                )}
-              </FadeIn>
-            ))}
+                  {ind.primary && (
+                    <div className="ml-auto w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                  )}
+                </FadeIn>
+              );
+            })}
           </div>
         </div>
       </div>

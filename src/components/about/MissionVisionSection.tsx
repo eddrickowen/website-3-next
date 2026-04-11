@@ -2,8 +2,10 @@ import StaggerContainer from "@/components/animations/StaggerContainer";
 import FadeIn from "@/components/animations/FadeIn";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { MISSION_VISION } from "@/lib/data";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function MissionVisionSection() {
+  const { t } = useLanguage();
   const { mission, vision, values } = MISSION_VISION;
 
   return (
@@ -12,11 +14,11 @@ export default function MissionVisionSection() {
         {/* Header */}
         <StaggerContainer className="mb-16">
           <FadeIn blur>
-            <SectionLabel num="01" label="Core Foundations" />
+            <SectionLabel num="01" label={t("about.vision.title")} />
           </FadeIn>
           <FadeIn blur delay={0.1} className="flex flex-col md:flex-row justify-between items-end gap-8">
             <h2 className="font-headline text-4xl md:text-5xl font-bold text-foreground tracking-tight">
-              Strategic Intent
+              {t("about.vision.subtitle")}
             </h2>
             <p className="font-sans text-sm text-foreground/60 max-w-xs leading-relaxed text-right hidden md:block">
               Defining the parameters of our operational excellence through R&D and future-focused visioning.
@@ -34,14 +36,21 @@ export default function MissionVisionSection() {
               <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
                 <span className="material-symbols-outlined text-accent text-[18px]" aria-hidden="true">{mission.icon}</span>
               </div>
-              <span className="label-mono text-[10px] text-accent">Mission</span>
+              <span className="label-mono text-[10px] text-accent">{t("about.vision.missionLabel")}</span>
             </div>
             <h3 className="font-headline text-2xl font-bold text-foreground mb-5 tracking-tight">
-              {mission.title}
+              {t("about.vision.subtitle")}
             </h3>
-            <p className="text-foreground/70 font-sans text-base leading-relaxed">
-              {mission.text}
-            </p>
+            <ul className="space-y-4">
+              {(t("about.vision.mission") as unknown as string[]).map((item, idx) => (
+                <li key={idx} className="flex items-start gap-4 group/item">
+                  <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 group-hover/item:scale-125 transition-transform" />
+                  <p className="text-foreground/70 font-sans text-base leading-relaxed">
+                    {item}
+                  </p>
+                </li>
+              ))}
+            </ul>
           </FadeIn>
 
           {/* R&D Bar Card */}
@@ -81,29 +90,31 @@ export default function MissionVisionSection() {
               <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
                 <span className="material-symbols-outlined text-accent text-[18px]" aria-hidden="true">{vision.icon}</span>
               </div>
-              <span className="label-mono text-[10px] text-accent">Vision</span>
+              <span className="label-mono text-[10px] text-accent">{t("about.vision.visionLabel")}</span>
             </div>
             <h3 className="font-headline text-lg font-bold text-foreground mb-4 group-hover:text-accent transition-colors">
-              {vision.title}
+              {t("about.vision.title")}
             </h3>
             <p className="font-sans text-sm text-foreground/60 leading-relaxed">
-              {vision.text}
+              {t("about.vision.vision")}
             </p>
           </FadeIn>
 
           {/* Values Grid */}
           <FadeIn blur delay={0.15} className="md:col-span-8">
             <div className="grid grid-cols-2 gap-3 h-full">
-              {values.map((v) => (
+              {values.map((v, i) => (
                 <div
                   key={v.num}
                   className="p-6 bg-surface border border-outline/40 rounded-2xl hover:border-accent/30 hover:bg-surface-dim transition-all duration-300 group"
                 >
                   <span className="label-mono text-[10px] text-accent mb-3 block">{v.num}</span>
                   <span className="font-headline text-lg font-bold text-foreground group-hover:text-accent transition-colors block mb-2">
-                    {v.label}
+                    {t(`about.vision.values.${i}.label`)}
                   </span>
-                  <p className="font-sans text-xs text-foreground/50 leading-relaxed">{v.desc}</p>
+                  <p className="font-sans text-xs text-foreground/50 leading-relaxed">
+                    {t(`about.vision.values.${i}.desc`)}
+                  </p>
                 </div>
               ))}
             </div>

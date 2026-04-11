@@ -4,6 +4,7 @@ import HeroSection from "@/components/home/HeroSection";
 import StatsSection from "@/components/home/StatsSection";
 import ServicesPreviewSection from "@/components/home/ServicesPreviewSection";
 import PartnersSection from "@/components/home/PartnersSection";
+import ClientCarousel from "@/components/home/ClientCarousel";
 import LeadCaptureSection from "@/components/home/LeadCaptureSection";
 
 export default function Home() {
@@ -14,6 +15,7 @@ export default function Home() {
       <StatsSection />
       <ServicesPreviewSection />
       <PartnersSection />
+      <ClientCarousel />
       <LeadCaptureSection />
       <Footer />
     </main>

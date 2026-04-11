@@ -57,5 +57,5 @@ export default function SmoothScroll({
     }
   }, [pathname]);
 
-  return <>{children}</>;
+  return <div className="relative">{children}</div>;
 }

@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+"use client";
+
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/ui/PageHeader";
@@ -7,13 +8,9 @@ import StaggerContainer from "@/components/animations/StaggerContainer";
 import SectionLabel from "@/components/ui/SectionLabel";
 import ContactForm from "@/components/ui/ContactForm";
 import GlowOrb from "@/components/ui/GlowOrb";
+import InteractiveMap from "@/components/ui/InteractiveMap";
 import { COMPANY } from "@/lib/data";
-
-export const metadata: Metadata = {
-  title: "Contact",
-  description:
-    "Contact PT. Agri Prima Indotama — Reach our team for industrial service inquiries, spare parts, or consultations. Based in Medan, Sumatera Utara.",
-};
+import { useLanguage } from "@/context/LanguageContext";
 
 const InfoBlock = ({
   icon,
@@ -38,15 +35,17 @@ const InfoBlock = ({
 );
 
 export default function Contact() {
+  const { t } = useLanguage();
+
   return (
     <main id="main-content" className="min-h-screen flex flex-col">
       <Navbar />
 
       <PageHeader
-        badge="Direct Line"
-        titleTop="Initiate"
-        titleItalic="Communication"
-        description="Direct line to our team. Request spare parts quotes, schedule maintenance services, or discuss your next industrial project."
+        badge={t("contact_page.hero.badge")}
+        titleTop={t("contact_page.hero.titleTop")}
+        titleItalic={t("contact_page.hero.titleItalic")}
+        description={t("contact_page.hero.description")}
       />
 
       <section className="py-24 bg-surface flex-grow relative overflow-hidden">
@@ -66,20 +65,20 @@ export default function Contact() {
                   {/* Corner decoration */}
                   <div className="absolute top-0 right-0 w-32 h-32 bg-accent/3 rounded-bl-[100px]" aria-hidden="true" />
 
-                  <SectionLabel num="HQ" label="Medan Office" className="mb-6" />
+                  <SectionLabel num="HQ" label={t("contact_page.details.headquarters")} className="mb-6" />
                   <h2 className="font-headline text-3xl font-bold text-foreground tracking-tight mb-8">
-                    Headquarters
+                    {t("contact_page.details.title")}
                   </h2>
 
                   <div className="space-y-6 mb-10">
-                    <InfoBlock icon="location_on" label="Address">
+                    <InfoBlock icon="location_on" label={t("common.address")}>
                       {COMPANY.address.line1}<br />
                       {COMPANY.address.line2}<br />
                       {COMPANY.address.city} — {COMPANY.address.province},{" "}
                       {COMPANY.address.country}
                     </InfoBlock>
 
-                    <InfoBlock icon="call" label="Mobile (Primary)">
+                    <InfoBlock icon="call" label={t("home.lead.phonePrimary")}>
                       <a
                         href={`tel:${COMPANY.phone.replace(/\s/g, "")}`}
                         className="hover:text-accent transition-colors"
@@ -89,7 +88,7 @@ export default function Contact() {
                     </InfoBlock>
 
                     {COMPANY.phone2 && (
-                      <InfoBlock icon="smartphone" label="Mobile (Secondary)">
+                      <InfoBlock icon="smartphone" label={t("home.lead.phoneSecondary")}>
                         <a
                           href={`tel:${COMPANY.phone2.replace(/\s/g, "")}`}
                           className="hover:text-accent transition-colors"
@@ -99,7 +98,7 @@ export default function Contact() {
                       </InfoBlock>
                     )}
 
-                    <InfoBlock icon="mail" label="Email">
+                    <InfoBlock icon="mail" label={t("common.email")}>
                       <a
                         href={`mailto:${COMPANY.email}`}
                         className="hover:text-accent transition-colors"
@@ -109,37 +108,25 @@ export default function Contact() {
                     </InfoBlock>
                   </div>
 
-                  {/* Map link */}
-                  <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${COMPANY.address.line1}, ${COMPANY.address.line2}, ${COMPANY.address.city}, ${COMPANY.address.province}`)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group w-full h-48 bg-surface-dim border border-outline/40 hover:border-accent/40 rounded-2xl overflow-hidden flex items-center justify-center relative transition-colors"
-                    aria-label="View office location on Google Maps"
-                  >
-                    <div className="blueprint-grid absolute inset-0 opacity-30" aria-hidden="true" />
-                    <div className="absolute inset-0 bg-accent/0 group-hover:bg-accent/[0.03] transition-colors" />
-                    <div className="relative z-10 text-center">
-                      <span className="material-symbols-outlined text-3xl text-foreground/20 group-hover:text-accent/50 block mb-2 transition-colors" aria-hidden="true">
-                        map
-                      </span>
-                      <span className="label-mono text-[10px] text-foreground/30 group-hover:text-accent/60 transition-colors block">
-                        Petisah Tengah, Medan
-                      </span>
-                      <span className="label-mono text-[9px] text-foreground/20 group-hover:text-accent/40 transition-colors mt-1 block">
-                        Open in Google Maps →
-                      </span>
+                  {/* Interactive Map */}
+                  <div className="mt-10">
+                    <div className="mb-4">
+                      <span className="label-mono text-[9px] text-accent uppercase tracking-widest block mb-1">{t("contact_page.map.label")}</span>
+                      <p className="font-headline text-lg font-bold text-foreground">{t("contact_page.map.title")}</p>
+                      <p className="font-sans text-xs text-foreground/50 mt-1">{t("contact_page.map.desc")}</p>
                     </div>
-                  </a>
+                    <InteractiveMap className="h-64 sm:h-80" />
+                  </div>
 
                   {/* Operating info */}
                   <div className="mt-8 pt-6 border-t border-outline/30 grid grid-cols-2 gap-4">
                     <div>
                       <div className="label-mono text-[9px] text-foreground/40 mb-1">
-                        Business Hours
+                        {t("contact_page.details.hours")}
                       </div>
                       <div className="font-sans text-sm text-foreground">
-                        Mon–Fri 08:00–17:00
+                        {t("contact_page.details.monFri")}<br />
+                        {t("contact_page.details.sat")}
                       </div>
                     </div>
                     <div>
@@ -161,10 +148,10 @@ export default function Contact() {
                 <div className="bg-background rounded-3xl border border-outline/40 p-10 relative overflow-hidden h-full flex flex-col">
                   <div className="mb-8">
                     <h2 className="font-headline text-3xl font-bold text-foreground tracking-tight">
-                      Send an Enquiry
+                      {t("home.lead.formTitle")}
                     </h2>
                     <p className="label-mono text-[10px] text-foreground/40 mt-1">
-                      Response within 1 business day
+                      {t("home.lead.formSub")}
                     </p>
                   </div>
                   <ContactForm />

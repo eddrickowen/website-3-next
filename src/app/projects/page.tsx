@@ -7,51 +7,57 @@ import PageHeader from "@/components/ui/PageHeader";
 import FadeIn from "@/components/animations/FadeIn";
 import StaggerContainer from "@/components/animations/StaggerContainer";
 import { PROJECTS, SERVICES } from "@/lib/data";
+import { useLanguage } from "@/context/LanguageContext";
 
 const MONTH_ORDER = [
   "January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December",
 ];
 
-// Only general-type services have associated projects
-const SECTORS = [
-  { id: "all", label: "All" },
-  ...SERVICES.filter((s) => s.type === "general").map((s) => {
-    // Better shorthand logic for industrial terms
-    let label = s.title;
-    if (s.id === "mec-civil") label = "M&E / Civil";
-    else if (s.id === "chiller") label = "Chiller Srv";
-    else if (s.id === "phe") label = "PHE Service";
-    else if (s.id === "boiler") label = "Boiler Srv";
-    else if (s.id === "palm-oil") label = "Palm Oil";
-    else label = s.title.split(" ").slice(0, 2).join(" ").replace("&", "").trim();
-    
-    return {
-      id: s.id,
-      label: label,
-    };
-  }),
-];
-
-const CATEGORY_LABELS: Record<string, string> = Object.fromEntries(
-  SERVICES.map((s) => [s.id, s.category])
-);
-
-const CATEGORY_ICONS: Record<string, string> = Object.fromEntries(
-  SERVICES.map((s) => [s.id, s.icon])
-);
-
 export default function Projects() {
+  const { t, language } = useLanguage();
   const [activeYear, setActiveYear] = useState("All Years");
   const [activeMonth, setActiveMonth] = useState("All Months");
   const [activeSector, setActiveSector] = useState("all");
   const [showMore, setShowMore] = useState(false);
 
+  // Sector labels based on language
+  const SECTORS = useMemo(() => {
+    return [
+      { id: "all", label: t("projects_page.filters.all") },
+      ...SERVICES.filter((s) => s.type === "general").map((s) => {
+        let label = s.title;
+        if (s.id === "mec-civil") label = "M&E / Civil";
+        else if (s.id === "chiller") label = "Chiller Srv";
+        else if (s.id === "phe") label = "PHE Service";
+        else if (s.id === "boiler") label = "Boiler Srv";
+        else if (s.id === "palm-oil") label = "Palm Oil";
+        else label = s.title.split(" ").slice(0, 2).join(" ").replace("&", "").trim();
+        
+        return {
+          id: s.id,
+          label: label,
+        };
+      }),
+    ];
+  }, [t]);
+
+  const CATEGORY_LABELS: Record<string, string> = useMemo(() => 
+    Object.fromEntries(SERVICES.map((s, i) => [s.id, t(`home.services.items.${i}.category`)])),
+    [t]
+  );
+
+  const CATEGORY_ICONS: Record<string, string> = useMemo(() => 
+    Object.fromEntries(SERVICES.map((s) => [s.id, s.icon])),
+    []
+  );
+
   // Static year list — all years in the dataset, newest first
   const yearsList = useMemo(() => {
     const years = Array.from(new Set(PROJECTS.filter(p => p.type === "work").map(p => p.year)));
+    const allLabel = activeYear === "All Years" ? (language === "id" ? "Semua Tahun" : "All Years") : "All Years";
     return ["All Years", ...years.sort((a, b) => Number(b) - Number(a))];
-  }, []);
+  }, [activeYear, language]);
 
   // Helper: check if a given (year, month, sector) combo has any projects
   const hasProjects = (year: string, month: string, sector: string) =>
@@ -115,7 +121,6 @@ export default function Projects() {
 
   const handleMonthChange = (month: string) => {
     const next = activeMonth === month ? "All Months" : month;
-    // If current sector conflicts with the new month, reset sector
     if (next !== "All Months" && activeSector !== "all") {
       if (!hasProjects(activeYear, next, activeSector)) {
         setActiveSector("all");
@@ -127,7 +132,6 @@ export default function Projects() {
 
   const handleSectorChange = (sectorId: string) => {
     const next = activeSector === sectorId ? "all" : sectorId;
-    // If current month conflicts with the new sector, reset month
     if (next !== "all" && activeMonth !== "All Months") {
       if (!hasProjects(activeYear, activeMonth, next)) {
         setActiveMonth("All Months");
@@ -142,10 +146,10 @@ export default function Projects() {
       <Navbar />
 
       <PageHeader
-        badge="Project Gallery"
-        titleTop="Work"
-        titleItalic="History"
-        description="A full-context track record of our industrial project executions. Explore our engineering triumphs across 30 years of industrial excellence."
+        badge={t("projects_page.hero.badge")}
+        titleTop={t("projects_page.hero.titleTop")}
+        titleItalic={t("projects_page.hero.titleItalic")}
+        description={t("projects_page.hero.description")}
       />
 
       <section className="py-12 md:py-24 bg-surface flex-grow">
@@ -156,7 +160,7 @@ export default function Projects() {
 
             {/* Year Filter */}
             <div role="group" aria-labelledby="filter-year-label" className="flex-1 pb-6 lg:pb-0 lg:pr-8">
-              <p id="filter-year-label" className="label-mono text-[10px] text-foreground/40 mb-2 md:mb-4 block uppercase tracking-widest">Year</p>
+              <p id="filter-year-label" className="label-mono text-[10px] text-foreground/40 mb-2 md:mb-4 block uppercase tracking-widest">{language === "id" ? "Tahun" : "Year"}</p>
               <div className="flex flex-wrap gap-2">
                 {yearsList.map(year => (
                   <button
@@ -168,7 +172,7 @@ export default function Projects() {
                         : "bg-surface border-outline/30 text-foreground/50 hover:border-accent/30"
                       }`}
                   >
-                    {year}
+                    {year === "All Years" ? (language === "id" ? "Semua" : "All") : year}
                   </button>
                 ))}
               </div>
@@ -176,7 +180,7 @@ export default function Projects() {
 
             {/* Month Filter */}
             <div role="group" aria-labelledby="filter-month-label" className="flex-[1.5] py-6 lg:py-0 lg:px-8">
-              <p id="filter-month-label" className="label-mono text-[10px] text-foreground/40 mb-2 md:mb-4 block uppercase tracking-widest">Month</p>
+              <p id="filter-month-label" className="label-mono text-[10px] text-foreground/40 mb-2 md:mb-4 block uppercase tracking-widest">{language === "id" ? "Bulan" : "Month"}</p>
               <div className="flex flex-wrap gap-2">
                 {["All Months", ...MONTH_ORDER].map(month => {
                   const isActive = activeMonth === month;
@@ -194,7 +198,7 @@ export default function Projects() {
                             : "bg-surface/50 border-outline/10 text-foreground/15 cursor-default"
                       }`}
                     >
-                      {month === "All Months" ? "All" : month.substring(0, 3)}
+                      {month === "All Months" ? (language === "id" ? "Semua" : "All") : month.substring(0, 3)}
                     </button>
                   );
                 })}
@@ -203,7 +207,7 @@ export default function Projects() {
 
             {/* Sector Filter */}
             <div role="group" aria-labelledby="filter-sector-label" className="flex-1 pt-6 lg:pt-0 lg:pl-8">
-              <p id="filter-sector-label" className="label-mono text-[10px] text-foreground/40 mb-2 md:mb-4 block uppercase tracking-widest">Sector</p>
+              <p id="filter-sector-label" className="label-mono text-[10px] text-foreground/40 mb-2 md:mb-4 block uppercase tracking-widest">{language === "id" ? "Kategori" : "Sector"}</p>
               <div className="flex flex-wrap gap-2">
                 {SECTORS.map(s => {
                   const isActive = activeSector === s.id;
@@ -241,7 +245,7 @@ export default function Projects() {
                 className="label-mono text-[10px] text-accent hover:underline uppercase tracking-tighter flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-accent/50 rounded"
               >
                 <span className="material-symbols-outlined text-sm" aria-hidden="true">filter_alt_off</span>
-                Clear All Filters
+                {language === "id" ? "Hapus Semua Filter" : "Clear All Filters"}
               </button>
             )}
           </div>
@@ -315,7 +319,7 @@ export default function Projects() {
                     onClick={() => setShowMore(true)}
                     className="px-10 py-4 bg-foreground text-background rounded-full font-sans font-bold text-xs hover:bg-accent hover:text-dark-bg transition-all shadow-lg hover:shadow-accent/20 focus:outline-none focus:ring-2 focus:ring-accent/50"
                   >
-                    Show All Filtered Projects
+                    {language === "id" ? "Tampilkan Semua Proyek Terfilter" : "Show All Filtered Projects"}
                   </button>
                 </div>
               )}
@@ -323,13 +327,17 @@ export default function Projects() {
           ) : (
             <div className="py-24 md:py-32 text-center border-2 border-dashed border-outline/20 rounded-[40px] px-8">
               <span className="material-symbols-outlined text-6xl text-foreground/10 mb-4 scale-150" aria-hidden="true">search_off</span>
-              <h3 className="font-headline text-xl md:text-2xl font-bold text-foreground/60 mb-2">No projects found for the selected filters.</h3>
-              <p className="font-sans text-xs md:text-sm text-foreground/40">Try adjusting your year, month, or sector criteria.</p>
+              <h3 className="font-headline text-xl md:text-2xl font-bold text-foreground/60 mb-2">
+                {language === "id" ? "Tidak ada proyek ditemukan untuk filter yang dipilih." : "No projects found for the selected filters."}
+              </h3>
+              <p className="font-sans text-xs md:text-sm text-foreground/40">
+                {language === "id" ? "Coba sesuaikan kriteria tahun, bulan, atau sektor Anda." : "Try adjusting your year, month, or sector criteria."}
+              </p>
               <button
                 onClick={() => handleYearChange("All Years")}
                 className="mt-8 px-8 py-3 bg-foreground text-background rounded-full font-sans font-bold text-xs hover:bg-accent hover:text-dark-bg transition-colors focus:outline-none focus:ring-2 focus:ring-accent/50"
               >
-                Reset All Filters
+                {language === "id" ? "Reset Semua Filter" : "Reset All Filters"}
               </button>
             </div>
           )}

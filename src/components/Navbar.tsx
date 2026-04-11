@@ -6,12 +6,14 @@ import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { NAV_LINKS, COMPANY } from "@/lib/data";
 import { useEnquiry } from "@/context/EnquiryContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname() || "/";
   const { openEnquiry } = useEnquiry();
+  const { language, setLanguage, t } = useLanguage();
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -77,10 +79,10 @@ export default function Navbar() {
         aria-label="Main navigation"
       >
         <div
-          className={`pointer-events-auto flex items-center justify-between gap-8 px-3 md:px-5 py-3 transition-all duration-500 ${
+          className={`pointer-events-auto flex items-center justify-between gap-4 md:gap-8 px-3 md:px-5 py-3 transition-all duration-500 ${
             scrolled
-              ? "glass-dark shadow-2xl shadow-black/30 rounded-full w-[min(740px,calc(100vw-1.5rem))]"
-              : "glass-dark rounded-full w-[min(740px,calc(100vw-1.5rem))]"
+              ? "glass-dark shadow-2xl shadow-black/30 rounded-full w-fit max-w-[calc(100vw-1.5rem)] mx-auto"
+              : "glass-dark rounded-full w-fit max-w-[calc(100vw-1.5rem)] mx-auto"
           }`}
         >
           {/* Logo */}
@@ -100,14 +102,14 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.path}
-                  className={`relative px-4 py-2 rounded-full label-mono text-[10px] transition-all ${
+                  className={`relative px-4 py-2 rounded-full label-mono text-[10px] whitespace-nowrap transition-all ${
                     isActive
                       ? "text-accent bg-accent/10"
                       : "text-dark-fg/60 hover:text-dark-fg hover:bg-white/5"
                   }`}
                   aria-current={isActive ? "page" : undefined}
                 >
-                  {link.name}
+                  {t(`nav.${link.name.toLowerCase()}`)}
                   {isActive && (
                     <motion.span
                       layoutId="nav-indicator"
@@ -126,8 +128,24 @@ export default function Navbar() {
               onClick={openEnquiry}
               className="hidden md:flex items-center gap-2 px-4 py-2 bg-accent text-dark-bg font-sans font-bold text-xs tracking-wide rounded-full hover:bg-accent/90 active:scale-[0.97] transition-all focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-bg"
             >
-              Get Quote
+              {t("common.getQuote")}
             </button>
+
+            {/* Language Toggle Desktop */}
+            <div className="hidden md:flex items-center bg-white/5 border border-white/10 rounded-full p-1 self-stretch">
+              <button
+                onClick={() => setLanguage("en")}
+                className={`px-3 py-1 rounded-full text-[9px] font-bold transition-all ${language === "en" ? "bg-accent text-dark-bg" : "text-dark-fg/40 hover:text-dark-fg"}`}
+              >
+                EN
+              </button>
+              <button
+                onClick={() => setLanguage("id")}
+                className={`px-3 py-1 rounded-full text-[9px] font-bold transition-all ${language === "id" ? "bg-accent text-dark-bg" : "text-dark-fg/40 hover:text-dark-fg"}`}
+              >
+                ID
+              </button>
+            </div>
 
             {/* Mobile Hamburger */}
             <button
@@ -153,6 +171,14 @@ export default function Navbar() {
                 transition={{ duration: 0.3 }}
                 className="block w-4 h-[1.5px] bg-dark-fg origin-center"
               />
+            </button>
+
+            {/* Language Switcher Mobile (Small) */}
+            <button
+              onClick={() => setLanguage(language === "en" ? "id" : "en")}
+              className="md:hidden w-11 h-11 flex items-center justify-center rounded-full border border-white/10 text-[10px] font-bold text-accent"
+            >
+              {language.toUpperCase()}
             </button>
           </div>
         </div>
@@ -193,7 +219,7 @@ export default function Navbar() {
                           isActive ? "text-accent" : "text-dark-fg/70 hover:text-dark-fg"
                         }`}
                       >
-                        {link.name}
+                        {t(`nav.${link.name.toLowerCase()}`)}
                       </Link>
                     </motion.div>
                   );
@@ -209,7 +235,7 @@ export default function Navbar() {
                   onClick={() => { setMenuOpen(false); openEnquiry(); }}
                   className="flex items-center justify-center w-full py-4 bg-accent text-dark-bg font-headline font-bold text-base tracking-wide rounded-2xl hover:bg-accent/90 transition-all focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-bg"
                 >
-                  Get a Quote
+                  {t("common.getQuote")}
                 </button>
                 <p className="label-mono text-[10px] text-dark-muted text-center">
                   {COMPANY.phone} · {COMPANY.email}
