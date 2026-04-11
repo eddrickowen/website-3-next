@@ -2,10 +2,14 @@ import StaggerContainer from "@/components/animations/StaggerContainer";
 import FadeIn from "@/components/animations/FadeIn";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { MISSION_VISION } from "@/lib/data";
-import { useLanguage } from "@/context/LanguageContext";
+import { Dictionary } from "@/types/dictionary";
 
-export default function MissionVisionSection() {
-  const { t } = useLanguage();
+interface MissionVisionSectionProps {
+  content: Dictionary["about"]["visionSection"];
+  common: Dictionary["common"];
+}
+
+export default function MissionVisionSection({ content }: MissionVisionSectionProps) {
   const { mission, vision, values } = MISSION_VISION;
 
   return (
@@ -14,11 +18,11 @@ export default function MissionVisionSection() {
         {/* Header */}
         <StaggerContainer className="mb-16">
           <FadeIn blur>
-            <SectionLabel num="01" label={t("about.vision.title")} />
+            <SectionLabel num="01" label={content.title} />
           </FadeIn>
           <FadeIn blur delay={0.1} className="flex flex-col md:flex-row justify-between items-end gap-8">
             <h2 className="font-headline text-4xl md:text-5xl font-bold text-foreground tracking-tight">
-              {t("about.vision.subtitle")}
+              {content.subtitle}
             </h2>
             <p className="font-sans text-sm text-foreground/60 max-w-xs leading-relaxed text-right hidden md:block">
               Defining the parameters of our operational excellence through R&D and future-focused visioning.
@@ -36,13 +40,13 @@ export default function MissionVisionSection() {
               <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
                 <span className="material-symbols-outlined text-accent text-[18px]" aria-hidden="true">{mission.icon}</span>
               </div>
-              <span className="label-mono text-[10px] text-accent">{t("about.vision.missionLabel")}</span>
+              <span className="label-mono text-[10px] text-accent">{content.missionLabel}</span>
             </div>
             <h3 className="font-headline text-2xl font-bold text-foreground mb-5 tracking-tight">
-              {t("about.vision.subtitle")}
+              {content.subtitle}
             </h3>
             <ul className="space-y-4">
-              {(t("about.vision.mission") as unknown as string[]).map((item, idx) => (
+              {content.mission.map((item, idx) => (
                 <li key={idx} className="flex items-start gap-4 group/item">
                   <div className="w-1.5 h-1.5 rounded-full bg-accent mt-2 group-hover/item:scale-125 transition-transform" />
                   <p className="text-foreground/70 font-sans text-base leading-relaxed">
@@ -90,13 +94,13 @@ export default function MissionVisionSection() {
               <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
                 <span className="material-symbols-outlined text-accent text-[18px]" aria-hidden="true">{vision.icon}</span>
               </div>
-              <span className="label-mono text-[10px] text-accent">{t("about.vision.visionLabel")}</span>
+              <span className="label-mono text-[10px] text-accent">{content.visionLabel}</span>
             </div>
             <h3 className="font-headline text-lg font-bold text-foreground mb-4 group-hover:text-accent transition-colors">
-              {t("about.vision.title")}
+              {content.title}
             </h3>
             <p className="font-sans text-sm text-foreground/60 leading-relaxed">
-              {t("about.vision.vision")}
+              {content.vision}
             </p>
           </FadeIn>
 
@@ -110,10 +114,10 @@ export default function MissionVisionSection() {
                 >
                   <span className="label-mono text-[10px] text-accent mb-3 block">{v.num}</span>
                   <span className="font-headline text-lg font-bold text-foreground group-hover:text-accent transition-colors block mb-2">
-                    {t(`about.vision.values.${i}.label`)}
+                    {content.values[i].label}
                   </span>
                   <p className="font-sans text-xs text-foreground/50 leading-relaxed">
-                    {t(`about.vision.values.${i}.desc`)}
+                    {content.values[i].desc}
                   </p>
                 </div>
               ))}

@@ -3,11 +3,13 @@
 import CountUp from "@/components/animations/CountUp";
 import StaggerContainer from "@/components/animations/StaggerContainer";
 import FadeIn from "@/components/animations/FadeIn";
-import { STATS } from "@/lib/data";
-import { useLanguage } from "@/context/LanguageContext";
+import { Dictionary } from "@/types/dictionary";
 
-export default function StatsSection() {
-  const { t } = useLanguage();
+interface StatsSectionProps {
+  stats: Dictionary["home"]["stats"];
+}
+
+export default function StatsSection({ stats }: StatsSectionProps) {
   return (
     <section
       className="bg-dark-bg border-y border-white/5 relative overflow-hidden"
@@ -20,10 +22,10 @@ export default function StatsSection() {
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-accent/30 to-transparent" aria-hidden="true" />
 
       <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 divide-x divide-white/5 relative z-10">
-        {STATS.map((stat, i) => (
+        {stats.map((stat, i) => (
           <FadeIn
             key={i}
-            className="group relative px-8 md:px-12 py-16 md:py-24 flex flex-col justify-center items-center text-center hover:bg-white/[0.01] transition-colors"
+            className="group relative px-8 md:px-12 py-16 md:py-24 flex flex-col justify-center items-center text-center hover:bg-white/[0.01] transition-all"
           >
             {/* Hover glow accent */}
             <div
@@ -32,14 +34,14 @@ export default function StatsSection() {
             />
 
             <span className="label-mono text-[13px] text-accent/80 uppercase tracking-[0.2em] mb-4">
-              {t(`home.stats.${i}.label`)}
+              {stat.label}
             </span>
             <div>
               <div className="font-headline text-4xl md:text-8xl font-bold tracking-tighter text-dark-fg mb-3 leading-none">
                 <CountUp target={stat.value} duration={2000} className="tabular-nums" />
               </div>
               <div className="label-mono text-[14px] text-dark-muted/70 font-medium">
-                {t(`home.stats.${i}.sub`)}
+                {stat.sub}
               </div>
             </div>
           </FadeIn>

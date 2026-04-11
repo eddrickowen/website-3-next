@@ -1,13 +1,15 @@
 "use client";
 
 import { CLIENT_LOGOS } from "@/lib/data";
-import { useLanguage } from "@/context/LanguageContext";
 import FadeIn from "@/components/animations/FadeIn";
 import SectionLabel from "@/components/ui/SectionLabel";
+import { Dictionary } from "@/types/dictionary";
 
-export default function ClientCarousel() {
-  const { t } = useLanguage();
+interface ClientCarouselProps {
+  content: Dictionary["home"]["clients"];
+}
 
+export default function ClientCarousel({ content }: ClientCarouselProps) {
   // Divide clients into two rows for a dense marquee look - Triple segments for perfect infinite loop
   const midpoint = Math.ceil(CLIENT_LOGOS.length / 2);
   const row1 = [...CLIENT_LOGOS.slice(0, midpoint), ...CLIENT_LOGOS.slice(0, midpoint), ...CLIENT_LOGOS.slice(0, midpoint)];
@@ -19,13 +21,13 @@ export default function ClientCarousel() {
         <FadeIn blur standalone>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <div>
-              <SectionLabel num="20+" label={t("home.partners.clients")} className="mb-4" />
+              <SectionLabel num="20+" label={content.title} className="mb-4" />
               <h2 className="font-headline text-2xl md:text-4xl font-bold text-foreground tracking-tight">
-                {t("home.partners.trustedBy")}
+                {content.trustedBy}
               </h2>
             </div>
             <p className="font-sans text-sm text-foreground/40 max-w-sm leading-relaxed">
-              {t("home.partners.clientDesc")}
+              {content.desc}
             </p>
           </div>
         </FadeIn>

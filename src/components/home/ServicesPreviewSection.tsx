@@ -5,13 +5,17 @@ import FadeIn from "@/components/animations/FadeIn";
 import SectionLabel from "@/components/ui/SectionLabel";
 import Link from "next/link";
 import { SERVICES } from "@/lib/data";
-import { useLanguage } from "@/context/LanguageContext";
+import { Dictionary } from "@/types/dictionary";
 
-// Show first 3 services as preview
-const previewServices = SERVICES.slice(0, 3);
+interface ServicesPreviewSectionProps {
+  language: "en" | "id";
+  content: Dictionary["home"]["servicesPreview"];
+  services: Dictionary["services"];
+}
 
-export default function ServicesPreviewSection() {
-  const { t } = useLanguage();
+export default function ServicesPreviewSection({ language, content, services }: ServicesPreviewSectionProps) {
+  // Show first 3 services as preview
+  const previewServices = services.items.slice(0, 3);
   return (
     <section className="py-32 bg-background relative" aria-label="Services preview">
       <div className="container mx-auto px-8 max-w-7xl">
@@ -19,26 +23,26 @@ export default function ServicesPreviewSection() {
         <StaggerContainer className="flex flex-col md:flex-row justify-between items-end mb-12 md:mb-20 gap-8">
           <div className="max-w-2xl pb-4">
             <FadeIn blur>
-              <SectionLabel num={t("home.services.badge")} label={t("home.services.title")} className="mb-4 md:mb-6" />
+              <SectionLabel num={content.badge} label={content.title} className="mb-4 md:mb-6" />
             </FadeIn>
             <FadeIn blur delay={0.1}>
               <h2 className="font-headline font-bold text-foreground tracking-tighter leading-[0.9]"
                 style={{ fontSize: "clamp(2.5rem, 8vw, 5.5rem)" }}
               >
-                {t("home.services.subtitle").split(" ")[0]}<br />
-                <span className="text-foreground/35 italic font-normal">{t("home.services.subtitle").split(" ").slice(1).join(" ")}</span>
+                {content.subtitle.split(" ")[0]}<br />
+                <span className="text-foreground/35 italic font-normal">{content.subtitle.split(" ").slice(1).join(" ")}</span>
               </h2>
             </FadeIn>
           </div>
           <FadeIn blur delay={0.2} className="md:text-right shrink-0 self-end mb-6">
             <p className="text-foreground/60 mb-6 max-w-xs md:ml-auto font-sans text-sm leading-relaxed">
-              {t("home.services.desc")}
+              {content.desc}
             </p>
             <Link
-              href="/services"
+              href={`/${language}/services`}
               className="inline-flex items-center gap-2 font-sans text-xs font-bold uppercase tracking-widest hover:gap-5 transition-all text-foreground/80 hover:text-foreground group"
             >
-              {t("home.services.allServices")}
+              {content.allServices}
               <span className="material-symbols-outlined text-base group-hover:text-accent transition-colors" aria-hidden="true">arrow_forward</span>
             </Link>
           </FadeIn>
@@ -47,8 +51,7 @@ export default function ServicesPreviewSection() {
         {/* Service Cards — Bento Grid */}
         <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {previewServices.map((srv, i) => {
-            const translatedFeatures = t(`home.services.items.${i}.features`) as unknown as string[];
-            const displayFeatures = Array.isArray(translatedFeatures) ? translatedFeatures.slice(0, 3) : srv.features.slice(0, 3);
+            const displayFeatures = srv.features.slice(0, 3);
 
             return (
               <FadeIn
@@ -73,17 +76,17 @@ export default function ServicesPreviewSection() {
 
                 {/* Category */}
                 <span className="label-mono text-[10px] text-foreground/40 mb-3">
-                  {t(`home.services.items.${i}.category`)}
+                  {srv.category}
                 </span>
 
                 {/* Title */}
                 <h3 className="font-headline text-2xl font-bold text-foreground tracking-tight mb-4 group-hover:text-accent transition-colors">
-                  {t(`home.services.items.${i}.title`)}
+                  {srv.title}
                 </h3>
 
                 {/* Description */}
                 <p className="text-foreground/60 font-sans text-sm leading-relaxed mb-8 flex-1">
-                  {t(`home.services.items.${i}.desc`)}
+                  {srv.shortDesc}
                 </p>
 
                 {/* Feature list */}

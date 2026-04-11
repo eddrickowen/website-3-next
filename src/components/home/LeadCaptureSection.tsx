@@ -6,6 +6,7 @@ import ContactForm from "@/components/ui/ContactForm";
 import GlowOrb from "@/components/ui/GlowOrb";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { COMPANY } from "@/lib/data";
+import { Dictionary } from "@/types/dictionary";
 
 const ContactDetail = ({
   icon,
@@ -35,10 +36,15 @@ const ContactDetail = ({
   </div>
 );
 
-import { useLanguage } from "@/context/LanguageContext";
+interface LeadCaptureSectionProps {
+  content: Dictionary["home"]["lead"];
+  servicesContent: Dictionary["services"];
+}
 
-export default function LeadCaptureSection() {
-  const { t } = useLanguage();
+export default function LeadCaptureSection({ content, servicesContent }: LeadCaptureSectionProps) {
+  // We can derive language from context if needed for the link, or just use relative paths
+  // Since we are in [locale] layout, relative paths like "contact" work fine.
+
   return (
     <section
       className="py-32 bg-dark-bg relative overflow-hidden"
@@ -53,50 +59,50 @@ export default function LeadCaptureSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
           {/* Left — Info */}
           <FadeIn blur standalone direction="right">
-            <SectionLabel num={t("home.lead.badge")} label={t("home.lead.label")} dark />
+            <SectionLabel num={content.badge} label={content.label} dark />
             <h2 className="font-headline font-bold text-dark-fg tracking-tighter leading-[0.9] mb-6"
               style={{ fontSize: "clamp(2.5rem, 5vw, 4.5rem)" }}
             >
-              {t("home.lead.title")}<br />
-              <span className="text-dark-muted italic font-normal">{t("home.lead.titleAccent")}</span>
+              {content.title}<br />
+              <span className="text-dark-muted italic font-normal">{content.titleAccent}</span>
             </h2>
             <p className="text-dark-muted font-sans text-sm mb-12 max-w-md leading-loose">
-              {t("home.lead.desc")}
+              {content.desc}
             </p>
 
             <div className="space-y-6 mb-12">
               <ContactDetail
                 icon="call"
-                label={t("home.lead.phonePrimary")}
+                label={content.phonePrimary}
                 value={COMPANY.phone}
                 href={`tel:${COMPANY.phone.replace(/\s/g, "")}`}
               />
               {COMPANY.phone2 && (
                 <ContactDetail
                   icon="smartphone"
-                  label={t("home.lead.phoneSecondary")}
+                  label={content.phoneSecondary}
                   value={COMPANY.phone2}
                   href={`tel:${COMPANY.phone2.replace(/\s/g, "")}`}
                 />
               )}
               <ContactDetail
                 icon="mail"
-                label={t("home.lead.emailLabel")}
+                label={content.emailLabel}
                 value={COMPANY.email}
                 href={`mailto:${COMPANY.email}`}
               />
               <ContactDetail
                 icon="location_on"
-                label={t("home.lead.addressLabel")}
+                label={content.addressLabel}
                 value={`${COMPANY.address.line1}, ${COMPANY.address.city}`}
               />
             </div>
 
             <Link
-              href="/contact"
+              href="contact"
               className="inline-flex items-center gap-2 label-mono text-[10px] text-accent hover:gap-4 transition-all"
             >
-              {t("home.lead.fullContact")}
+              {content.fullContact}
               <span className="material-symbols-outlined text-sm" aria-hidden="true">arrow_forward</span>
             </Link>
           </FadeIn>
@@ -114,14 +120,14 @@ export default function LeadCaptureSection() {
             <div className="absolute -bottom-px -right-px w-16 h-16 border-b border-r border-accent/30 rounded-br-3xl pointer-events-none" aria-hidden="true" />
 
             <div className="mb-8">
-              <h3 className="font-headline text-2xl font-bold text-dark-fg tracking-tight">
-                {t("home.lead.formTitle")}
+              <h3 className="font-headline text-2xl font-bold text-dark-fg tracking-tight" id="lead-form-title">
+                {content.formTitle}
               </h3>
               <p className="label-mono text-[10px] text-dark-muted/50 mt-1">
-                {t("home.lead.formSub")}
+                {content.formSub}
               </p>
             </div>
-            <ContactForm dark />
+            <ContactForm dark content={content} servicesContent={servicesContent} />
           </FadeIn>
         </div>
       </div>

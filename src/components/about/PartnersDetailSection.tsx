@@ -1,9 +1,16 @@
+"use client";
+
 import StaggerContainer from "@/components/animations/StaggerContainer";
 import FadeIn from "@/components/animations/FadeIn";
 import SectionLabel from "@/components/ui/SectionLabel";
 import { PARTNERS } from "@/lib/data";
+import { Dictionary } from "@/types/dictionary";
 
-export default function PartnersDetailSection() {
+interface PartnersDetailSectionProps {
+  partners: Dictionary["about"]["partners"];
+}
+
+export default function PartnersDetailSection({ partners }: PartnersDetailSectionProps) {
   return (
     <section className="py-32 bg-dark-bg relative overflow-hidden" aria-label="Partner details">
       <div className="blueprint-grid-dark absolute inset-0 opacity-20" aria-hidden="true" />
@@ -31,45 +38,50 @@ export default function PartnersDetailSection() {
         </StaggerContainer>
 
         <StaggerContainer className="space-y-4">
-          {PARTNERS.map((partner, i) => (
-            <FadeIn
-              key={partner.name}
-              blur
-              delay={i * 0.06}
-              className="group flex flex-col md:flex-row md:items-center gap-6 p-8 bg-dark-surface border border-white/5 hover:border-accent/20 rounded-2xl hover:shadow-[0_4px_30px_rgba(62,207,142,0.06)] transition-all duration-400"
-            >
-              {/* Flag + Number */}
-              <div className="flex items-center gap-5 md:w-20 shrink-0">
-                <span className="text-3xl" aria-hidden="true">{partner.flag}</span>
-              </div>
-
-              {/* Name + Badge */}
-              <div className="md:w-64 shrink-0">
-                <h3 className="font-headline text-xl font-bold text-dark-fg tracking-tight group-hover:text-accent transition-colors">
-                  {partner.name}
-                </h3>
-                <span className="label-mono text-[9px] text-accent mt-1 block">
-                  {partner.role}
-                </span>
-              </div>
-
-              {/* Divider */}
-              <div className="hidden md:block w-[1px] h-10 bg-white/8 self-center" aria-hidden="true" />
-
-              {/* Description */}
-              <p className="font-sans text-sm text-dark-muted leading-relaxed flex-1">
-                {partner.desc}
-              </p>
-
-              {/* Arrow */}
-              <span
-                className="material-symbols-outlined text-dark-muted/20 group-hover:text-accent group-hover:translate-x-2 transition-all hidden md:block"
-                aria-hidden="true"
+          {partners.map((partner, i) => {
+            // Match with localized data using name or index
+            const rawPartner = PARTNERS[i];
+            
+            return (
+              <FadeIn
+                key={partner.name}
+                blur
+                delay={i * 0.06}
+                className="group flex flex-col md:flex-row md:items-center gap-6 p-8 bg-dark-surface border border-white/5 hover:border-accent/20 rounded-2xl hover:shadow-[0_4px_30px_rgba(62,207,142,0.06)] transition-all duration-400"
               >
-                arrow_forward
-              </span>
-            </FadeIn>
-          ))}
+                {/* Flag + Number */}
+                <div className="flex items-center gap-5 md:w-20 shrink-0">
+                  <span className="text-3xl" aria-hidden="true">{rawPartner?.flag || "🌐"}</span>
+                </div>
+
+                {/* Name + Badge */}
+                <div className="md:w-64 shrink-0">
+                  <h3 className="font-headline text-xl font-bold text-dark-fg tracking-tight group-hover:text-accent transition-colors">
+                    {partner.name}
+                  </h3>
+                  <span className="label-mono text-[9px] text-accent mt-1 block">
+                    {partner.role}
+                  </span>
+                </div>
+
+                {/* Divider */}
+                <div className="hidden md:block w-[1px] h-10 bg-white/8 self-center" aria-hidden="true" />
+
+                {/* Description */}
+                <p className="font-sans text-sm text-dark-muted leading-relaxed flex-1">
+                  {partner.desc}
+                </p>
+
+                {/* Arrow */}
+                <span
+                  className="material-symbols-outlined text-dark-muted/20 group-hover:text-accent group-hover:translate-x-2 transition-all hidden md:block"
+                  aria-hidden="true"
+                >
+                  arrow_forward
+                </span>
+              </FadeIn>
+            );
+          })}
         </StaggerContainer>
       </div>
     </section>

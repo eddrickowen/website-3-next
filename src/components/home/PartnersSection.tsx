@@ -15,12 +15,15 @@ const midpoint = Math.ceil(ALL_BRANDS.length / 2);
 const ROW_1_BRANDS = [...ALL_BRANDS.slice(0, midpoint), ...ALL_BRANDS.slice(0, midpoint), ...ALL_BRANDS.slice(0, midpoint)];
 const ROW_2_BRANDS = [...ALL_BRANDS.slice(midpoint), ...ALL_BRANDS.slice(midpoint), ...ALL_BRANDS.slice(midpoint)];
 
-import { useLanguage } from "@/context/LanguageContext";
+import { Dictionary } from "@/types/dictionary";
 
-export default function PartnersSection() {
-  const { t } = useLanguage();
+interface PartnersSectionProps {
+  language: "en" | "id";
+  content: Dictionary["home"]["partners"];
+}
 
-  const getIndustryKey = (name: string) => {
+export default function PartnersSection({ language, content }: PartnersSectionProps) {
+  const getIndustryKey = (name: string): keyof Dictionary["home"]["partners"]["industries"] | "" => {
     if (name.includes("Palm Oil")) return "palm_oil";
     if (name.includes("Electronic")) return "electronic";
     if (name.includes("Healthcare")) return "healthcare";
@@ -38,12 +41,12 @@ export default function PartnersSection() {
       <div className="container mx-auto px-8 max-w-7xl relative z-10">
         {/* Header */}
         <FadeIn blur standalone className="text-center mb-12">
-          <SectionLabel num={t("home.partners.badge")} label={t("home.partners.title")} className="justify-center" />
+          <SectionLabel num={content.badge} label={content.title} className="justify-center" />
           <h2 className="font-headline text-3xl md:text-5xl font-bold text-foreground tracking-tight">
-            {t("home.partners.subtitle")}
+            {content.subtitle}
           </h2>
           <p className="font-sans text-sm text-foreground/60 mt-4 max-w-2xl mx-auto leading-relaxed">
-            {t("home.partners.desc")}
+            {content.desc}
           </p>
         </FadeIn>
       </div>
@@ -87,10 +90,10 @@ export default function PartnersSection() {
       <div className="container mx-auto px-8 max-w-7xl mt-12 mb-28">
         <div className="text-center">
           <Link 
-            href="/services#item-supply" 
+            href={`/${language}/services#item-supply`} 
             className="label-mono text-[10px] text-accent hover:underline decoration-accent/30 underline-offset-4 flex items-center justify-center gap-2 group"
           >
-            {t("home.partners.catalog")}
+            {content.catalog}
             <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
           </Link>
         </div>
@@ -100,9 +103,9 @@ export default function PartnersSection() {
         {/* Industries Served Section */}
         <div className="border-t border-outline/30 pt-20">
           <FadeIn blur standalone className="text-center mb-16">
-            <SectionLabel num={t("home.partners.expertiseBadge")} label={t("home.partners.expertiseTitle")} className="justify-center" />
+            <SectionLabel num={content.expertiseBadge} label={content.expertiseTitle} className="justify-center" />
             <h3 className="font-headline text-3xl md:text-5xl font-bold text-foreground tracking-tight uppercase">
-              {t("home.partners.expertiseSubtitle").split(" by ")[0]} <br className="hidden md:block" /> {t("home.partners.expertiseSubtitle").split(" by ").slice(1).join(" by ")}
+              {content.expertiseSubtitle.split(" by ")[0]} <br className="hidden md:block" /> {content.expertiseSubtitle.split(" by ").slice(1).join(" by ")}
             </h3>
           </FadeIn>
 
@@ -126,8 +129,8 @@ export default function PartnersSection() {
                       {ind.icon}
                     </span>
                   </div>
-                  <span className="font-sans text-[14px] font-bold leading-tight">
-                    {key ? t(`home.partners.industries.${key}`) : ind.name}
+                   <span className="font-sans text-[14px] font-bold leading-tight">
+                    {key ? content.industries[key] : ind.name}
                   </span>
                   {ind.primary && (
                     <div className="ml-auto w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />

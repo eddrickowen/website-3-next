@@ -4,11 +4,13 @@ import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef } from "react";
 import FadeIn from "@/components/animations/FadeIn";
 import SectionLabel from "@/components/ui/SectionLabel";
-import { TIMELINE } from "@/lib/data";
-import { useLanguage } from "@/context/LanguageContext";
+import { Dictionary } from "@/types/dictionary";
 
-export default function TimelineSection() {
-  const { t } = useLanguage();
+interface TimelineSectionProps {
+  timeline: Dictionary["about"]["timeline"];
+}
+
+export default function TimelineSection({ timeline }: TimelineSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollTargetRef = useRef<HTMLDivElement>(null);
   
@@ -34,12 +36,12 @@ export default function TimelineSection() {
       <div className="container mx-auto px-8 max-w-5xl">
         <div className="mb-24">
           <FadeIn blur standalone>
-            <SectionLabel num={t("about.timeline.badge")} label={t("about.timeline.label")} />
+            <SectionLabel num={timeline.badge} label={timeline.label} />
           </FadeIn>
           <FadeIn blur delay={0.1} standalone>
             <h2 className="font-headline text-4xl md:text-5xl font-bold text-foreground tracking-tight mt-6">
-               {t("about.timeline.title")}<br />
-               <span className="text-foreground/35 italic font-normal">{t("about.timeline.titleAccent")}</span>
+               {timeline.title}<br />
+               <span className="text-foreground/35 italic font-normal">{timeline.titleAccent}</span>
             </h2>
           </FadeIn>
         </div>
@@ -68,14 +70,10 @@ export default function TimelineSection() {
           />
 
           <div className="space-y-0 relative z-10">
-            {TIMELINE.map((_, i) => (
+            {timeline.items.map((item, i) => (
               <TimelineItem 
                 key={i} 
-                item={{
-                  year: t(`about.timeline.items.${i}.year`),
-                  title: t(`about.timeline.items.${i}.title`),
-                  desc: t(`about.timeline.items.${i}.desc`)
-                }} 
+                item={item} 
                 i={i} 
               />
             ))}

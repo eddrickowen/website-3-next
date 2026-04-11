@@ -1,31 +1,25 @@
 "use client";
 
 import { useState, FormEvent, useMemo } from "react";
-import { useLanguage } from "@/context/LanguageContext";
+import { Dictionary } from "@/types/dictionary";
 
 interface ContactFormProps {
   dark?: boolean;
+  content: Dictionary["home"]["lead"];
+  servicesContent: Dictionary["services"];
 }
 
-export default function ContactForm({ dark = false }: ContactFormProps) {
-  const { t } = useLanguage();
+export default function ContactForm({ dark = false, content, servicesContent }: ContactFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [selectedService, setSelectedService] = useState("");
 
-  const SERVICE_OPTIONS = useMemo(() => [
-    t("home.services.items.0.title"),
-    t("home.services.items.1.title"),
-    t("home.services.items.2.title"),
-    t("home.services.items.3.title"),
-    t("home.services.items.4.title"),
-    t("home.services.items.5.title"),
-    t("home.services.items.6.title"),
-    t("home.services.items.7.title"),
-    t("home.services.items.8.title"),
-    "General Inquiry",
-    t("home.lead.formOther"),
-  ], [t]);
+  const SERVICE_OPTIONS = useMemo(() => {
+    const options = servicesContent.items.map(s => s.title);
+    options.push("General Inquiry");
+    options.push(content.formOther);
+    return options;
+  }, [servicesContent, content]);
 
   const inputClass = dark
     ? "w-full bg-white/5 border border-white/10 text-dark-fg placeholder-white/30 focus:border-accent focus:ring-1 focus:ring-accent/40 rounded-xl px-4 py-3 font-sans text-sm outline-none transition-all"
@@ -75,16 +69,16 @@ export default function ContactForm({ dark = false }: ContactFormProps) {
           <span className="material-symbols-outlined text-accent text-3xl">check_circle</span>
         </div>
         <h3 className={`font-headline text-2xl font-bold ${dark ? "text-dark-fg" : "text-foreground"}`}>
-          {t("home.lead.formSuccessTitle")}
+          {content.formSuccessTitle}
         </h3>
         <p className={`font-sans text-sm leading-relaxed max-w-xs ${dark ? "text-dark-muted" : "text-foreground/60"}`}>
-          {t("home.lead.formSuccessDesc")}
+          {content.formSuccessDesc}
         </p>
         <button
           onClick={() => { setSubmitted(false); setSelectedService(""); }}
           className="mt-4 label-mono text-[10px] text-accent underline underline-offset-4 focus:outline-none focus:ring-2 focus:ring-accent/50 rounded"
         >
-          {t("home.lead.formSuccessCta")}
+          {content.formSuccessCta}
         </button>
       </div>
     );
@@ -93,56 +87,56 @@ export default function ContactForm({ dark = false }: ContactFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-4 pb-10 md:pb-0" aria-busy={loading} noValidate>
       <div>
-        <label className={labelClass} htmlFor="cf-name">{t("home.lead.formName")}</label>
+        <label className={labelClass} htmlFor="cf-name">{content.formName}</label>
         <input
           id="cf-name"
           name="name"
           type="text"
           required
-          placeholder={t("home.lead.formPlaceholderName")}
+          placeholder={content.formPlaceholderName}
           className={inputClass}
         />
       </div>
 
       <div>
-        <label className={labelClass} htmlFor="cf-company">{t("home.lead.formCompany")}</label>
+        <label className={labelClass} htmlFor="cf-company">{content.formCompany}</label>
         <input
           id="cf-company"
           name="company"
           type="text"
           required
-          placeholder={t("home.lead.formPlaceholderCompany")}
+          placeholder={content.formPlaceholderCompany}
           className={inputClass}
         />
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className={labelClass} htmlFor="cf-city">{t("home.lead.formCity")}</label>
+          <label className={labelClass} htmlFor="cf-city">{content.formCity}</label>
           <input
             id="cf-city"
             name="city"
             type="text"
             required
-            placeholder={t("home.lead.formPlaceholderCity")}
+            placeholder={content.formPlaceholderCity}
             className={inputClass}
           />
         </div>
         <div>
-          <label className={labelClass} htmlFor="cf-email">{t("home.lead.formEmail")}</label>
+          <label className={labelClass} htmlFor="cf-email">{content.formEmail}</label>
           <input
             id="cf-email"
             name="email"
             type="email"
             required
-            placeholder={t("home.lead.formPlaceholderEmail")}
+            placeholder={content.formPlaceholderEmail}
             className={inputClass}
           />
         </div>
       </div>
 
       <div>
-        <label className={labelClass} htmlFor="cf-service">{t("home.lead.formService")}</label>
+        <label className={labelClass} htmlFor="cf-service">{content.formService}</label>
         <select
           id="cf-service"
           name="service"
@@ -151,35 +145,35 @@ export default function ContactForm({ dark = false }: ContactFormProps) {
           onChange={(e) => setSelectedService(e.target.value)}
           required
         >
-          <option value="" disabled>{t("home.lead.formPlaceholderService")}</option>
+          <option value="" disabled>{content.formPlaceholderService}</option>
           {SERVICE_OPTIONS.map((opt) => (
             <option key={opt} value={opt}>{opt}</option>
           ))}
         </select>
       </div>
 
-      {selectedService === t("home.lead.formOther") && (
+      {selectedService === content.formOther && (
         <div className="animate-in fade-in slide-in-from-top-2 duration-300">
-          <label className={labelClass} htmlFor="cf-custom-service">{t("home.lead.formSpecify")}</label>
+          <label className={labelClass} htmlFor="cf-custom-service">{content.formSpecify}</label>
           <input
             id="cf-custom-service"
             name="custom_service"
             type="text"
             required
-            placeholder={t("home.lead.formPlaceholderSpecify")}
+            placeholder={content.formPlaceholderSpecify}
             className={inputClass}
           />
         </div>
       )}
 
       <div>
-        <label className={labelClass} htmlFor="cf-message">{t("home.lead.formMessage")}</label>
+        <label className={labelClass} htmlFor="cf-message">{content.formMessage}</label>
         <textarea
           id="cf-message"
           name="message"
           required
           rows={3}
-          placeholder={t("home.lead.formPlaceholderMessage")}
+          placeholder={content.formPlaceholderMessage}
           className={`${inputClass} resize-none`}
         />
       </div>
@@ -195,7 +189,7 @@ export default function ContactForm({ dark = false }: ContactFormProps) {
         disabled={loading}
         className="w-full py-4 bg-accent text-dark-bg font-headline font-bold text-sm tracking-widest uppercase rounded-xl hover:bg-accent/90 active:scale-[0.98] transition-all disabled:opacity-60 disabled:cursor-not-allowed shadow-lg shadow-accent/20"
       >
-        {loading ? t("home.lead.formSending") : t("home.lead.formSubmit")}
+        {loading ? content.formSending : content.formSubmit}
       </button>
     </form>
   );

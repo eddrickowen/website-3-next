@@ -2,14 +2,7 @@
 
 import { motion } from "framer-motion";
 import { COMPANY } from "@/lib/data";
-import { useLanguage } from "@/context/LanguageContext";
-
-interface InteractiveMapProps {
-  className?: string;
-}
-
 export default function InteractiveMap({ className = "" }: InteractiveMapProps) {
-  const { t } = useLanguage();
   
   // Format address for Google Maps Embed
   const fullAddress = `${COMPANY.address.line1}, ${COMPANY.address.line2}, ${COMPANY.address.city}, ${COMPANY.address.province}`;

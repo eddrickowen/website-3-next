@@ -6,14 +6,19 @@ import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { NAV_LINKS, COMPANY } from "@/lib/data";
 import { useEnquiry } from "@/context/EnquiryContext";
-import { useLanguage } from "@/context/LanguageContext";
+import { Dictionary } from "@/types/dictionary";
 
-export default function Navbar() {
+interface NavbarProps {
+  language: "en" | "id";
+  content: Dictionary["nav"];
+  common: Dictionary["common"];
+}
+
+export default function Navbar({ language, content, common }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname() || "/";
   const { openEnquiry } = useEnquiry();
-  const { language, setLanguage, t } = useLanguage();
   const hamburgerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -87,7 +92,7 @@ export default function Navbar() {
         >
           {/* Logo */}
           <Link
-            href="/"
+            href={`/${language}`}
             className="font-headline text-base font-bold tracking-tight text-dark-fg hover:text-accent transition-colors shrink-0 pl-2"
             aria-label="Go to PT. Agri Prima Indonesia homepage"
           >
@@ -97,11 +102,12 @@ export default function Navbar() {
           {/* Desktop Links */}
           <div className="hidden md:flex items-center gap-1">
             {NAV_LINKS.map((link) => {
-              const isActive = pathname === link.path;
+              const localizedPath = `/${language}${link.path === "/" ? "" : link.path}`;
+              const isActive = pathname === localizedPath;
               return (
                 <Link
                   key={link.name}
-                  href={link.path}
+                  href={localizedPath}
                   className={`relative px-4 py-2 rounded-full label-mono text-[10px] whitespace-nowrap transition-all ${
                     isActive
                       ? "text-accent bg-accent/10"
@@ -109,7 +115,7 @@ export default function Navbar() {
                   }`}
                   aria-current={isActive ? "page" : undefined}
                 >
-                  {t(`nav.${link.name.toLowerCase()}`)}
+                  {content[link.name.toLowerCase() as keyof Dictionary["nav"]]}
                   {isActive && (
                     <motion.span
                       layoutId="nav-indicator"
@@ -128,23 +134,23 @@ export default function Navbar() {
               onClick={openEnquiry}
               className="hidden md:flex items-center gap-2 px-4 py-2 bg-accent text-dark-bg font-sans font-bold text-xs tracking-wide rounded-full hover:bg-accent/90 active:scale-[0.97] transition-all focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-bg"
             >
-              {t("common.getQuote")}
+              {common.getQuote}
             </button>
 
             {/* Language Toggle Desktop */}
             <div className="hidden md:flex items-center bg-white/5 border border-white/10 rounded-full p-1 self-stretch">
-              <button
-                onClick={() => setLanguage("en")}
+              <Link
+                href={pathname.replace(`/${language}`, "/en") || "/en"}
                 className={`px-3 py-1 rounded-full text-[9px] font-bold transition-all ${language === "en" ? "bg-accent text-dark-bg" : "text-dark-fg/40 hover:text-dark-fg"}`}
               >
                 EN
-              </button>
-              <button
-                onClick={() => setLanguage("id")}
+              </Link>
+              <Link
+                href={pathname.replace(`/${language}`, "/id") || "/id"}
                 className={`px-3 py-1 rounded-full text-[9px] font-bold transition-all ${language === "id" ? "bg-accent text-dark-bg" : "text-dark-fg/40 hover:text-dark-fg"}`}
               >
                 ID
-              </button>
+              </Link>
             </div>
 
             {/* Mobile Hamburger */}
@@ -174,12 +180,12 @@ export default function Navbar() {
             </button>
 
             {/* Language Switcher Mobile (Small) */}
-            <button
-              onClick={() => setLanguage(language === "en" ? "id" : "en")}
+            <Link
+              href={pathname.replace(`/${language}`, language === "en" ? "/id" : "/en") || "/en"}
               className="md:hidden w-11 h-11 flex items-center justify-center rounded-full border border-white/10 text-[10px] font-bold text-accent"
             >
               {language.toUpperCase()}
-            </button>
+            </Link>
           </div>
         </div>
       </motion.nav>
@@ -204,7 +210,8 @@ export default function Navbar() {
             <div className="relative z-10 flex flex-col h-full px-8 pt-28 pb-12">
               <nav className="flex-1 flex flex-col justify-center gap-2">
                 {NAV_LINKS.map((link, i) => {
-                  const isActive = pathname === link.path;
+                  const localizedPath = `/${language}${link.path === "/" ? "" : link.path}`;
+                  const isActive = pathname === localizedPath;
                   return (
                     <motion.div
                       key={link.name}
@@ -213,13 +220,13 @@ export default function Navbar() {
                       transition={{ delay: 0.1 + i * 0.07, duration: 0.4 }}
                     >
                       <Link
-                        href={link.path}
+                        href={localizedPath}
                         onClick={() => setMenuOpen(false)}
                         className={`block font-headline text-5xl font-bold tracking-tighter py-3 border-b border-white/5 transition-colors ${
                           isActive ? "text-accent" : "text-dark-fg/70 hover:text-dark-fg"
                         }`}
                       >
-                        {t(`nav.${link.name.toLowerCase()}`)}
+                        {content[link.name.toLowerCase() as keyof Dictionary["nav"]]}
                       </Link>
                     </motion.div>
                   );
@@ -235,7 +242,7 @@ export default function Navbar() {
                   onClick={() => { setMenuOpen(false); openEnquiry(); }}
                   className="flex items-center justify-center w-full py-4 bg-accent text-dark-bg font-headline font-bold text-base tracking-wide rounded-2xl hover:bg-accent/90 transition-all focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-dark-bg"
                 >
-                  {t("common.getQuote")}
+                  {common.getQuote}
                 </button>
                 <p className="label-mono text-[10px] text-dark-muted text-center">
                   {COMPANY.phone} · {COMPANY.email}
