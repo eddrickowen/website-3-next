@@ -4,6 +4,7 @@ import { useState } from "react";
 import FadeIn from "@/components/animations/FadeIn";
 import StaggerContainer from "@/components/animations/StaggerContainer";
 import SectionLabel from "@/components/ui/SectionLabel";
+import Image from "next/image";
 import { SERVICES, PARTS_BRANDS } from "@/lib/data";
 import { Dictionary } from "@/types/dictionary";
 
@@ -11,6 +12,17 @@ interface ServicesListingProps {
   content: Dictionary["servicesPage"];
   servicesContent: Dictionary["services"];
 }
+
+const SERVICE_IMAGES: Record<string, string> = {
+  "palm-oil": "/images/assets/cat-palm.png",
+  "phe": "/images/assets/cat-phe.png",
+  "chiller": "/images/assets/cat-chiller.png",
+  "cooling-tower": "/images/assets/cat-chiller.png",
+  "boiler": "/images/assets/cat-boiler.png",
+  "machining": "/images/assets/workshop.png",
+  "chemicals": "/images/assets/cat-chemicals.png",
+  "spare-parts": "/images/assets/cat-parts.png",
+};
 
 export default function ServicesListing({ content, servicesContent }: ServicesListingProps) {
   const [showMore, setShowMore] = useState(false);
@@ -46,8 +58,20 @@ export default function ServicesListing({ content, servicesContent }: ServicesLi
                   blur
                   standalone
                   delay={i * 0.05}
-                  className="group relative bg-surface border border-outline/30 hover:border-accent/40 rounded-2xl p-8 transition-all duration-500"
+                  className="group relative bg-surface border border-outline/30 hover:border-accent/40 rounded-2xl p-8 transition-all duration-500 overflow-hidden"
                 >
+                  {/* Background Image */}
+                  <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-10 transition-opacity duration-700">
+                    <Image
+                      src={SERVICE_IMAGES[srv.id] || "/images/assets/hero_industrial.png"}
+                      alt=""
+                      fill
+                      className="object-cover scale-110 group-hover:scale-100 transition-transform duration-1000"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-surface via-surface/80 to-transparent" />
+                  </div>
+
+                  <div className="relative z-10">
                   <div className="flex items-start justify-between mb-8">
                     <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center">
                       <span className="material-symbols-outlined text-accent text-xl" aria-hidden="true">{srv.icon}</span>
@@ -72,6 +96,7 @@ export default function ServicesListing({ content, servicesContent }: ServicesLi
                         +{localizedSrv.features.length - 4} {content.section1.moreTasks}
                       </div>
                     )}
+                    </div>
                   </div>
                 </FadeIn>
               );
@@ -117,8 +142,20 @@ export default function ServicesListing({ content, servicesContent }: ServicesLi
                     blur
                     standalone
                     delay={i * 0.08}
-                    className="bg-background border border-outline/30 rounded-3xl p-10 flex flex-col h-full"
+                    className="group relative bg-background border border-outline/30 rounded-3xl p-10 flex flex-col h-full overflow-hidden"
                   >
+                    {/* Background Image */}
+                    <div className="absolute inset-0 z-0 opacity-0 group-hover:opacity-20 transition-opacity duration-700">
+                      <Image
+                        src={SERVICE_IMAGES[srv.id] || "/images/assets/category_palmoil_visual.png"}
+                        alt=""
+                        fill
+                        className="object-cover scale-110 group-hover:scale-100 transition-transform duration-1000 grayscale group-hover:grayscale-0"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent" />
+                    </div>
+
+                    <div className="relative z-10 flex flex-col h-full">
                     <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mb-8">
                       <span className="material-symbols-outlined text-accent text-2xl" aria-hidden="true">{srv.icon}</span>
                     </div>
@@ -136,7 +173,8 @@ export default function ServicesListing({ content, servicesContent }: ServicesLi
                         </div>
                       ))}
                     </div>
-                  </FadeIn>
+                  </div>
+                </FadeIn>
                 );
               })}
             </StaggerContainer>

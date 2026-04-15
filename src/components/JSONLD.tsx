@@ -29,7 +29,7 @@ export default function JSONLD() {
       "opens": "08:00",
       "closes": "17:00"
     },
-    "image": "https://images.unsplash.com/photo-1565439390117-062e741e57c6?q=80&w=2670&auto=format&fit=crop"
+    "image": "https://agriprimaindotama.co.id/og-image.jpg"
   };
 
   const organizationSchema = {
