@@ -109,7 +109,7 @@ export default function PartnersSection({ language, content }: PartnersSectionPr
             </h3>
           </FadeIn>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
             {INDUSTRIES.map((ind, i) => {
               const key = getIndustryKey(ind.name);
               return (

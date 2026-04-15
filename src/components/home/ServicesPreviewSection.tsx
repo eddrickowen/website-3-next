@@ -20,7 +20,7 @@ export default function ServicesPreviewSection({ language, content, services }: 
     <section className="py-32 bg-background relative" aria-label="Services preview">
       <div className="container mx-auto px-8 max-w-7xl">
         {/* Header */}
-        <StaggerContainer className="flex flex-col md:flex-row justify-between items-end mb-12 md:mb-20 gap-8">
+        <StaggerContainer className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 gap-8">
           <div className="max-w-2xl pb-4">
             <FadeIn blur>
               <SectionLabel num={content.badge} label={content.title} className="mb-4 md:mb-6" />
@@ -34,8 +34,8 @@ export default function ServicesPreviewSection({ language, content, services }: 
               </h2>
             </FadeIn>
           </div>
-          <FadeIn blur delay={0.2} className="md:text-right shrink-0 self-end mb-6">
-            <p className="text-foreground/60 mb-6 max-w-xs md:ml-auto font-sans text-sm leading-relaxed">
+          <FadeIn blur delay={0.2} className="text-left md:text-right shrink-0 self-start md:self-end mb-6">
+            <p className="text-foreground/60 mb-6 max-w-xs font-sans text-sm leading-relaxed">
               {content.desc}
             </p>
             <Link

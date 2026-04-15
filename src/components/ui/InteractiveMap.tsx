@@ -12,7 +12,7 @@ interface InteractiveMapProps {
 export default function InteractiveMap({ className = "", content }: InteractiveMapProps) {
   // Format address for Google Maps Embed
   const fullAddress = `${COMPANY.address.line1}, ${COMPANY.address.line2}, ${COMPANY.address.city}, ${COMPANY.address.province}`;
-  
+
   // For most vibe-coding sites, we can use the non-API search embed which is free and doesn't require a key
   const freeEmbedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(fullAddress)}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
 
@@ -20,11 +20,11 @@ export default function InteractiveMap({ className = "", content }: InteractiveM
     <div className={`relative group ${className}`}>
       {/* Decorative Outer Frame */}
       <div className="absolute -inset-1 bg-gradient-to-r from-accent/20 to-transparent rounded-[2rem] blur opacity-20 group-hover:opacity-40 transition-opacity duration-500" aria-hidden="true" />
-      
+
       <div className="relative h-full w-full bg-background rounded-2xl border border-outline/40 overflow-hidden shadow-2xl">
         {/* Loading / Blueprint Background */}
         <div className="absolute inset-0 blueprint-grid opacity-20 pointer-events-none" aria-hidden="true" />
-        
+
         {/* Map Iframe */}
         <iframe
           src={freeEmbedUrl}
@@ -34,10 +34,10 @@ export default function InteractiveMap({ className = "", content }: InteractiveM
           title="Office Location Map"
           aria-label={`Interactive map showing ${COMPANY.name} office in ${COMPANY.address.city}`}
         />
-        
+
         {/* Branch Detail Card Overlay */}
         <div className="absolute top-6 left-6 z-10 hidden sm:block">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             className="glass-dark p-6 rounded-2xl border border-white/10 shadow-2xl max-w-[280px]"
@@ -51,9 +51,9 @@ export default function InteractiveMap({ className = "", content }: InteractiveM
                 <p className="font-headline text-xs font-bold text-dark-fg">Medan, North Sumatra</p>
               </div>
             </div>
-            
+
             <p className="font-sans text-[11px] text-dark-muted leading-relaxed mb-6">
-              {COMPANY.address.line1}<br/>
+              {COMPANY.address.line1}<br />
               {COMPANY.address.line2}
             </p>
 
@@ -92,7 +92,7 @@ export default function InteractiveMap({ className = "", content }: InteractiveM
 
         {/* Dynamic Indicator (Center) */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity delay-300">
-           <div className="w-16 h-16 rounded-full border border-accent/20 flex items-center justify-center animate-ping" />
+          <div className="w-16 h-16 rounded-full border border-accent/20 flex items-center justify-center animate-ping" />
         </div>
       </div>
     </div>

@@ -48,20 +48,12 @@ export default function Footer({ language, content, navContent, servicesContent,
               className="flex items-center gap-4 mb-8 group"
               aria-label="Go to homepage"
             >
-              <div className="relative w-10 h-10 md:w-12 md:h-12 transition-transform duration-500 group-hover:scale-110">
-                <Image
-                  src="/images/logo.png"
-                  alt=""
-                  fill
-                  className="object-contain"
-                />
-              </div>
               <div className="flex flex-col">
                 <span className="font-headline text-lg md:text-xl font-bold tracking-tight text-dark-fg leading-none">
-                  PT. AGRI PRIMA
+                  CIPTA DIGITAL
                 </span>
                 <span className="font-headline text-[10px] md:text-[11px] text-accent font-bold tracking-[0.2em] leading-none mt-1">
-                  INDOTAMA
+                  UTAMA
                 </span>
               </div>
             </Link>
@@ -156,14 +148,18 @@ export default function Footer({ language, content, navContent, servicesContent,
                   </div>
                   <div className="space-y-1.5">
                     <a
-                      href={`tel:${COMPANY.phone.replace(/\s/g, "")}`}
+                      href={`https://wa.me/${COMPANY.phone.replace(/[\s+]/g, "")}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="font-sans text-sm text-dark-muted hover:text-accent transition-colors block font-medium"
                     >
                       {COMPANY.phone}
                     </a>
                     {COMPANY.phone2 && (
                       <a
-                        href={`tel:${COMPANY.phone2.replace(/\s/g, "")}`}
+                        href={`https://wa.me/${COMPANY.phone2.replace(/[\s+]/g, "")}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         className="font-sans text-sm text-dark-muted/60 hover:text-accent transition-colors block"
                       >
                         {COMPANY.phone2}

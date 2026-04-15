@@ -8,8 +8,8 @@ export default function JSONLD() {
     "@type": "LocalBusiness",
     "name": COMPANY.name,
     "alternateName": COMPANY.shortName,
-    "description": "One-stop industrial services in Medan since 1993. Palm Oil Mill (PKS) support, PHE service, chiller maintenance, and more.",
-    "url": "https://agriprimaindotama.com",
+    "description": "Web Dummy and Digital Solutions providing integrated digital systems and industrial web architecture services.",
+    "url": "https://ciptadigitalutama.id",
     "telephone": COMPANY.phone,
     "address": {
       "@type": "PostalAddress",
@@ -36,8 +36,8 @@ export default function JSONLD() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": COMPANY.name,
-    "url": "https://agriprimaindotama.com",
-    "logo": "https://agriprimaindotama.com/logo.png",
+    "url": "https://ciptadigitalutama.id",
+    "logo": "https://ciptadigitalutama.id/logo.png",
     "contactPoint": {
       "@type": "ContactPoint",
       "telephone": COMPANY.phone,

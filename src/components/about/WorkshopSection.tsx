@@ -53,13 +53,16 @@ export default function WorkshopSection({ content }: WorkshopSectionProps) {
 
           {/* Visual Presentation */}
           <FadeIn blur delay={0.4} className="relative aspect-[4/3] rounded-[2rem] overflow-hidden group shadow-2xl">
-            {/* Main Image */}
-            <Image
-              src="/images/assets/workshop.png"
-              alt="API Machining Workshop"
-              fill
-              className="object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
-            />
+            <div className="absolute inset-0" style={{ position: "absolute" }}>
+              {/* Main Image */}
+              <Image
+                src="/images/assets/workshop.png"
+                alt="CDU Machining Workshop"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+              />
+            </div>
             
             {/* Overlay Gradient */}
             <div className="absolute inset-0 bg-gradient-to-t from-dark-bg/80 via-transparent to-transparent opacity-60" aria-hidden="true" />

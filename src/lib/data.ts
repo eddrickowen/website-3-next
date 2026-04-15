@@ -1,26 +1,29 @@
 // ============================================================
-// PT. AGRI PRIMA INDOTAMA — Central Content Data Store
-// Source: PT_Agri_Prima_Indotama_Website_Brief.md
+// CIPTA DIGITAL UTAMA — Central Content Data Store
+// Source: CIPTA_DIGITAL_UTAMA_Website_Brief.md
 // Update this file to change content across all pages.
 // ============================================================
 
 export const COMPANY = {
-  name: "PT. Agri Prima Indotama",
-  shortName: "PT. API",
-  tagline: "Your Trusted Industrial Partner Since 1993",
+  name: "CIPTA DIGITAL UTAMA",
+  shortName: "CDU",
+  tagline: "Web Dummy by itsowendesign@gmail.com (eddrick owen)",
   subTagline:
-    "For over 30 years, PT. Agri Prima Indotama has delivered integrated industrial solutions — from spare parts supply to full installation and maintenance — serving the Palm Oil, F&B, Healthcare, Electronics, and more across Sumatra, Kalimantan, and beyond.",
-  founded: "1993",
-  sister: "PT. Agri Prima Indonesia (Batam)",
+    "Web Dummy and Digital Solutions — Providing integrated digital systems and industrial web architecture services, optimized for modern business efficiency.",
+  founded: "2024",
+  sister: "PT. SINGA NAULI",
   locations: ["Medan, Sumatera Utara"],
-  email: "tigor.api@gmail.com",
-  phone: "+62 813 7286 4065",
-  phone2: "+62 812 7606 4177",
-  whatsapp: "6281372864065",
+  email: "itsowendesign@gmail.com",
+  phone: "+62 812 6372 2210",
+  phone2: "+62 851 1150 2210",
+  whatsapp: "6281263722210",
+  whatsapp2: "6285111502210",
+  instagram: "https://www.instagram.com/ed_owen_teo/",
+  linkedin: "https://www.linkedin.com/in/eddrick-owen-susanteo-6a5892214/",
   fax: null,
   address: {
-    line1: "Jl. Rotan Baru No. A-9",
-    line2: "Petisah Tengah",
+    line1: "Jl. Sun Yat Sen no. 26/27",
+    line2: "Medan",
     city: "Medan",
     province: "Sumatera Utara",
     country: "Indonesia",
@@ -67,6 +70,7 @@ export interface Service {
   shortDesc: string;
   desc: string;
   features: string[];
+  phoneInquiry?: string;
 }
 
 export const SERVICES: Service[] = [
@@ -101,7 +105,7 @@ export const SERVICES: Service[] = [
     num: "02",
     type: "general",
     category: "Heat Exchange",
-    icon: "heat_exchanger",
+    icon: "heat_pump",
     title: "Plate Heat Exchanger (PHE) Service",
     shortDesc:
       "Trained service personnel for PHE unit performance checks, plate cleaning, regasketing, and hydro testing.",
@@ -123,6 +127,7 @@ export const SERVICES: Service[] = [
     id: "chiller",
     num: "03",
     type: "general",
+    phoneInquiry: "Pertanyaan WhatsApp",
     category: "Thermal Management",
     icon: "ac_unit",
     title: "ABS & Electric Chiller Service",
@@ -302,36 +307,42 @@ export const PARTNERS = [
     role: "Regional Partners",
     desc: "Close cooperation with leading European manufacturers across industrial equipment, bearings, and specialty chemicals.",
     flag: "🇪🇺",
+    flagUrl: "https://flagcdn.com/w40/eu.png"
   },
   {
     name: "USA",
     role: "Technology Partners",
     desc: "American industrial technology suppliers covering pumps, drives, and automation systems.",
     flag: "🇺🇸",
+    flagUrl: "https://flagcdn.com/w40/us.png"
   },
   {
     name: "Japan",
     role: "Manufacturing Partners",
     desc: "Japanese precision engineering — bearings, sensors, servo motors, and control equipment.",
     flag: "🇯🇵",
+    flagUrl: "https://flagcdn.com/w40/jp.png"
   },
   {
     name: "China",
     role: "Supply Partners",
     desc: "Chinese industrial component and equipment suppliers for competitive, high-volume procurement.",
     flag: "🇨🇳",
+    flagUrl: "https://flagcdn.com/w40/cn.png"
   },
   {
     name: "Taiwan",
     role: "Technology Partners",
     desc: "Taiwanese manufacturers specializing in pneumatic, hydraulic, and electronic control systems.",
     flag: "🇹🇼",
+    flagUrl: "https://flagcdn.com/w40/tw.png"
   },
   {
     name: "Singapore",
     role: "Distribution Hub",
     desc: "Singapore-based distributors and regional agents for fast delivery across Southeast Asia.",
     flag: "🇸🇬",
+    flagUrl: "https://flagcdn.com/w40/sg.png"
   },
 ];
 
@@ -412,7 +423,7 @@ export const TIMELINE = [
   {
     year: "1993",
     title: "Company Founded",
-    desc: "PT. Agri Prima Indotama established in Medan, Sumatera Utara, initially focused on Palm Oil Mill (PKS) industrial support and spare parts supply.",
+    desc: "CIPTA DIGITAL UTAMA established in Medan, Sumatera Utara, initially focused on industrial support and spare parts supply.",
   },
   {
     year: "Late 1990s",
@@ -426,8 +437,8 @@ export const TIMELINE = [
   },
   {
     year: "2010s",
-    title: "Sister Company in Batam",
-    desc: "PT. Agri Prima Indonesia established in Batam to extend our industrial service reach across the Riau Archipelago and wider Indonesian market.",
+    title: "Sister Company Established",
+    desc: "PT. SINGA NAULI established to extend our industrial service reach across the Indonesian market.",
   },
   {
     year: "2015",

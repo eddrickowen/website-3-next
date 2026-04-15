@@ -94,7 +94,7 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
             <div className="p-5 md:p-6 flex items-center justify-between border-b border-outline/10 shrink-0">
               <div>
                 <h3 id="modal-title" className="font-headline text-xl md:text-2xl font-bold text-foreground">Send an Enquiry</h3>
-                <p className="font-sans text-[10px] text-foreground/40 mt-0.5 uppercase tracking-widest">PT. Agri Prima Indotama</p>
+                <p className="font-sans text-[10px] text-foreground/40 mt-0.5 uppercase tracking-widest">CIPTA DIGITAL UTAMA</p>
               </div>
               <button
                 onClick={onClose}
@@ -106,7 +106,7 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
             </div>
 
             {/* Scrollable Content */}
-            <div className="flex-grow overflow-y-auto p-5 md:p-6 custom-scrollbar">
+            <div className="flex-grow overflow-y-auto px-5 py-4 md:px-6 md:py-5 custom-scrollbar">
               {children}
             </div>
           </motion.div>

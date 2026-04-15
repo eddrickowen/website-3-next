@@ -255,7 +255,7 @@ export default function ProjectGallery({ content, servicesContent, language }: P
                         {proj.month} {proj.year}
                       </span>
                       <span className="label-mono text-[9px] text-foreground/40 tracking-tight">
-                        Ref: API-PRJ-{proj.year}-{String(proj.id).padStart(3, '0')}
+                        Ref: CDU-PRJ-{proj.year}-{String(proj.id).padStart(3, '0')}
                       </span>
                     </div>
                     <div className="w-12 h-12 rounded-2xl bg-surface border border-outline/30 flex items-center justify-center group-hover:bg-accent/10 group-hover:border-accent/30 transition-all duration-500">

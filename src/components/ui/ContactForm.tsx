@@ -9,7 +9,7 @@ interface ContactFormProps {
   servicesContent: Dictionary["services"];
 }
 
-export default function ContactForm({ dark = false, content, servicesContent }: ContactFormProps) {
+export default function ContactForm({ dark = false, content, servicesContent, className = "" }: ContactFormProps & { className?: string }) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [selectedService, setSelectedService] = useState("");
@@ -38,26 +38,32 @@ export default function ContactForm({ dark = false, content, servicesContent }: 
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const formId = process.env.NEXT_PUBLIC_FORMSPREE_ID;
+      // Construct email body
+      const body = `
+Name: ${data.name}
+Company: ${data.company}
+City: ${data.city}
+Email: ${data.email}
+Service: ${data.service} ${data.custom_service ? `(${data.custom_service})` : ''}
+
+Message:
+${data.message}
+      `.trim();
+
+      const subject = `Enquiry from ${data.company} - ${data.name}`;
+      const recipient = "itsowendesign@gmail.com";
       
-      if (!formId || formId === 'FORM_ID_HERE') {
-        throw new Error("Form configuration missing. Please set up your Formspree ID.");
-      }
+      // Standard mailto link
+      const mailtoUrl = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      
+      // Alternative: direct Gmail link if preferred
+      // const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipient}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-      const response = await fetch(`https://formspree.io/f/${formId}`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", "Accept": "application/json" },
-        body: JSON.stringify(data),
-      });
-
-      if (response.ok) {
-        setSubmitted(true);
-      } else {
-        const errorData = await response.json();
-        setError(errorData.error || "Submission failed. Please check your details and try again.");
-      }
+      window.location.href = mailtoUrl;
+      
+      setSubmitted(true);
     } catch (err: any) {
-      setError(err.message || "Unable to connect to service. Please check your internet connection.");
+      setError("Failed to open email client. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -90,7 +96,7 @@ export default function ContactForm({ dark = false, content, servicesContent }: 
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 pb-10 md:pb-0" aria-busy={loading} noValidate>
+    <form onSubmit={handleSubmit} className={`flex flex-col gap-4 pb-10 md:pb-0 ${className}`} aria-busy={loading} noValidate>
       <div>
         <label className={labelClass} htmlFor="cf-name">{content.formName}</label>
         <input
@@ -171,7 +177,7 @@ export default function ContactForm({ dark = false, content, servicesContent }: 
         </div>
       )}
 
-      <div>
+      <div className="flex-grow flex flex-col min-h-[120px]">
         <label className={labelClass} htmlFor="cf-message">{content.formMessage}</label>
         <textarea
           id="cf-message"
@@ -179,7 +185,7 @@ export default function ContactForm({ dark = false, content, servicesContent }: 
           required
           rows={3}
           placeholder={content.formPlaceholderMessage}
-          className={`${inputClass} resize-none`}
+          className={`${inputClass} resize-none flex-grow`}
         />
       </div>
 

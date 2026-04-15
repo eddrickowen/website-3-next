@@ -26,7 +26,12 @@ const ContactDetail = ({
     <div>
       <div className="label-mono text-[9px] text-dark-muted/50 mb-0.5">{label}</div>
       {href ? (
-        <a href={href} className="font-sans text-sm text-dark-fg font-medium hover:text-accent transition-colors">
+        <a 
+          href={href} 
+          target={href.startsWith('http') ? "_blank" : undefined}
+          rel={href.startsWith('http') ? "noopener noreferrer" : undefined}
+          className="font-sans text-sm text-dark-fg font-medium hover:text-accent transition-colors"
+        >
           {value}
         </a>
       ) : (
@@ -72,17 +77,17 @@ export default function LeadCaptureSection({ content, servicesContent }: LeadCap
 
             <div className="space-y-6 mb-12">
               <ContactDetail
-                icon="call"
+                icon="chat"
                 label={content.phonePrimary}
                 value={COMPANY.phone}
-                href={`tel:${COMPANY.phone.replace(/\s/g, "")}`}
+                href={`https://wa.me/${COMPANY.phone.replace(/[\s+]/g, "")}`}
               />
               {COMPANY.phone2 && (
                 <ContactDetail
-                  icon="smartphone"
+                  icon="chat"
                   label={content.phoneSecondary}
                   value={COMPANY.phone2}
-                  href={`tel:${COMPANY.phone2.replace(/\s/g, "")}`}
+                  href={`https://wa.me/${COMPANY.phone2.replace(/[\s+]/g, "")}`}
                 />
               )}
               <ContactDetail

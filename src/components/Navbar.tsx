@@ -95,23 +95,14 @@ export default function Navbar({ language, content, common }: NavbarProps) {
           <Link
             href={`/${language}`}
             className="flex items-center gap-2 pl-2 group"
-            aria-label="Go to PT. Agri Prima Indotama homepage"
+            aria-label="Go to CIPTA DIGITAL UTAMA homepage"
           >
-            <div className="relative w-8 h-8 md:w-10 md:h-10 transition-transform duration-500 group-hover:scale-110">
-              <Image
-                src="/images/logo.png"
-                alt=""
-                fill
-                className="object-contain"
-                priority
-              />
-            </div>
             <div className="flex flex-col">
               <span className="font-headline text-[13px] md:text-[15px] font-bold tracking-tight text-dark-fg leading-none">
-                PT. AGRI PRIMA
+                CIPTA DIGITAL
               </span>
               <span className="font-headline text-[9px] md:text-[10px] text-accent font-bold tracking-[0.2em] leading-none mt-1">
-                INDOTAMA
+                UTAMA
               </span>
             </div>
           </Link>

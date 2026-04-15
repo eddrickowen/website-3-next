@@ -11,7 +11,7 @@ export const en = {
     email: "Email Address",
     address: "Address",
     phone: "Phone Number",
-    addressFull: "Jl. Rotan Baru No. A-9, Petisah Tengah, Medan, North Sumatra",
+    addressFull: "Jl. Sun Yat Sen no. 26/27, Medan, North Sumatra",
   },
   nav: {
     home: "Home",
@@ -22,16 +22,16 @@ export const en = {
   },
   home: {
     hero: {
-      badge: "Your Trusted Industrial Partner Since 1993",
+      badge: "Web Dummy by itsowendesign@gmail.com (eddrick owen)",
       titleTop: "Advanced",
       titleItalic: "Engineering",
       titleBottom: "Solutions.",
-      description: "For over 30 years, PT. Agri Prima Indotama has delivered integrated industrial solutions — from spare parts supply to full installation and maintenance — serving the Palm Oil, F&B, Healthcare, Electronics, and more across Sumatra, Kalimantan, and beyond.",
+      description: "Web Dummy and Digital Solutions — Providing integrated digital systems and industrial web architecture services, optimized for modern business efficiency.",
       ctaWork: "View Our Work",
       ctaContact: "Get in Touch",
     },
     stats: [
-      { value: "30+", label: "Years Experience", sub: "Since 1993, Medan" },
+      { value: "30+", label: "Years Experience", sub: "Since 2024, Medan" },
       { value: "20+", label: "Corporate Clients", sub: "Across Sumatra & Kalimantan" },
       { value: "6", label: "Global Partner Regions", sub: "Europe, USA, Japan & more" },
       { value: "8+", label: "Industries Served", sub: "Palm Oil, F&B, Healthcare..." },
@@ -72,8 +72,8 @@ export const en = {
       title: "Ready to Optimize Your",
       titleAccent: "Operations?",
       desc: "Whether you need spare parts, scheduled maintenance, or a complete industrial solution — our team is ready. Contact us today for a consultation.",
-      phonePrimary: "Primary Phone",
-      phoneSecondary: "Secondary Mobile",
+      phonePrimary: "WhatsApp Support",
+      phoneSecondary: "WhatsApp Secondary",
       emailLabel: "Email Address",
       addressLabel: "Head Office",
       fullContact: "View Full Contact Details",
@@ -130,7 +130,7 @@ export const en = {
         id: "phe",
         num: "02",
         category: "Heat Exchange",
-        icon: "heat_exchanger",
+        icon: "heat_pump",
         title: "Plate Heat Exchanger (PHE) Service",
         shortDesc: "Trained service personnel for PHE unit performance checks, plate cleaning, regasketing, and hydro testing.",
         desc: "We are capable of servicing all major Heat Exchanger types with fully trained personnel. From Shell & Tube to Spiral Heat Exchangers, our comprehensive service contracts keep your thermal systems operating at full efficiency.",
@@ -269,7 +269,7 @@ export const en = {
       badge: "About Our Company",
       titleTop: "Technical",
       titleItalic: "Heritage.",
-      desc: "Three decades of engineering precision. From a local spare parts provider in Medan to an Indonesia-wide industrial partner.",
+      desc: "Engineering precision and digital innovation. From a local service provider to an Indonesia-wide digital partner.",
     },
     visionSection: {
       title: "Vision & Mission",
@@ -296,12 +296,12 @@ export const en = {
       title: "Three Decades of",
       titleAccent: "Growth.",
       items: [
-        { year: "1993", title: "Company Founded", desc: "PT. Agri Prima Indotama established in Medan, Sumatera Utara, initially focused on Palm Oil Mill (PKS) industrial support and spare parts supply." },
+        { year: "1993", title: "Company Founded", desc: "CIPTA DIGITAL UTAMA established in Medan, Sumatera Utara, initially focused on industrial support and spare parts supply." },
         { year: "Late 1990s", title: "Global Partnerships Established", desc: "Began representing well-known manufacturers from Europe, USA, Japan, and Singapore — expanding our product catalog and technical capabilities." },
         { year: "2000s", title: "Service Portfolio Expansion", desc: "Extended capabilities to include PHE servicing, chiller maintenance, cooling tower works, and chemical distribution — becoming a true one-stop industrial partner." },
-        { year: "2010s", title: "Sister Company in Batam", desc: "PT. Agri Prima Indonesia established in Batam to extend our industrial service reach across the Riau Archipelago and wider Indonesian market." },
+        { year: "2010s", title: "Sister Company Established", desc: "PT. SINGA NAULI established to extend our industrial service reach across the Indonesian market." },
         { year: "2015", title: "In-House Workshop Launch", desc: "Launched our machining workshop with lathe machines, enabling custom part fabrication and reducing client dependence on imported replacement parts." },
-        { year: "2020+", title: "Expanded Across Kalimantan", desc: "Extended service reach to Kalimantan with clients such as PT. Energi Unggul Persada, solidifying our position as an Indonesia-wide industrial partner." },
+        { year: "2020+", title: "Expanded Across Kalimantan", desc: "Extended service reach to Kalimantan with clients such as PT. Energi Unggul Persada, solidifying our position as an Indonesia-wide digital partner." },
       ],
     },
     partners: [
@@ -313,7 +313,7 @@ export const en = {
       { name: "Singapore", role: "Distribution Hub", desc: "Singapore-based distributors and regional agents for fast delivery across Southeast Asia." },
     ],
     valueProps: [
-      { title: "30+ Years Experience", desc: "Since 1993 in Palm Oil Industrial Support — one of Sumatra's most experienced industrial partners." },
+      { title: "30+ Years Experience", desc: "Since 1993 in Industrial Support — one of Sumatra's most experienced digital partners." },
       { title: "One-Stop Solution", desc: "From spare parts supply to full installation and maintenance — engineering, chemicals, and service under one roof." },
       { title: "Global Partnerships", desc: "Representing top manufacturers from Europe, USA, Japan, China, Taiwan, and Singapore." },
       { title: "In-House Workshop", desc: "Our machining workshop enables custom fabrication and reduces lead times for critical replacement parts." },
@@ -321,7 +321,7 @@ export const en = {
     workshop: {
       badge: "03",
       label: "Technical Heritage",
-      title: "The API Precision",
+      title: "The CDU Precision",
       titleAccent: "Workshop.",
       desc: "Our in-house capabilities are what set us apart. By maintaining a full-scale machining workshop in Medan, we ensure that critical spare parts are always within reach, minimizing downtime for our clients across Sumatra and beyond.",
       stats: [
@@ -332,14 +332,14 @@ export const en = {
     }
   },
   footer: {
-    tagline: "Your Trusted Industrial Partner Since 1993",
-    about: "Since 1993, PT. Agri Prima Indotama has been a reliable partner for industrial support and premium spare parts distribution in Indonesia.",
-    legal: "PT. Agri Prima Indotama © All Rights Reserved.",
+    tagline: "Web Dummy by itsowendesign@gmail.com (eddrick owen)",
+    about: "CIPTA DIGITAL UTAMA is a reliable partner for industrial support and premium spare parts distribution in Indonesia.",
+    legal: "CIPTA DIGITAL UTAMA © All Rights Reserved.",
     navigation: "Navigation",
     services: "Our Services",
     exploreAll: "Explore All Services",
     contact: "Get in Touch",
-    phoneInquiry: "Phone Inquiry",
+    phoneInquiry: "WhatsApp Inquiry",
     emailSupport: "Email Support",
     rights: "All Rights Reserved",
     sumatra: "Sumatra",
@@ -390,6 +390,12 @@ export const en = {
       getDirections: "Get Directions",
       viewOnGoogle: "View on Google Maps",
       hqLabel: "Headquarters",
+    },
+    designerCard: {
+      title: "Consult with our Designer",
+      desc: "I'm Eddrick Owen, an Experience Designer dedicated to industrial optimization. I help architect the right digital and physical solutions for your specific operational needs.",
+      instagramLabel: "Follow on Instagram",
+      linkedinLabel: "Connect on LinkedIn",
     },
   },
   projectsPage: {

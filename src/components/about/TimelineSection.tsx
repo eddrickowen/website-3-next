@@ -58,14 +58,14 @@ export default function TimelineSection({ timeline }: TimelineSectionProps) {
 
           {/* Vertical Track (Static) */}
           <div
-            className="absolute left-[50%] md:left-[180px] top-[4rem] bottom-[4rem] w-[2px] bg-white/5 -translate-x-1/2"
+            className="absolute left-[32px] md:left-[180px] top-[4rem] bottom-[4rem] w-[2px] bg-white/5 -translate-x-1/2"
             aria-hidden="true"
           />
           
           {/* Vertical Fill (Scroll-linked) */}
           <motion.div
             style={{ scaleY: pathLength, originY: 0 }}
-            className="absolute left-[50%] md:left-[180px] top-[4rem] bottom-[4rem] w-[2px] bg-accent -translate-x-1/2 z-20"
+            className="absolute left-[32px] md:left-[180px] top-[4rem] bottom-[4rem] w-[2px] bg-accent -translate-x-1/2 z-0"
             aria-hidden="true"
           />
 
@@ -128,14 +128,14 @@ function TimelineItem({ item, i }: { item: { year: string, title: string, desc: 
           boxShadow: dotShadow,
           borderColor: color
         }}
-        className="absolute left-[50%] md:left-[180px] top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 bg-background z-30 transition-shadow duration-300"
+        className="absolute left-[32px] md:left-[180px] top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full border-2 bg-background z-30 transition-shadow duration-300"
         aria-hidden="true"
       />
 
       {/* Content */}
       <motion.div 
         style={{ opacity }}
-        className="flex-1 px-8 md:px-0 text-center md:text-left"
+        className="flex-1 pl-[80px] pr-4 md:pl-0 md:pr-0 text-left"
       >
         <div className="md:hidden mb-4">
           <motion.span 

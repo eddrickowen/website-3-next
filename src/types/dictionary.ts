@@ -202,6 +202,12 @@ export interface Dictionary {
       viewOnGoogle: string;
       hqLabel: string;
     };
+    designerCard: {
+      title: string;
+      desc: string;
+      instagramLabel: string;
+      linkedinLabel: string;
+    };
   };
   projectsPage: {
     hero: {

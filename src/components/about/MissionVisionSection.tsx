@@ -65,11 +65,12 @@ export default function MissionVisionSection({ content }: MissionVisionSectionPr
             className="md:col-span-4 p-8 bg-dark-bg rounded-2xl relative overflow-hidden group"
           >
             {/* Background Image */}
-            <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 z-0" style={{ position: "absolute" }}>
               <Image
                 src="/images/assets/about_engineering.png"
                 alt="Engineering Consultation"
                 fill
+                sizes="(max-width: 768px) 100vw, 33vw"
                 className="object-cover opacity-20 group-hover:scale-105 transition-transform duration-1000"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-dark-bg via-dark-bg/60 to-transparent" />

@@ -49,10 +49,14 @@ export default function PartnersDetailSection({ partners }: PartnersDetailSectio
                 delay={i * 0.06}
                 className="group flex flex-col md:flex-row md:items-center gap-6 p-8 bg-dark-surface border border-white/5 hover:border-accent/20 rounded-2xl hover:shadow-[0_4px_30px_rgba(62,207,142,0.06)] transition-all duration-400"
               >
-                {/* Flag + Number */}
-                <div className="flex items-center gap-5 md:w-20 shrink-0">
-                  <span className="text-3xl" aria-hidden="true">{rawPartner?.flag || "🌐"}</span>
-                </div>
+                  {/* Flag + Number */}
+                  <div className="flex items-center gap-5 md:w-20 shrink-0">
+                    {rawPartner?.flagUrl ? (
+                      <img src={rawPartner.flagUrl} alt={`${partner.name} flag`} className="w-10 h-7 object-cover rounded shadow-sm border border-white/10" />
+                    ) : (
+                      <span className="text-3xl" aria-hidden="true">{rawPartner?.flag || "🌐"}</span>
+                    )}
+                  </div>
 
                 {/* Name + Badge */}
                 <div className="md:w-64 shrink-0">
