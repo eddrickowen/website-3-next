@@ -133,6 +133,14 @@ export interface Dictionary {
     };
     partners: Array<{ name: string; role: string; desc: string }>;
     valueProps: Array<{ title: string; desc: string }>;
+    workshop: {
+      badge: string;
+      label: string;
+      title: string;
+      titleAccent: string;
+      desc: string;
+      stats: Array<{ label: string; val: string }>;
+    };
   };
   footer: {
     tagline: string;
@@ -149,6 +157,7 @@ export interface Dictionary {
     kalimantan: string;
     java: string;
     privacy: string;
+  };
   servicesPage: {
     hero: {
       badge: string;
@@ -189,6 +198,9 @@ export interface Dictionary {
       label: string;
       title: string;
       desc: string;
+      getDirections: string;
+      viewOnGoogle: string;
+      hqLabel: string;
     };
   };
   projectsPage: {
